@@ -1,0 +1,2 @@
+RESOURCES += \
+    resources/resources.qrc

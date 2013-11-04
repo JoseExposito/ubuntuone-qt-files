@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/slides">
+        <file>slide0.png</file>
+        <file>slide1.png</file>
+        <file>slide2.png</file>
+        <file>slide3.png</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file>Ubuntu.ttf</file>
+    </qresource>
+    <qresource prefix="/theme">
+        <file>navigation_previous_item.png</file>
+    </qresource>
+</RCC>
