@@ -20,8 +20,6 @@ import "qrc:/."
 
 Item {
 
-    property variant styles: Styles { }
-
     // Slideshows
     SlideViewer {
         anchors.top: parent.top
@@ -48,7 +46,7 @@ Item {
 
         Button {
             id: signIn
-            style: styles.ubuntuButtonStyle
+            style: UbuntuButtonStyle { }
             anchors.left: parent.left
             anchors.right: parent.right
             text: qsTr("Sign in")
@@ -56,7 +54,7 @@ Item {
 
         Button {
             id: createAccount
-            style: styles.ubuntuButtonStyle
+            style: UbuntuButtonStyle { }
             anchors.left: parent.left
             anchors.right: parent.right
             text: qsTr("I don't have an account")

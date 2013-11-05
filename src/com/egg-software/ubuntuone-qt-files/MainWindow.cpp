@@ -22,7 +22,6 @@ MainWindow *MainWindow::getInstance()
 {
     if (MainWindow::instance == NULL)
         MainWindow::instance = new MainWindow();
-
     return MainWindow::instance;
 }
 
@@ -30,10 +29,7 @@ MainWindow::MainWindow()
     : engine(new QQmlEngine(this)),
       window(NULL)
 {
-    // Set global properties
-    this->setIndependentResolutionScale();
-
-    // Load the QML
+    this->setGlobalProperties();
     QQmlComponent component(this->engine, QUrl("qrc:/qml/MainWindow.qml"));
 
     if (!component.isReady())
@@ -70,10 +66,11 @@ void MainWindow::pop()
     }
 }
 
-void MainWindow::setIndependentResolutionScale()
+void MainWindow::setGlobalProperties()
 {
-    // In a standard resolution laptop screen->logicalDotsPerInch() is 72
+    // Resolution independent unit "u"
     QScreen *screen = qApp->screens().at(0);
-    qreal u = screen->logicalDotsPerInch()/72.0;
+    qreal desktopLogicalDotsPerInch = 72;
+    qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
     this->engine->rootContext()->setContextProperty("u", u);
 }

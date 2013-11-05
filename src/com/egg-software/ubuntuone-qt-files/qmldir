@@ -1,9 +1,8 @@
 MainWindow.qml qrc:/qml/MainWindow.qml
+
 CreateAccountOrLoginWindow.qml qrc:/qml/CreateAccountOrLoginWindow.qml
-
-Styles.qml qrc:/qml/Styles.qml
-UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
-ULabel qrc:/qml/ULabel.qml
-
 SlideViewer qrc:/qml/SlideViewer.qml
 Slide qrc:/qml/Slide.qml
+
+UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
+ULabel qrc:/qml/ULabel.qml

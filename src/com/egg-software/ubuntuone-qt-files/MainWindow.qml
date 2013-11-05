@@ -26,8 +26,7 @@ ApplicationWindow {
 
     width:  320
     height: 480
-    color:  styles.windowBackgroundColor
-    property variant styles: Styles { }
+    color:  Qt.rgba(230/255, 230/255, 230/255, 1)
 
     // Implements back key navigation
     // TODO It's supposed that this Rectangle is not necessary, but in the Qt 5.2 BETA this is not working

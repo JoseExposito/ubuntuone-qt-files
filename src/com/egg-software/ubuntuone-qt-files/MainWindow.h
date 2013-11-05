@@ -53,10 +53,9 @@ public:
 private:
 
     /**
-     * Sets a global property "u" to make the application independent of the device resolution.
+     * Sets a global properties to all QML files.
      */
-    void setIndependentResolutionScale();
-
+    void setGlobalProperties();
 
     /**
      * QML Engine. It is VERY important to preserve it to be able to receive mouse events and etc
