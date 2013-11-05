@@ -20,10 +20,13 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    MainWindow mainWindow;
-    CreateAccountOrLoginWindow createAccountOrLoginWindow(mainWindow.getEngine(), mainWindow.getWindow());
-    mainWindow.push(&createAccountOrLoginWindow);
-    mainWindow.show();
+    MainWindow *mainWindow = MainWindow::getInstance();
+
+    // TODO Load other screen if the user is logged
+    CreateAccountOrLoginWindow createAccountOrLoginWindow;
+    mainWindow->push(&createAccountOrLoginWindow);
+
+    mainWindow->show();
 
     return app.exec();
 }

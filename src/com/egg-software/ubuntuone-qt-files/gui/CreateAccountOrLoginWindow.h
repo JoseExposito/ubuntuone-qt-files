@@ -27,7 +27,7 @@ class CreateAccountOrLoginWindow : public QQuickView
 
 public:
 
-    CreateAccountOrLoginWindow(QQmlEngine *engine, QWindow *parent = 0);
+    CreateAccountOrLoginWindow();
 
 };
 

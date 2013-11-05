@@ -30,7 +30,11 @@ class MainWindow : public QObject
 
 public:
 
-    MainWindow(QObject *parent = 0);
+    /**
+     * Only method to get an instance of the class.
+     * @return The single instance of the class.
+     */
+    static MainWindow *getInstance();
 
     /**
      * Makes the window visible.
@@ -63,6 +67,12 @@ private:
      * The real QtQuick window.
      */
     QQuickWindow *window;
+
+    // Singleton
+    static MainWindow *instance;
+    MainWindow();
+    MainWindow(const MainWindow &);
+    const MainWindow &operator = (const MainWindow &);
 
 };
 

@@ -16,9 +16,18 @@
 #include <QtCore>
 #include <QtQuick>
 
-MainWindow::MainWindow(QObject *parent)
-    : QObject(parent),
-      engine(new QQmlEngine(parent)),
+MainWindow *MainWindow::instance = NULL;
+
+MainWindow *MainWindow::getInstance()
+{
+    if (MainWindow::instance == NULL)
+        MainWindow::instance = new MainWindow();
+
+    return MainWindow::instance;
+}
+
+MainWindow::MainWindow()
+    : engine(new QQmlEngine(this)),
       window(NULL)
 {
     // Set global properties

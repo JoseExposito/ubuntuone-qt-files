@@ -13,11 +13,12 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include "CreateAccountOrLoginWindow.h"
+#include "MainWindow.h"
 #include <QtCore>
 #include <QtQuick>
 
-CreateAccountOrLoginWindow::CreateAccountOrLoginWindow(QQmlEngine *engine, QWindow *parent)
-    : QQuickView(engine, parent)
+CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
+    : QQuickView(MainWindow::getInstance()->getEngine(), MainWindow::getInstance()->getWindow())
 {
     this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
 }
