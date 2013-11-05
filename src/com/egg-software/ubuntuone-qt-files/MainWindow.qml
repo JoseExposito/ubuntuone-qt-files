@@ -18,7 +18,6 @@ import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
 import "qrc:/."
-import "qrc:/js/Util.js" as Util
 
 /**
  * Application main window with the stack where all the screens of the application are pushed.
@@ -55,24 +54,24 @@ ApplicationWindow {
         // Top orange line
         Rectangle {
             anchors.top: parent.top
-            Layout.minimumHeight: Util.u(3)
-            Layout.maximumHeight: Util.u(3)
+            Layout.minimumHeight: 3*u
+            Layout.maximumHeight: 3*u
             Layout.fillWidth: true
             color: Qt.rgba(215/255, 45/255, 40/255, 1)
         }
 
         Rectangle {
-            Layout.minimumHeight: Util.u(40)
-            Layout.maximumHeight: Util.u(40)
+            Layout.minimumHeight: 40*u
+            Layout.maximumHeight: 40*u
 
             // Back button, visible if the stack have more than one item
             Rectangle {
                 id: backButton
                 anchors.left: parent.left
-                anchors.leftMargin: Util.u(10)
+                anchors.leftMargin: 10*u
                 anchors.verticalCenter: parent.verticalCenter
-                width: stackView.depth > 1 ? Util.u(30) : Util.u(0)
-                height: Util.u(30)
+                width: stackView.depth > 1 ? 30*u : 0
+                height: 30*u
                 opacity: stackView.depth > 1 ? 1 : 0
                 Behavior on opacity { NumberAnimation{} }
                 color: "transparent"
@@ -94,17 +93,17 @@ ApplicationWindow {
             // Title
             ULabel {
                 anchors.verticalCenter: parent.verticalCenter
-                x: backButton.x + backButton.width + Util.u(10)
+                x: backButton.x + backButton.width + 10*u
                 Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
-                font.pixelSize: Util.u(30)
+                font.pixelSize: 30*u
                 text: "Ubuntu One" // TODO To a property
             }
         }
 
         // Bottom separator
         Rectangle {
-            Layout.minimumHeight: Util.u(12)
-            Layout.maximumHeight: Util.u(12)
+            Layout.minimumHeight: 12*u
+            Layout.maximumHeight: 12*u
             Layout.fillWidth: true
             color: Qt.rgba(165/255, 165/255, 165/255, 1)
         }

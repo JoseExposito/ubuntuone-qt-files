@@ -20,17 +20,8 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    /*QScreen *screen = app.screens().at(0);
-    qDebug() << "#########################################################";
-    qDebug() << app.screens().size();           // Desktop: 1   Android: 1
-    qDebug() << screen->logicalDotsPerInch();  // Desktop: 72  Android: 144
-    qDebug() << screen->logicalDotsPerInchY();  // Desktop: 72  Android: 144
-    qDebug() << screen->physicalDotsPerInchX(); // Desktop: 136 Android: 319.79
-    qDebug() << screen->physicalDotsPerInchY(); // Desktop: 135 Android: 319.932*/
-
     MainWindow mainWindow;
-
-    CreateAccountOrLoginWindow createAccountOrLoginWindow(mainWindow.getWindow());
+    CreateAccountOrLoginWindow createAccountOrLoginWindow(mainWindow.getEngine(), mainWindow.getWindow());
     mainWindow.push(&createAccountOrLoginWindow);
     mainWindow.show();
 

@@ -9,7 +9,4 @@
         <file alias="SlideViewer.qml">gui/SlideViewer.qml</file>
         <file alias="Slide.qml">gui/Slide.qml</file>
     </qresource>
-    <qresource prefix="/js">
-        <file alias="Util.js">util/Util.js</file>
-    </qresource>
 </RCC>

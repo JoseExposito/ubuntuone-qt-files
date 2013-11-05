@@ -14,13 +14,12 @@
  */
 import QtQuick 2.1
 import QtQuick.Controls 1.1
-import "qrc:/js/Util.js" as Util
 
 Text {
     FontLoader { source: "qrc:/fonts/Ubuntu.ttf" }
 
     color: Qt.rgba(85/255, 85/255, 85/255, 1)
-    font.pixelSize: Util.u(16)
+    font.pixelSize: 16*u
     font.family: "Ubuntu"
     wrapMode: TextEdit.WordWrap
 }

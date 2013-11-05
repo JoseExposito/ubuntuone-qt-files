@@ -17,7 +17,6 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import QtQuick.Controls.Styles 1.1
 import "qrc:/."
-import "qrc:/js/Util.js" as Util
 
 Item {
 
@@ -30,22 +29,22 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
 
-        anchors.topMargin: Util.u(10)
-        anchors.bottomMargin: Util.u(20)
-        anchors.leftMargin: Util.u(18)
-        anchors.rightMargin: Util.u(18)
+        anchors.topMargin: 10*u
+        anchors.bottomMargin: 20*u
+        anchors.leftMargin: 18*u
+        anchors.rightMargin: 18*u
     }
 
     // Buttons to login or create an account
     ColumnLayout {
         id: buttons
-        spacing: Util.u(10)
+        spacing: 10*u
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.leftMargin: Util.u(10)
-        anchors.rightMargin: Util.u(10)
-        anchors.bottomMargin: Util.u(15)
+        anchors.leftMargin: 10*u
+        anchors.rightMargin: 10*u
+        anchors.bottomMargin: 15*u
 
         Button {
             id: signIn

@@ -16,7 +16,6 @@ import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import "qrc:/."
-import "qrc:/js/Util.js" as Util
 
 Rectangle {
 
@@ -38,7 +37,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: slideTitleID.top
         anchors.top: parent.top
-        anchors.bottomMargin: Util.u(10)
+        anchors.bottomMargin: 10*u
     }
 
     ULabel {
@@ -49,7 +48,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: slideContentID.top
-        anchors.bottomMargin: Util.u(10)
+        anchors.bottomMargin: 10*u
     }
 
     ULabel {

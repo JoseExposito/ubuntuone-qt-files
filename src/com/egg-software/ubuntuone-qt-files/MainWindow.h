@@ -37,12 +37,22 @@ public:
      */
     void show() const;
 
+    /**
+     * To manage the StackView.
+     */
     void push(QQuickView *view);
     void pop();
 
     inline QQuickWindow *getWindow() { return this->window; }
+    inline QQmlEngine   *getEngine() { return this->engine; }
 
 private:
+
+    /**
+     * Sets a global property "u" to make the application independent of the device resolution.
+     */
+    void setIndependentResolutionScale();
+
 
     /**
      * QML Engine. It is VERY important to preserve it to be able to receive mouse events and etc

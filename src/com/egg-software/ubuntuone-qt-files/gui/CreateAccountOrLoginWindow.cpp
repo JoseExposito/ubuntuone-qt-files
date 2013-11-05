@@ -16,8 +16,8 @@
 #include <QtCore>
 #include <QtQuick>
 
-CreateAccountOrLoginWindow::CreateAccountOrLoginWindow(QWindow *parent)
-    : QQuickView(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"), parent)
+CreateAccountOrLoginWindow::CreateAccountOrLoginWindow(QQmlEngine *engine, QWindow *parent)
+    : QQuickView(engine, parent)
 {
-
+    this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
 }

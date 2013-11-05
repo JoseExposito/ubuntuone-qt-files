@@ -15,7 +15,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
-import "qrc:/js/Util.js" as Util
 
 Component {
     id: ubuntuButtonStyle
@@ -30,8 +29,8 @@ Component {
                 GradientStop { position: 1 ; color: Qt.rgba(170/255, 77/255, 33/255, 1) }
             }
 
-            implicitWidth: Util.u(50)
-            implicitHeight: Util.u(40)
+            implicitWidth: 50*u
+            implicitHeight: 40*u
             border.color: Qt.rgba(190/255, 67/255, 42/255, 1)
             radius: 6
             gradient: control.pressed ? pressedGradient : normalGradient

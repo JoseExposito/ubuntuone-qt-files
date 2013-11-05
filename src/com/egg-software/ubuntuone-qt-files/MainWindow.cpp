@@ -21,6 +21,10 @@ MainWindow::MainWindow(QObject *parent)
       engine(new QQmlEngine(parent)),
       window(NULL)
 {
+    // Set global properties
+    this->setIndependentResolutionScale();
+
+    // Load the QML
     QQmlComponent component(this->engine, QUrl("qrc:/qml/MainWindow.qml"));
 
     if (!component.isReady())
@@ -55,4 +59,12 @@ void MainWindow::pop()
         QQuickItem *previousItem = stackView->childItems().at(previousItemNumber-1);
         QMetaObject::invokeMethod(stackView, "pop", Q_ARG(QVariant, QVariant::fromValue(previousItem)));
     }
+}
+
+void MainWindow::setIndependentResolutionScale()
+{
+    // In a standard resolution laptop screen->logicalDotsPerInch() is 72
+    QScreen *screen = qApp->screens().at(0);
+    qreal u = screen->logicalDotsPerInch()/72.0;
+    this->engine->rootContext()->setContextProperty("u", u);
 }
