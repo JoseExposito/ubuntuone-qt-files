@@ -29,6 +29,11 @@ public:
 
     CreateAccountOrLoginWindow();
 
+public slots:
+
+    void loginClicked();
+    void createAccountClicked();
+
 };
 
 #endif // CREATEACCOUNTORLOGINWINDOW_H

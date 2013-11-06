@@ -14,6 +14,7 @@
  */
 #include "CreateAccountOrLoginWindow.h"
 #include "MainWindow.h"
+#include "LoginWindow.h"
 #include <QtCore>
 #include <QtQuick>
 
@@ -21,4 +22,18 @@ CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
     : QQuickView(MainWindow::getInstance()->getEngine(), MainWindow::getInstance()->getWindow())
 {
     this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
+
+    connect(this->rootObject(), SIGNAL(loginClicked()), this, SLOT(loginClicked()));
+    connect(this->rootObject(), SIGNAL(createAccountClicked()), this, SLOT(createAccountClicked()));
+}
+
+void CreateAccountOrLoginWindow::loginClicked()
+{
+    LoginWindow *loginWindow = new LoginWindow();
+    MainWindow::getInstance()->push(loginWindow);
+}
+
+void CreateAccountOrLoginWindow::createAccountClicked()
+{
+    // TODO
 }

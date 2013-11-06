@@ -3,9 +3,11 @@
         <file>qmldir</file>
         <file alias="MainWindow.qml">MainWindow.qml</file>
         <file alias="UbuntuButtonStyle.qml">styles/UbuntuButtonStyle.qml</file>
+        <file alias="UbuntuTextFieldStyle.qml">styles/UbuntuTextFieldStyle.qml</file>
         <file alias="ULabel.qml">styles/ULabel.qml</file>
         <file alias="CreateAccountOrLoginWindow.qml">gui/CreateAccountOrLoginWindow.qml</file>
         <file alias="SlideViewer.qml">gui/SlideViewer.qml</file>
         <file alias="Slide.qml">gui/Slide.qml</file>
+        <file alias="LoginWindow.qml">gui/LoginWindow.qml</file>
     </qresource>
 </RCC>

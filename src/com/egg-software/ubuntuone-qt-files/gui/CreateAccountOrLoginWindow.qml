@@ -15,10 +15,13 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import QtQuick.Controls.Styles 1.1
 import "qrc:/."
 
 Item {
+
+    signal loginClicked()
+    signal createAccountClicked()
+
 
     // Slideshows
     SlideViewer {
@@ -50,6 +53,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             text: qsTr("Sign in")
+            onClicked: loginClicked()
         }
 
         Button {
@@ -58,6 +62,7 @@ Item {
             anchors.left: parent.left
             anchors.right: parent.right
             text: qsTr("I don't have an account")
+            onClicked: createAccountClicked()
         }
     }
 

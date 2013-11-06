@@ -18,29 +18,21 @@ import QtQuick.Controls.Styles 1.1
 
 Component {
 
-    ButtonStyle {
-        background: Rectangle {
-            property Gradient normalGradient: Gradient {
-                GradientStop { position: 0 ; color: Qt.rgba(190/255, 67/255, 42/255, 1) }
-                GradientStop { position: 1 ; color: Qt.rgba(190/255, 97/255, 53/255, 1) }
-            }
-            property Gradient pressedGradient: Gradient {
-                GradientStop { position: 0 ; color: Qt.rgba(170/255, 47/255, 22/255, 1) }
-                GradientStop { position: 1 ; color: Qt.rgba(170/255, 77/255, 33/255, 1) }
-            }
+    TextFieldStyle {
 
+        FontLoader { source: "qrc:/fonts/Ubuntu.ttf" }
+
+        textColor: Qt.rgba(85/255, 85/255, 85/255, 1)
+        placeholderTextColor: Qt.rgba(155/255, 155/255, 155/255, 1)
+        selectionColor: Qt.rgba(155/255, 155/255, 155/255, 0.2)
+        font.pixelSize: 16*u
+        font.family: "Ubuntu"
+
+        background: Rectangle {
             implicitWidth: 50*u
             implicitHeight: 40*u
-            border.color: Qt.rgba(190/255, 67/255, 42/255, 1)
+            color: Qt.rgba(202/255, 202/255, 202/255, 1)
             radius: 6*u
-            gradient: control.pressed ? pressedGradient : normalGradient
-        }
-
-        label: ULabel {
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            text: control.text
-            color: control.pressed ? "gray" : "white"
         }
     }
 

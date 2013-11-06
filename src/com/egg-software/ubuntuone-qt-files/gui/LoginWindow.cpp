@@ -12,21 +12,13 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include <QApplication>
+#include "LoginWindow.h"
 #include "MainWindow.h"
-#include "CreateAccountOrLoginWindow.h"
+#include <QtCore>
+#include <QtQuick>
 
-int main(int argc, char *argv[])
+LoginWindow::LoginWindow()
+    : QQuickView(MainWindow::getInstance()->getEngine(), MainWindow::getInstance()->getWindow())
 {
-    QApplication app(argc, argv);
-
-    MainWindow *mainWindow = MainWindow::getInstance();
-
-    // TODO Load other screen if the user is logged
-    CreateAccountOrLoginWindow *createAccountOrLoginWindow = new CreateAccountOrLoginWindow();
-    mainWindow->push(createAccountOrLoginWindow);
-
-    mainWindow->show();
-
-    return app.exec();
+    this->setSource(QUrl("qrc:/qml/LoginWindow.qml"));
 }

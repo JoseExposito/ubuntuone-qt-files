@@ -3,6 +3,8 @@ MainWindow.qml qrc:/qml/MainWindow.qml
 CreateAccountOrLoginWindow.qml qrc:/qml/CreateAccountOrLoginWindow.qml
 SlideViewer qrc:/qml/SlideViewer.qml
 Slide qrc:/qml/Slide.qml
+LoginWindow.qml qrc:/qml/LoginWindow.qml
 
 UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
+UbuntuTextFieldStyle.qml qrc:/qml/UbuntuTextFieldStyle.qml
 ULabel qrc:/qml/ULabel.qml
