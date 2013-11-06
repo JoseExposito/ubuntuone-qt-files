@@ -29,17 +29,14 @@ ApplicationWindow {
     color:  Qt.rgba(230/255, 230/255, 230/255, 1)
 
     // Implements back key navigation
-    // TODO It's supposed that this Rectangle is not necessary, but in the Qt 5.2 BETA this is not working
-    Rectangle {
-        focus: true
-        Keys.onReleased: {
-            if (event.key === Qt.Key_Back) {
-                if (stackView.depth > 1) {
-                    stackView.pop();
-                    event.accepted = true;
-                } else {
-                    Qt.quit();
-                }
+    // TODO In the Qt 5.2 BETA this is not working, test it in the future
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            if (stackView.depth > 1) {
+                stackView.pop();
+                event.accepted = true;
+            } else {
+                Qt.quit();
             }
         }
     }

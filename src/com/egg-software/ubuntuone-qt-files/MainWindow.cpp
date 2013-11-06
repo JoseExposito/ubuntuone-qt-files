@@ -52,7 +52,9 @@ void MainWindow::push(QQuickView *view)
 {
     QVariant viewItem = QVariant::fromValue(qobject_cast<QQuickItem *>(view->rootObject()));
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
-    QMetaObject::invokeMethod(stackView, "push", Q_ARG(QVariant, viewItem));
+
+    if (!stackView->property("busy").toBool())
+        QMetaObject::invokeMethod(stackView, "push", Q_ARG(QVariant, viewItem));
 }
 
 void MainWindow::pop()
