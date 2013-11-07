@@ -14,7 +14,7 @@ class TimedReply: public QTimer {
 public:
     explicit TimedReply(QNetworkReply *parent): QTimer(parent) {
         setSingleShot(true);
-        setInterval(60 * 1000); // FIXME: Expose me
+        setInterval(60 * 1000); // Expose me
         connect(this, SIGNAL(error(QNetworkReply::NetworkError)), parent, SIGNAL(error(QNetworkReply::NetworkError)));
         connect(this, SIGNAL(timeout()), this, SLOT(onTimeout()));
     }

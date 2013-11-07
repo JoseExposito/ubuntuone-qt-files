@@ -1,3 +1,0 @@
-INCLUDEPATH += $$PWD
-
-OTHER_FILES +=
