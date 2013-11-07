@@ -10,6 +10,7 @@ INCLUDEPATH += $$PWD
 include(gui/ubuntuone-qt-files.gui.pri)
 include(util/ubuntuone-qt-files.util.pri)
 include(styles/ubuntuone-qt-files.styles.pri)
+include(network/ubuntuone-qt-files.network.pri)
 
 HEADERS += \
     src/com/egg-software/ubuntuone-qt-files/MainWindow.h

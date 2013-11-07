@@ -162,13 +162,18 @@ protected slots:
     /// Handle token exchange finished.
     void onTokenExchangeFinished();
 
-protected:
+    /*
+     * Ubuntu One OAuth works in a strange way... For this reason O1 + set token/consumer info + O1Requestor are used
+     * in front of the traditional OAuth way.
+     */
+public:
     /// Set authentication token.
     void setToken(const QString &v);
 
     /// Set authentication token secret.
     void setTokenSecret(const QString &v);
 
+protected:
     /// Exchange token for authorizaton token.
     virtual void exchangeToken();
 

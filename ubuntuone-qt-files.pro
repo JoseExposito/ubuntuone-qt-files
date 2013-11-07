@@ -1,4 +1,4 @@
-QT    += qml quick widgets
+QT    += qml quick widgets network
 TARGET = ubuntuoneqtfiles
 
 include(src/com/egg-software/ubuntuone-qt-files/ubuntuone-qt-files.pri)
