@@ -1,5 +1,8 @@
-QT    += qml quick widgets network
+QT    += qml quick widgets network sql
 TARGET = ubuntuoneqtfiles
+
+VERSION = 0.1
+DEFINES += VERSION=\\\"$$VERSION\\\"
 
 include(src/com/egg-software/ubuntuone-qt-files/ubuntuone-qt-files.pri)
 include(resources/resources.pri)

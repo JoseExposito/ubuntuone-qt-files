@@ -12,8 +12,8 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef LOGINCONTROLLER_H
-#define LOGINCONTROLLER_H
+#ifndef LOGINMESSAGE_H
+#define LOGINMESSAGE_H
 
 #include <QtCore/QObject>
 class QNetworkAccessManager;
@@ -49,7 +49,7 @@ class O1;
  * Extra documentation:
  * https://one.ubuntu.com/developer/account_admin/auth/otherplatforms
  */
-class LoginController : public QObject
+class LoginMessage : public QObject
 {
     Q_OBJECT
 
@@ -58,8 +58,8 @@ public:
     /**
      * Initialices the LoginController with the specified username and password.
      */
-    LoginController(const QString &username, const QString &password, QObject *parent = 0);
-    virtual ~LoginController();
+    LoginMessage(const QString &username, const QString &password, QObject *parent = 0);
+    virtual ~LoginMessage();
 
     /**
      * Starts the login process.
@@ -73,7 +73,8 @@ signals:
     /**
      * Emitted when the login process ends without problems. Gives the required information to use the Ubuntu One API.
      */
-    void loginFinished(O1 *u1OAuth);
+    void loginFinished(const QString &consumerKey, const QString &consumerSecret,
+            const QString &token, const QString &tokenSecret);
 
     /**
      * Emmited when an error happens during the login process.
@@ -96,6 +97,11 @@ private:
     QNetworkReply *pairTokenReply;
     O1 *u1OAuth;
 
+    QString consumerKey;
+    QString consumerSecret;
+    QString token;
+    QString tokenSecret;
+
 };
 
-#endif // LOGINCONTROLLER_H
+#endif // LOGINMESSAGE_H

@@ -6,3 +6,4 @@ INCLUDEPATH += $$PWD
 
 include(gui/ubuntuone-qt-files.gui.pri)
 include(network/ubuntuone-qt-files.network.pri)
+include(database/ubuntuone-qt-files.database.pri)
