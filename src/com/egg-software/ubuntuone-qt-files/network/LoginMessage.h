@@ -56,7 +56,7 @@ class LoginMessage : public QObject
 public:
 
     /**
-     * Initialices the LoginController with the specified username and password.
+     * Initialices the LoginMessage with the specified username and password.
      */
     LoginMessage(const QString &username, const QString &password, QObject *parent = 0);
     virtual ~LoginMessage();

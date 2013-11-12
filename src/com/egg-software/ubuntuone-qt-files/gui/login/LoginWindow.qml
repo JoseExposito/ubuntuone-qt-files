@@ -19,6 +19,8 @@ import "qrc:/."
 
 Item {
 
+    signal login(string username, string password)
+
     ColumnLayout {
         spacing: 10*u
         anchors {
@@ -31,12 +33,14 @@ Item {
         }
 
         TextField {
+            id: usernameTextField
             placeholderText: qsTr("Email")
             style: UbuntuTextFieldStyle { }
             Layout.fillWidth: true
         }
 
         TextField {
+            id: passwordTextField
             placeholderText: qsTr("Password")
             echoMode: TextInput.Password
             style: UbuntuTextFieldStyle { }
@@ -47,6 +51,7 @@ Item {
             text: qsTr("Sign in")
             style: UbuntuButtonStyle { }
             Layout.fillWidth: true
+            onClicked: { login(usernameTextField.text, passwordTextField.text) }
         }
     }
 

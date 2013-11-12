@@ -52,3 +52,12 @@ DatabaseManager::DatabaseManager()
     generalInfoDAO.setDatabaseVersion(VERSION);
 }
 
+void DatabaseManager::setLoginInfo(const QString &consumerKey, const QString &consumerSecret,
+    const QString &token, const QString &tokenSecret)
+{
+    GeneralInfoDAO dao(this->db);
+    dao.setConsumerKey(consumerKey);
+    dao.setConsumerSecret(consumerSecret);
+    dao.setToken(token);
+    dao.setTokenSecret(tokenSecret);
+}

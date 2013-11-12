@@ -16,6 +16,7 @@
 #define LOGINWINDOW_H
 
 #include <QtQuick/QQuickView>
+class LoginController;
 
 /**
  * Screen that allows to the user to input username and password to login the first time.
@@ -28,6 +29,18 @@ public:
 
     LoginWindow();
 
+public slots:
+
+    void loginButtonPressed(const QString &username, const QString &password);
+
+private slots:
+
+    void loginFinished();
+    void loginError(const QString &errorDescription);
+
+private:
+
+    LoginController *loginController;
 };
 
 #endif // LOGINWINDOW_H

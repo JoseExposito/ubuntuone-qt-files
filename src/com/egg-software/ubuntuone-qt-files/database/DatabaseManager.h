@@ -36,7 +36,11 @@ public:
      */
     static DatabaseManager *getInstance();
 
-    //void setLoginInfo
+    /**
+     * Stores in the database the required login info.
+     */
+    void setLoginInfo(const QString &consumerKey, const QString &consumerSecret,
+        const QString &token, const QString &tokenSecret);
 
 private:
 

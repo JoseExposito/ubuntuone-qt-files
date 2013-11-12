@@ -14,6 +14,7 @@
  */
 #include "LoginWindow.h"
 #include "MainWindow.h"
+#include "LoginController.h"
 #include <QtCore>
 #include <QtQuick>
 
@@ -21,4 +22,25 @@ LoginWindow::LoginWindow()
     : QQuickView(MainWindow::getInstance()->getEngine(), MainWindow::getInstance()->getWindow())
 {
     this->setSource(QUrl("qrc:/qml/LoginWindow.qml"));
+    connect(this->rootObject(), SIGNAL(login(QString,QString)), this, SLOT(loginButtonPressed(QString,QString)));
+}
+
+void LoginWindow::loginButtonPressed(const QString &username, const QString &password)
+{
+    this->loginController = new LoginController(this);
+    connect(this->loginController, SIGNAL(loginError(QString)), this, SLOT(loginError(QString)));
+    connect(this->loginController, SIGNAL(loginFinished()), this, SLOT(loginFinished()));
+    this->loginController->login(username, password);
+}
+
+void LoginWindow::loginFinished()
+{
+    delete this->loginController;
+    qDebug() << "Login finished :D";
+}
+
+void LoginWindow::loginError(const QString &errorDescription)
+{
+    delete this->loginController;
+    qDebug() << "Login error: " << errorDescription;
 }
