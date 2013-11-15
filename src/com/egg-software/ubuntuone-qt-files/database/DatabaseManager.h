@@ -17,6 +17,7 @@
 
 #include <QtCore/QObject>
 class QSqlDatabase;
+class LoginInfoDTO;
 
 /**
  * Facade to manage the database.
@@ -39,8 +40,7 @@ public:
     /**
      * Stores in the database the required login info.
      */
-    void setLoginInfo(const QString &consumerKey, const QString &consumerSecret,
-        const QString &token, const QString &tokenSecret);
+    void setLoginInfo(LoginInfoDTO *loginInfo);
 
 private:
 

@@ -19,6 +19,7 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 class O1;
+class LoginInfoDTO;
 
 /**
  * Class that allows to make login with user and password. The login process consist in two steps:
@@ -72,9 +73,9 @@ signals:
 
     /**
      * Emitted when the login process ends without problems. Gives the required information to use the Ubuntu One API.
+     * IMPORTANT: Delete "loginInfo" after use it.
      */
-    void loginFinished(const QString &consumerKey, const QString &consumerSecret,
-            const QString &token, const QString &tokenSecret);
+    void loginFinished(LoginInfoDTO *loginInfo);
 
     /**
      * Emmited when an error happens during the login process.

@@ -14,6 +14,7 @@
  */
 #include "DatabaseManager.h"
 #include "GeneralInfoDAO.h"
+#include "LoginInfoDTO.h"
 #include <QtCore>
 #include <QtSql>
 
@@ -52,12 +53,11 @@ DatabaseManager::DatabaseManager()
     generalInfoDAO.setDatabaseVersion(VERSION);
 }
 
-void DatabaseManager::setLoginInfo(const QString &consumerKey, const QString &consumerSecret,
-    const QString &token, const QString &tokenSecret)
+void DatabaseManager::setLoginInfo(LoginInfoDTO *loginInfo)
 {
     GeneralInfoDAO dao(this->db);
-    dao.setConsumerKey(consumerKey);
-    dao.setConsumerSecret(consumerSecret);
-    dao.setToken(token);
-    dao.setTokenSecret(tokenSecret);
+    dao.setConsumerKey(loginInfo->consumerKey);
+    dao.setConsumerSecret(loginInfo->consumerSecret);
+    dao.setToken(loginInfo->token);
+    dao.setTokenSecret(loginInfo->tokenSecret);
 }

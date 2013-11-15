@@ -15,6 +15,7 @@
 #include "LoginMessage.h"
 #include "o1.h"
 #include "o1requestor.h"
+#include "LoginInfoDTO.h"
 #include <QtCore>
 #include <QtNetwork>
 
@@ -71,7 +72,7 @@ void LoginMessage::ssoReplyFinished(QNetworkReply *reply)
 {
     if (reply == this->ssoReply) {
         if (this->ssoReply->error() != QNetworkReply::NoError) {
-            qDebug() << "\t Invalid username or password";
+            qDebug() << "Error receiving the Ubuntu SSO reply: " << this->ssoReply->errorString();
             emit this->loginError(tr("Invalid username or password"));
             return;
         }
@@ -118,7 +119,8 @@ void LoginMessage::ssoReplyFinished(QNetworkReply *reply)
 
         qDebug() << "\t Ubuntu SSO correctly paired with the Ubuntu One server";
         qDebug() << "\t LOGIN SUCCESS :D";
-        emit this->loginFinished(this->consumerKey, this->consumerSecret, this->token, this->tokenSecret);
+        LoginInfoDTO *dto = new LoginInfoDTO(this->consumerKey, this->consumerSecret, this->token, this->tokenSecret);
+        emit this->loginFinished(dto);
     }
 
 }

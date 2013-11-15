@@ -16,6 +16,7 @@
 #define LOGINCONTROLLER_H
 
 #include <QtCore/QObject>
+class LoginInfoDTO;
 
 /**
  * Controller that facilitates the login process. Manages the network and database operations.
@@ -37,8 +38,7 @@ public:
 
 private slots:
 
-    void loginMessageFinished(const QString &consumerKey, const QString &consumerSecret,
-            const QString &token, const QString &tokenSecret);
+    void loginMessageFinished(LoginInfoDTO *loginInfo);
 
 signals:
 

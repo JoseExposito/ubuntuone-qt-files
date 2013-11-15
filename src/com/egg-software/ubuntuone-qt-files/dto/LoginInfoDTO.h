@@ -12,23 +12,30 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "LoginController.h"
-#include "LoginMessage.h"
-#include "DatabaseManager.h"
-#include "LoginInfoDTO.h"
-#include <QtCore>
+#ifndef LOGININFODTO_H
+#define LOGININFODTO_H
 
-void LoginController::login(const QString &username, const QString &password)
-{
-    LoginMessage *loginMessage = new LoginMessage(username, password, this);
-    connect(loginMessage, SIGNAL(loginError(QString)), this, SIGNAL(loginError(QString)));
-    connect(loginMessage, SIGNAL(loginFinished(LoginInfoDTO*)), this, SLOT(loginMessageFinished(LoginInfoDTO*)));
-    loginMessage->login();
-}
+#include <QtCore/QString>
 
-void LoginController::loginMessageFinished(LoginInfoDTO *loginInfo)
+/**
+ * The LoginInfoDTO class is used to transfer all the required information to log in.
+ */
+class LoginInfoDTO
 {
-    DatabaseManager::getInstance()->setLoginInfo(loginInfo);
-    delete loginInfo;
-    emit this->loginFinished();
-}
+
+public:
+
+    LoginInfoDTO(const QString &consumerKey, const QString &consumerSecret, const QString &token,
+        const QString &tokenSecret)
+        : consumerKey(consumerKey),
+          consumerSecret(consumerSecret),
+          token(token),
+          tokenSecret(tokenSecret) {}
+
+    QString consumerKey;
+    QString consumerSecret;
+    QString token;
+    QString tokenSecret;
+};
+
+#endif // LOGININFODTO_H
