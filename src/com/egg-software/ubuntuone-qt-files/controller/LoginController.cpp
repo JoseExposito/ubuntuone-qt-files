@@ -20,10 +20,10 @@
 
 void LoginController::login(const QString &username, const QString &password)
 {
-    LoginMessage *loginMessage = new LoginMessage(username, password, this);
+    LoginMessage *loginMessage = new LoginMessage(this);
     connect(loginMessage, SIGNAL(loginError(QString)), this, SIGNAL(loginError(QString)));
     connect(loginMessage, SIGNAL(loginFinished(LoginInfoDTO*)), this, SLOT(loginMessageFinished(LoginInfoDTO*)));
-    loginMessage->login();
+    loginMessage->login(username, password);
 }
 
 void LoginController::loginMessageFinished(LoginInfoDTO *loginInfo)

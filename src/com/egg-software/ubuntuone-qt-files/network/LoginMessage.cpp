@@ -13,8 +13,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include "LoginMessage.h"
-#include "o1.h"
-#include "o1requestor.h"
 #include "LoginInfoDTO.h"
 #include <QtCore>
 #include <QtNetwork>
@@ -30,22 +28,12 @@ namespace
     static const QString TOKEN_SECRET_ID    = "token_secret";
 }
 
-LoginMessage::LoginMessage(const QString &username, const QString &password, QObject *parent)
-    : QObject(parent),
-      networkAccessManager(new QNetworkAccessManager(this)),
-      username(username),
-      password(password),
+LoginMessage::LoginMessage(QObject *parent)
+    : AbstractMessage(NULL, parent),
       ssoReply(NULL),
-      pairTokenReply(NULL),
-      u1OAuth(NULL)
+      pairTokenReply(NULL)
 {
-    connect(this->networkAccessManager, SIGNAL(finished(QNetworkReply *)),
-            this, SLOT(ssoReplyFinished(QNetworkReply *)));
 
-    // HACK Check with Qt 5.2: http://stackoverflow.com/a/15707366/1204395
-    QNetworkProxy proxy = this->networkAccessManager->proxy();
-    proxy.setHostName(" ");
-    this->networkAccessManager->setProxy(proxy);
 }
 
 LoginMessage::~LoginMessage()
@@ -54,21 +42,21 @@ LoginMessage::~LoginMessage()
     delete this->pairTokenReply;
 }
 
-void LoginMessage::login()
+void LoginMessage::login(const QString &username, const QString &password)
 {
     qDebug() << "STARTING LOGIN PROCESS:";
 
     // Get the Ubuntu SSO token
     QString tokenName  = QUrl::toPercentEncoding("Ubuntu One @ " + QHostInfo::localHostName());
     QUrl ssoAuthenticationRequestUrl = SSO_AUTHENTICATION_URL + "?ws.op=authenticate&token_name=" + tokenName;
-    ssoAuthenticationRequestUrl.setUserName(this->username);
-    ssoAuthenticationRequestUrl.setPassword(this->password);
+    ssoAuthenticationRequestUrl.setUserName(username);
+    ssoAuthenticationRequestUrl.setPassword(password);
 
     qDebug() << "\t Getting Ubuntu SSO token at URL: " << ssoAuthenticationRequestUrl.toString();
     this->ssoReply = this->networkAccessManager->get(QNetworkRequest(ssoAuthenticationRequestUrl));
 }
 
-void LoginMessage::ssoReplyFinished(QNetworkReply *reply)
+void LoginMessage::replyFinished(QNetworkReply *reply)
 {
     if (reply == this->ssoReply) {
         if (this->ssoReply->error() != QNetworkReply::NoError) {
@@ -94,33 +82,24 @@ void LoginMessage::ssoReplyFinished(QNetworkReply *reply)
 
         // Make the OAuth link request
         qDebug() << "\t Pairing Ubuntu SSO token with Ubuntu One at URL: " << U1_PAIR_TOKEN_URL;
-
-        this->consumerKey    = jsonDoc.object().value(CONSUMER_KEY_ID).toString();
-        this->consumerSecret = jsonDoc.object().value(CONSUMER_SECRET_ID).toString();
-        this->token          = jsonDoc.object().value(TOKEN_ID).toString();
-        this->tokenSecret    = jsonDoc.object().value(TOKEN_SECRET_ID).toString();
-
-        this->u1OAuth = new O1();
-        this->u1OAuth->setClientId(this->consumerKey);
-        this->u1OAuth->setClientSecret(this->consumerSecret);
-        this->u1OAuth->setToken(this->token);
-        this->u1OAuth->setTokenSecret(this->tokenSecret);
-
-        O1Requestor* requestor = new O1Requestor(this->networkAccessManager, this->u1OAuth, this);
-        this->pairTokenReply = requestor->get(QNetworkRequest(U1_PAIR_TOKEN_URL), QList<O1RequestParameter>());
+        this->loginInfo = new LoginInfoDTO(jsonDoc.object().value(CONSUMER_KEY_ID).toString(),
+                jsonDoc.object().value(CONSUMER_SECRET_ID).toString(),
+                jsonDoc.object().value(TOKEN_ID).toString(),
+                jsonDoc.object().value(TOKEN_SECRET_ID).toString());
+        this->pairTokenReply = this->oauthGetRequest(U1_PAIR_TOKEN_URL);
     }
 
     if (reply == this->pairTokenReply) {
         if (this->pairTokenReply->error() != QNetworkReply::NoError) {
             qDebug() << "\t Error pairing the Ubuntu SSO token with the Ubuntu One server";
+            delete this->loginInfo;
+            this->loginInfo = NULL;
             emit this->loginError(tr("Error linking your Ubuntu SSO session with Ubuntu One. Please, try again later"));
-            return;
+        } else {
+            qDebug() << "\t Ubuntu SSO correctly paired with the Ubuntu One server";
+            qDebug() << "\t LOGIN SUCCESS :D";
+            emit this->loginFinished(this->loginInfo);
         }
-
-        qDebug() << "\t Ubuntu SSO correctly paired with the Ubuntu One server";
-        qDebug() << "\t LOGIN SUCCESS :D";
-        LoginInfoDTO *dto = new LoginInfoDTO(this->consumerKey, this->consumerSecret, this->token, this->tokenSecret);
-        emit this->loginFinished(dto);
     }
 
 }

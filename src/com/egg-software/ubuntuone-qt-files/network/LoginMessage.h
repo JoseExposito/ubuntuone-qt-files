@@ -15,14 +15,13 @@
 #ifndef LOGINMESSAGE_H
 #define LOGINMESSAGE_H
 
-#include <QtCore/QObject>
+#include "AbstractMessage.h"
 class QNetworkAccessManager;
 class QNetworkReply;
-class O1;
 class LoginInfoDTO;
 
 /**
- * Class that allows to make login with user and password. The login process consist in two steps:
+ * The LoginMessage class that allows to make login with user and password. The login process consist in two steps:
  *
  * First a token from Ubuntu SSO should be obtained. To get the token, a GET request to
  * "https://login.ubuntu.com/api/1.0/authentications" should be sent with the extra parameters "ws.op=authenticate" and
@@ -47,10 +46,10 @@ class LoginInfoDTO;
  *
  * After that request the obtained token can be used to interact with the Ubuntu One API without problems.
  *
- * Extra documentation:
+ * DOCUMENTATION:
  * https://one.ubuntu.com/developer/account_admin/auth/otherplatforms
  */
-class LoginMessage : public QObject
+class LoginMessage : public AbstractMessage
 {
     Q_OBJECT
 
@@ -59,7 +58,7 @@ public:
     /**
      * Initialices the LoginMessage with the specified username and password.
      */
-    LoginMessage(const QString &username, const QString &password, QObject *parent = 0);
+    LoginMessage(QObject *parent = 0);
     virtual ~LoginMessage();
 
     /**
@@ -67,7 +66,7 @@ public:
      * @see loginFinished()
      * @see loginError()
      */
-    void login();
+    void login(const QString &username, const QString &password);
 
 signals:
 
@@ -83,26 +82,14 @@ signals:
      */
     void loginError(const QString &errorDescription);
 
-private slots:
+protected slots:
 
-    void ssoReplyFinished(QNetworkReply *reply);
+    virtual void replyFinished(QNetworkReply *reply);
 
 private:
 
-    QNetworkAccessManager *networkAccessManager;
-
-    QString username;
-    QString password;
-
     QNetworkReply *ssoReply;
     QNetworkReply *pairTokenReply;
-    O1 *u1OAuth;
-
-    QString consumerKey;
-    QString consumerSecret;
-    QString token;
-    QString tokenSecret;
-
 };
 
 #endif // LOGINMESSAGE_H

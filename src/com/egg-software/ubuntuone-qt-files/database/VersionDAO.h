@@ -12,8 +12,8 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef GENERALINFODAO_H
-#define GENERALINFODAO_H
+#ifndef VERSIONINFODAO_H
+#define VERSIONINFODAO_H
 
 #include "AbstractDAO.h"
 
@@ -36,4 +36,4 @@ public:
 
 };
 
-#endif // GENERALINFODAO_H
+#endif // VERSIONINFODAO_H
