@@ -13,7 +13,8 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include "DatabaseManager.h"
-#include "GeneralInfoDAO.h"
+#include "VersionDAO.h"
+#include "LoginInfoDAO.h"
 #include "LoginInfoDTO.h"
 #include <QtCore>
 #include <QtSql>
@@ -43,21 +44,21 @@ DatabaseManager::DatabaseManager()
     qDebug() << "Opening DB at " << dbPath;
     QDir().mkpath(dbFolder);
     this->db->setDatabaseName(dbPath);
-    if (!this->db->open()) {
+    if (!this->db->open())
         qFatal("Can not open the DB");
-    }
     qDebug() << "DB correctly openned";
 
-    GeneralInfoDAO generalInfoDAO(this->db);
-    generalInfoDAO.createGeneralInfoTable();
-    generalInfoDAO.setDatabaseVersion(VERSION);
+    // Initialize all the tables
+    VersionDAO versionDAO(this->db);
+    versionDAO.createTableIfNotExists();
+    versionDAO.setDatabaseVersion(VERSION);
+
+    LoginInfoDAO loginInfoDAO(this->db);
+    loginInfoDAO.createTableIfNotExists();
 }
 
 void DatabaseManager::setLoginInfo(LoginInfoDTO *loginInfo)
 {
-    GeneralInfoDAO dao(this->db);
-    dao.setConsumerKey(loginInfo->consumerKey);
-    dao.setConsumerSecret(loginInfo->consumerSecret);
-    dao.setToken(loginInfo->token);
-    dao.setTokenSecret(loginInfo->tokenSecret);
+    LoginInfoDAO loginInfoDAO(this->db);
+    loginInfoDAO.setLoginInfo(loginInfo);
 }
