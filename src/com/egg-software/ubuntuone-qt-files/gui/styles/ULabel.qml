@@ -18,7 +18,7 @@ import QtQuick.Controls 1.1
 Text {
     FontLoader { source: "qrc:/fonts/Ubuntu.ttf" }
 
-    color: Qt.rgba(85/255, 85/255, 85/255, 1)
+    color: Qt.rgba(38/255, 38/255, 38/255, 1)
     font.pixelSize: 16*u
     font.family: "Ubuntu"
     wrapMode: TextEdit.WordWrap

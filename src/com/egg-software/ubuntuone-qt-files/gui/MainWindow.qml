@@ -26,7 +26,7 @@ ApplicationWindow {
 
     width:  320
     height: 480
-    color:  Qt.rgba(230/255, 230/255, 230/255, 1)
+    color:  Qt.rgba(232/255, 232/255, 232/255, 1)
 
     // Implements back key navigation
     // TODO In the Qt 5.2 BETA this is not working, test it in the future
@@ -46,19 +46,15 @@ ApplicationWindow {
      */
     toolBar: ColumnLayout {
         width: parent.width
+        height: toolBarArea.height + bottomSeparator.height
 
-        // Top orange line
         Rectangle {
+            id: toolBarArea
             anchors.top: parent.top
-            Layout.minimumHeight: 3*u
-            Layout.maximumHeight: 3*u
+            Layout.minimumHeight: 50*u
+            Layout.maximumHeight: 50*u
             Layout.fillWidth: true
-            color: Qt.rgba(215/255, 45/255, 40/255, 1)
-        }
-
-        Rectangle {
-            Layout.minimumHeight: 40*u
-            Layout.maximumHeight: 40*u
+            color: Qt.rgba(213/255, 213/255, 213/255, 1)
 
             // Back button, visible if the stack have more than one item
             Rectangle {
@@ -92,16 +88,22 @@ ApplicationWindow {
                 x: backButton.x + backButton.width + 10*u
                 Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
                 font.pixelSize: 30*u
+                color: "black"
                 text: "Ubuntu One" // TODO To a property
             }
         }
 
         // Bottom separator
         Rectangle {
-            Layout.minimumHeight: 12*u
-            Layout.maximumHeight: 12*u
+            id: bottomSeparator
+            anchors.top: toolBarArea.bottom
+            Layout.minimumHeight: 3*u
+            Layout.maximumHeight: 3*u
             Layout.fillWidth: true
-            color: Qt.rgba(165/255, 165/255, 165/255, 1)
+            gradient: Gradient {
+                GradientStop { position: 0; color: Qt.rgba(213/255, 213/255, 213/255, 1) }
+                GradientStop { position: 1; color: Qt.rgba(176/255, 176/255, 176/255, 1) }
+            }
         }
 
     }
