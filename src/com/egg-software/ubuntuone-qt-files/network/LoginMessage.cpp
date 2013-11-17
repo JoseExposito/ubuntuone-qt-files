@@ -44,7 +44,7 @@ LoginMessage::~LoginMessage()
 
 void LoginMessage::login(const QString &username, const QString &password)
 {
-    qDebug() << "STARTING LOGIN PROCESS:";
+    qDebug() << "[+] STARTING LOGIN PROCESS:";
 
     // Get the Ubuntu SSO token
     QString tokenName  = QUrl::toPercentEncoding("Ubuntu One @ " + QHostInfo::localHostName());
@@ -52,7 +52,7 @@ void LoginMessage::login(const QString &username, const QString &password)
     ssoAuthenticationRequestUrl.setUserName(username);
     ssoAuthenticationRequestUrl.setPassword(password);
 
-    qDebug() << "\t Getting Ubuntu SSO token at URL: " << ssoAuthenticationRequestUrl.toString();
+    qDebug() << "\t Getting Ubuntu SSO token";
     this->ssoReply = this->networkAccessManager->get(QNetworkRequest(ssoAuthenticationRequestUrl));
 }
 
@@ -60,15 +60,16 @@ void LoginMessage::replyFinished(QNetworkReply *reply)
 {
     if (reply == this->ssoReply) {
         if (this->ssoReply->error() != QNetworkReply::NoError) {
-            qDebug() << "Error receiving the Ubuntu SSO reply: " << this->ssoReply->errorString();
+            qDebug() << "\t Error receiving the Ubuntu SSO reply: " << this->ssoReply->errorString();
             emit this->loginError(tr("Invalid username or password"));
             return;
         }
 
-        qDebug() << "\t Ubuntu SSO token received";
+        qDebug() << "\t Ubuntu SSO token received:";
+        QByteArray replyContent = this->ssoReply->readAll();
+        this->printJson(replyContent);
 
-        // Parse the JSON response to ensure that all is OK
-        QJsonDocument jsonDoc = QJsonDocument::fromJson(this->ssoReply->readAll());
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(replyContent);
         if (jsonDoc.isNull() || !jsonDoc.isObject()
                 || jsonDoc.object().find(CONSUMER_KEY_ID) == jsonDoc.object().end()
                 || jsonDoc.object().find(CONSUMER_SECRET_ID) == jsonDoc.object().end()

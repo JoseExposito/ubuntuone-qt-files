@@ -16,9 +16,6 @@
 #define LOGINMESSAGE_H
 
 #include "AbstractMessage.h"
-class QNetworkAccessManager;
-class QNetworkReply;
-class LoginInfoDTO;
 
 /**
  * The LoginMessage class that allows to make login with user and password. The login process consist in two steps:
@@ -90,6 +87,7 @@ private:
 
     QNetworkReply *ssoReply;
     QNetworkReply *pairTokenReply;
+
 };
 
 #endif // LOGINMESSAGE_H
