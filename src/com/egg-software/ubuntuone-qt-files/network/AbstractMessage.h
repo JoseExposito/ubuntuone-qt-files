@@ -48,8 +48,16 @@ protected slots:
 
 protected:
 
+    /**
+     * Mkes an OAuth GET/PUT request with the consumer info and token stored in "loginInfo".
+     */
     QNetworkReply *oauthGetRequest(const QString &url);
     QNetworkReply *oauthPutRequest(const QString &url, const QByteArray &data);
+
+    /**
+     * Prints a Json with format.
+     */
+    void printJson(const QString &json);
 
     LoginInfoDTO *loginInfo;
     QNetworkAccessManager *networkAccessManager;

@@ -60,3 +60,38 @@ O1 *AbstractMessage::createO1()
     oauth->setTokenSecret(loginInfo->tokenSecret);
     return oauth;
 }
+
+void AbstractMessage::printJson(const QString &json)
+{
+    if (json.isEmpty() || json.isNull())
+        return;
+
+    int tabLevel = 1;
+    QString output = "";
+    QString jsonWithLines = json;
+    jsonWithLines = jsonWithLines.replace("\n", "")
+            .replace("[", "[\n")
+            .replace("{", "{\n")
+            .replace("]", "]\n")
+            .replace("}", "\n}")
+            .replace(",", ",\n");
+    QStringList lines = jsonWithLines.split("\n");
+
+    for (int n=0; n<lines.count(); n++) {
+        QString line = lines.at(n);
+
+        if (line.contains("}") || line.contains("]"))
+            tabLevel--;
+
+        for (int t=0; t<tabLevel; t++)
+            output += "\t";
+        output += " " + line.trimmed();
+        if (n != lines.count()-1)
+            output += "\n";
+
+        if (line.contains("{") || line.contains("["))
+            tabLevel++;
+    }
+
+    qDebug() << qPrintable(output);
+}
