@@ -6,3 +6,4 @@ INCLUDEPATH += $$PWD
 
 include(styles/ubuntuone-qt-files.gui.styles.pri)
 include(login/ubuntuone-qt-files.gui.login.pri)
+include(filelist/ubuntuone-qt-files.gui.filelist.pri)

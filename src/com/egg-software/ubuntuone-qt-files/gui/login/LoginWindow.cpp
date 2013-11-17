@@ -15,6 +15,8 @@
 #include "LoginWindow.h"
 #include "MainWindow.h"
 #include "LoginController.h"
+#include "NodeListController.h"
+#include "NodeListView.h"
 #include <QtCore>
 #include <QtQuick>
 
@@ -36,7 +38,9 @@ void LoginWindow::loginButtonPressed(const QString &username, const QString &pas
 void LoginWindow::loginFinished()
 {
     delete this->loginController;
-    qDebug() << "Login finished :D";
+
+    NodeListController *nodeListController = new NodeListController(this);
+    MainWindow::getInstance()->push(nodeListController->createView("/"));
 }
 
 void LoginWindow::loginError(const QString &errorDescription)

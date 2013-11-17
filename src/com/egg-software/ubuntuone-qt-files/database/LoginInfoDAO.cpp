@@ -63,15 +63,16 @@ void LoginInfoDAO::setLoginInfo(LoginInfoDTO *loginInfo)
 LoginInfoDTO *LoginInfoDAO::getLoginInfo()
 {
     QSqlQuery query;
-    if (!query.exec("SELECT (" + CONSUMER_KEY_COLUMN + ", "
+    if (!query.exec("SELECT " + CONSUMER_KEY_COLUMN + ", "
             + CONSUMER_SECRET_COLUMN + ", "
             + TOKEN_COLUMN + ", "
             + TOKEN_SECRET_COLUMN
-            + ") FROM " + LOGIN_INFO_TABLE
+            + " FROM " + LOGIN_INFO_TABLE
             + " WHERE " + ID_COLUMN + " = " + SINGLE_LOGIN_INFO_ID)) {
         this->printQueryError(query);
         return NULL;
     } else {
+        query.next();
         return new LoginInfoDTO(query.value(0).toString(),
                 query.value(1).toString(),
                 query.value(2).toString(),

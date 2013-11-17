@@ -5,6 +5,8 @@ SlideViewer qrc:/qml/SlideViewer.qml
 Slide qrc:/qml/Slide.qml
 LoginWindow.qml qrc:/qml/LoginWindow.qml
 
+FilesListView.qml qrc:/qml/NodeListView.qml
+
 UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
 UbuntuTextFieldStyle.qml qrc:/qml/UbuntuTextFieldStyle.qml
 ULabel qrc:/qml/ULabel.qml

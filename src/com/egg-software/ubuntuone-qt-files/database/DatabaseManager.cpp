@@ -62,3 +62,9 @@ void DatabaseManager::setLoginInfo(LoginInfoDTO *loginInfo)
     LoginInfoDAO loginInfoDAO(this->db);
     loginInfoDAO.setLoginInfo(loginInfo);
 }
+
+LoginInfoDTO *DatabaseManager::getLoginInfo()
+{
+    LoginInfoDAO loginInfoDAO(this->db);
+    return loginInfoDAO.getLoginInfo();
+}

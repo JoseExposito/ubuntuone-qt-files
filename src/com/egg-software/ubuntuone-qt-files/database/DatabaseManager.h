@@ -38,9 +38,10 @@ public:
     static DatabaseManager *getInstance();
 
     /**
-     * Stores in the database the required login info.
+     * Getting/Setting in the database the required login info.
      */
     void setLoginInfo(LoginInfoDTO *loginInfo);
+    LoginInfoDTO *getLoginInfo();
 
 private:
 

@@ -58,6 +58,7 @@ QString VersionDAO::getDatabaseVersion()
         this->printQueryError(query);
         return "";
     } else {
+        query.next();
         return query.value(0).toString();
     }
 }
