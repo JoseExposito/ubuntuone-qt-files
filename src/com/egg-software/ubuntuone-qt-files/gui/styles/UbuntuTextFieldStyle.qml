@@ -22,17 +22,38 @@ Component {
 
         FontLoader { source: "qrc:/fonts/Ubuntu.ttf" }
 
-        textColor: Qt.rgba(85/255, 85/255, 85/255, 1)
+        textColor: Qt.rgba(38/255, 38/255, 38/255, 1)
         placeholderTextColor: Qt.rgba(155/255, 155/255, 155/255, 1)
-        selectionColor: Qt.rgba(155/255, 155/255, 155/255, 0.2)
+        selectionColor: Qt.rgba(109/255, 109/255, 109/255, 0.2)
         font.pixelSize: 16*u
         font.family: "Ubuntu"
 
-        background: Rectangle {
+        background: Item {
             implicitWidth: 50*u
             implicitHeight: 40*u
-            color: Qt.rgba(202/255, 202/255, 202/255, 1)
-            radius: 6*u
+
+            Rectangle {
+                color: Qt.rgba(202/255, 202/255, 202/255, 1)
+                width: 2*u
+                height: 8*u
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+            }
+
+            Rectangle {
+                color: Qt.rgba(202/255, 202/255, 202/255, 1)
+                width: 2*u
+                height: 8*u
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+            }
+
+            Rectangle {
+                color: Qt.rgba(202/255, 202/255, 202/255, 1)
+                width: parent.width
+                height: 2*u
+                anchors.bottom: parent.bottom
+            }
         }
     }
 

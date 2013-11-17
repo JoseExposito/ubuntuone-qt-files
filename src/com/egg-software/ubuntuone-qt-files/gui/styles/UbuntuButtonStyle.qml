@@ -20,27 +20,18 @@ Component {
 
     ButtonStyle {
         background: Rectangle {
-            property Gradient normalGradient: Gradient {
-                GradientStop { position: 0 ; color: Qt.rgba(190/255, 67/255, 42/255, 1) }
-                GradientStop { position: 1 ; color: Qt.rgba(190/255, 97/255, 53/255, 1) }
-            }
-            property Gradient pressedGradient: Gradient {
-                GradientStop { position: 0 ; color: Qt.rgba(170/255, 47/255, 22/255, 1) }
-                GradientStop { position: 1 ; color: Qt.rgba(170/255, 77/255, 33/255, 1) }
-            }
-
             implicitWidth: 50*u
             implicitHeight: 40*u
-            border.color: Qt.rgba(190/255, 67/255, 42/255, 1)
+            border.color: Qt.rgba(158/255, 158/255, 158/255, 1)
+            border.width: 1*u
             radius: 6*u
-            gradient: control.pressed ? pressedGradient : normalGradient
+            color: control.pressed ? Qt.rgba(158/255, 158/255, 158/255, 1) : Qt.rgba(213/255, 213/255, 213/255, 1)
         }
 
         label: ULabel {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             text: control.text
-            color: control.pressed ? "gray" : "white"
         }
     }
 
