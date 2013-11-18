@@ -39,7 +39,8 @@ void LoginWindow::loginFinished()
 {
     delete this->loginController;
 
-    NodeListController *nodeListController = new NodeListController(this);
+    NodeListController *nodeListController = new NodeListController();
+    MainWindow::getInstance()->clear();
     MainWindow::getInstance()->push(nodeListController->createView(NodeListController::ROOT_PATH));
 }
 

@@ -46,6 +46,7 @@ public:
      */
     void push(QQuickView *view);
     void pop();
+    void clear();
 
     inline QQuickWindow *getWindow() { return this->window; }
     inline QQmlEngine   *getEngine() { return this->engine; }

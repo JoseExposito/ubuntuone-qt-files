@@ -68,6 +68,12 @@ void MainWindow::pop()
     }
 }
 
+void MainWindow::clear()
+{
+    QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
+    QMetaObject::invokeMethod(stackView, "clear");
+}
+
 void MainWindow::setGlobalProperties()
 {
     // Resolution independent unit "u"
