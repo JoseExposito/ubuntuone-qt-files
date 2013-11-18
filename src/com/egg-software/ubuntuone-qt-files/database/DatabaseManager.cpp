@@ -57,6 +57,13 @@ DatabaseManager::DatabaseManager()
     loginInfoDAO.createTableIfNotExists();
 }
 
+void DatabaseManager::closeDatabase()
+{
+    this->db->close();
+    delete this->db;
+    delete this->instance;
+}
+
 void DatabaseManager::setLoginInfo(LoginInfoDTO *loginInfo)
 {
     LoginInfoDAO loginInfoDAO(this->db);

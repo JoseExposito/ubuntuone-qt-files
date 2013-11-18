@@ -38,6 +38,11 @@ public:
     static DatabaseManager *getInstance();
 
     /**
+     * Close properly the database and frees memory.
+     */
+    void closeDatabase();
+
+    /**
      * Getting/Setting in the database the required login info.
      */
     void setLoginInfo(LoginInfoDTO *loginInfo);

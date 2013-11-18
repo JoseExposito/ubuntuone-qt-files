@@ -36,7 +36,8 @@ int main(int argc, char *argv[])
 
     int returnCode = app.exec();
 
+    // Free memory and exit
+    db->closeDatabase();
     delete nodeListController;
-
     return returnCode;
 }
