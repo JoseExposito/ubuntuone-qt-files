@@ -39,6 +39,11 @@ public:
      */
     NodeListView *createView(const QString &path);
 
+    /**
+     * The Ubuntu One root path is "/~/". It is used to list the volumes.
+     */
+    static const QString ROOT_PATH;
+
 private slots:
 
     void nodeListReceived(QList<NodeInfoDTO *> *nodeList);

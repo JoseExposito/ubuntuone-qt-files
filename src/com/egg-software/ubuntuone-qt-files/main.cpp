@@ -13,20 +13,30 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include <QApplication>
+#include "DatabaseManager.h"
 #include "MainWindow.h"
 #include "CreateAccountOrLoginWindow.h"
+#include "NodeListController.h"
+#include "NodeListView.h"
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    DatabaseManager *db = DatabaseManager::getInstance();
     MainWindow *mainWindow = MainWindow::getInstance();
+    NodeListController *nodeListController = new NodeListController();
 
-    // TODO Load other screen if the user is logged
-    CreateAccountOrLoginWindow *createAccountOrLoginWindow = new CreateAccountOrLoginWindow();
-    mainWindow->push(createAccountOrLoginWindow);
+    QQuickView *initialView = (db->getLoginInfo() == NULL)
+            ? (QQuickView *)new CreateAccountOrLoginWindow()
+            : (QQuickView *)nodeListController->createView(NodeListController::ROOT_PATH);
 
+    mainWindow->push(initialView);
     mainWindow->show();
 
-    return app.exec();
+    int returnCode = app.exec();
+
+    delete nodeListController;
+
+    return returnCode;
 }

@@ -21,6 +21,8 @@
 #include <QtCore>
 #include <QtQuick>
 
+const QString NodeListController::ROOT_PATH = "/~/";
+
 NodeListController::NodeListController(QObject *parent)
     : QObject(parent),
       nodeListModel(NULL)
@@ -39,7 +41,7 @@ NodeListView *NodeListController::createView(const QString &path)
     // Get the login info from the database
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
 
-    if (path == "/") {
+    if (path == ROOT_PATH) {
         VolumesMessage *volumesMessage = new VolumesMessage(loginInfo, this);
         connect(volumesMessage, SIGNAL(volumeList(QList<NodeInfoDTO*>*)),
                 this, SLOT(nodeListReceived(QList<NodeInfoDTO*>*)));

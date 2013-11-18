@@ -72,7 +72,8 @@ LoginInfoDTO *LoginInfoDAO::getLoginInfo()
         this->printQueryError(query);
         return NULL;
     } else {
-        query.next();
+        if (!query.next())
+            return NULL;
         return new LoginInfoDTO(query.value(0).toString(),
                 query.value(1).toString(),
                 query.value(2).toString(),

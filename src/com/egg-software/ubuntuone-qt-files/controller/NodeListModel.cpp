@@ -62,7 +62,6 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case Qt::DisplayRole:
     case FILE_NAME_ROLE:
-        qDebug() << nodeInfo->path;
         return nodeInfo->path;
     case FILE_SIZE_ROLE:
         return QVariant(); // TODO

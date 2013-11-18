@@ -21,7 +21,7 @@
 
 /**
  * The VolumesMessage class is responsible for receive the volume list. A GET request to
- * "https://login.ubuntu.com/api/file_storage/v1/volumes" returns the volumes with this format:
+ * "https://one.ubuntu.com/api/file_storage/v1/volumes" returns the volumes with this format:
  *
  * [
  *     {
