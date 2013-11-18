@@ -17,8 +17,13 @@
 
 namespace
 {
-    static const int FILE_NAME_ROLE = Qt::UserRole + 1;
-    static const int FILE_SIZE_ROLE = Qt::UserRole + 2;
+    static const int FILE_TYPE_ROLE     = Qt::UserRole + 1;
+    static const int FILE_PATH_ROLE     = Qt::UserRole + 2;
+    static const int FILE_NAME_ROLE     = Qt::UserRole + 3;
+    static const int IS_PUBLIC_ROLE     = Qt::UserRole + 4;
+    static const int PUBLIC_URL_ROLE    = Qt::UserRole + 5;
+    static const int FILE_SIZE_ROLE     = Qt::UserRole + 6;
+    static const int LAST_MODIFIED_ROLE = Qt::UserRole + 7;
 }
 
 NodeListModel::NodeListModel(QObject *parent)
@@ -48,8 +53,13 @@ int NodeListModel::rowCount(const QModelIndex &/*parent*/) const
 QHash<int, QByteArray> NodeListModel::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
+    roles.insert(FILE_TYPE_ROLE, QByteArray("fileType"));
+    roles.insert(FILE_PATH_ROLE, QByteArray("filePath"));
     roles.insert(FILE_NAME_ROLE, QByteArray("fileName"));
+    roles.insert(IS_PUBLIC_ROLE, QByteArray("isPublic"));
+    roles.insert(PUBLIC_URL_ROLE, QByteArray("publicUrl"));
     roles.insert(FILE_SIZE_ROLE, QByteArray("fileSize"));
+    roles.insert(LAST_MODIFIED_ROLE, QByteArray("lastModified"));
     return roles;
 }
 
@@ -60,11 +70,21 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
 
     NodeInfoDTO *nodeInfo = this->nodeList->at(index.row());
     switch (role) {
+    case FILE_TYPE_ROLE:
+        return nodeInfo->type;
+    case FILE_PATH_ROLE:
+        return nodeInfo->path;
     case Qt::DisplayRole:
     case FILE_NAME_ROLE:
-        return nodeInfo->path;
+        return nodeInfo->name;
+    case IS_PUBLIC_ROLE:
+        return nodeInfo->isPublic;
+    case PUBLIC_URL_ROLE:
+        return nodeInfo->publicUrl;
     case FILE_SIZE_ROLE:
-        return QVariant(); // TODO
+        return nodeInfo->size;
+    case LAST_MODIFIED_ROLE:
+        return nodeInfo->lastModified;
     default:
         return QVariant();
     }

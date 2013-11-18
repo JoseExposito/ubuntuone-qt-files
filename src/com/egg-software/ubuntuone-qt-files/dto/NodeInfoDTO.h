@@ -30,21 +30,27 @@ public:
         VOLUME,
         VOLUME_ROOT,
         FILE,
-        DERECTORY
+        DIRECTORY
     };
 
-    NodeInfoDTO(NodeType type, const QString &path)
+    NodeInfoDTO(NodeType type, const QString &path, const QString &name)
         : type(type),
           path(path),
+          name(name),
           isPublic(false),
-          publicUrl("") {}
+          publicUrl(""),
+          size(-1),
+          lastModified("") {}
 
-    NodeType type;
-    QString path;
+    NodeType type; /// Volume root (Ubuntu One), volume, file or directory
+    QString path; /// Complete path: /~/Ubuntu One/file.txt
+    QString name; /// Human readable file name: file.txt
 
     // Only for type FILE
-    bool isPublic;
-    QString publicUrl;
+    bool isPublic; /// If the file is public or not
+    QString publicUrl; /// If the file is public, the public URL
+    qint64 size; /// File size in bytes
+    QString lastModified; /// DD/MM/YYYY
 };
 
 
