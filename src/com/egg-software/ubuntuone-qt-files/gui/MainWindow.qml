@@ -24,6 +24,8 @@ import "qrc:/."
  */
 ApplicationWindow {
 
+    signal popStackView()
+
     width:  320
     height: 480
     color:  Qt.rgba(232/255, 232/255, 232/255, 1)
@@ -78,7 +80,7 @@ ApplicationWindow {
                     id: backmouse
                     anchors.fill: parent
                     anchors.margins: -10
-                    onClicked: stackView.pop()
+                    onClicked: popStackView()
                 }
             }
 

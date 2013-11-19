@@ -15,7 +15,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QObject>
+#include <QtCore/QObject>
 class QQuickWindow;
 class QQmlEngine;
 class QQuickView;
@@ -41,15 +41,17 @@ public:
      */
     void show() const;
 
+    inline QQuickWindow *getWindow() { return this->window; }
+    inline QQmlEngine   *getEngine() { return this->engine; }
+
+public slots:
+
     /**
      * To manage the StackView.
      */
     void push(QQuickView *view);
     void pop();
     void clear();
-
-    inline QQuickWindow *getWindow() { return this->window; }
-    inline QQmlEngine   *getEngine() { return this->engine; }
 
 private:
 

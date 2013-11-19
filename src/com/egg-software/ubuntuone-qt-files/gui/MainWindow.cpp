@@ -41,6 +41,8 @@ MainWindow::MainWindow()
         qFatal("Error: Your root item has to be a Window.");
 
     this->engine->setIncubationController(this->window->incubationController());
+
+    connect(this->window, SIGNAL(popStackView()), this, SLOT(pop()));
 }
 
 void MainWindow::show() const
@@ -60,10 +62,10 @@ void MainWindow::push(QQuickView *view)
 void MainWindow::pop()
 {
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
-    int previousItemNumber = stackView->childItems().count();
+    int numberOfItems = stackView->childItems().count();
 
-    if (previousItemNumber > 1) {
-        QQuickItem *previousItem = stackView->childItems().at(previousItemNumber-1);
+    if (numberOfItems >= 2) {
+        QQuickItem *previousItem = stackView->childItems().at(numberOfItems - 2);
         QMetaObject::invokeMethod(stackView, "pop", Q_ARG(QVariant, QVariant::fromValue(previousItem)));
     }
 }
