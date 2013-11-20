@@ -49,7 +49,7 @@ public:
     // Only for type FILE
     bool isPublic; /// If the file is public or not
     QString publicUrl; /// If the file is public, the public URL
-    qint64 size; /// File size in bytes
+    int size; /// File size in bytes
     QString lastModified; /// DD/MM/YYYY
 };
 

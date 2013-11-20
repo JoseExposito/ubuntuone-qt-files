@@ -79,7 +79,7 @@ signals:
 
 protected slots:
 
-        virtual void replyFinished(QNetworkReply *reply);
+    virtual void replyFinished(QNetworkReply *reply);
 
 private:
 

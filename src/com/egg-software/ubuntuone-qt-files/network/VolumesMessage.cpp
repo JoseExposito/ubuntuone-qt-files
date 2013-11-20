@@ -67,7 +67,7 @@ void VolumesMessage::replyFinished(QNetworkReply *reply)
                     ? NodeInfoDTO::VOLUME_ROOT
                     : NodeInfoDTO::VOLUME;
             QString nodePath = volume.toObject().value(PATH_ID).toString();
-            QString nodeName = QString(nodePath).replace("/~/", "");
+            QString nodeName = QFileInfo(nodePath).fileName();
             NodeInfoDTO *nodeInfo = new NodeInfoDTO(nodeType, nodePath, nodeName);
             volumeList->append(nodeInfo);
         }

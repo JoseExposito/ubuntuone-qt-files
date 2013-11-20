@@ -16,6 +16,7 @@
 #include "NodeListView.h"
 #include "NodeListModel.h"
 #include "VolumesMessage.h"
+#include "NodeChildrenMessage.h"
 #include "LoginInfoDTO.h"
 #include "DatabaseManager.h"
 #include <QtCore>
@@ -38,9 +39,8 @@ NodeListView *NodeListController::createView(const QString &path)
 
     // TODO Load from the database if possible
 
-    // Get the login info from the database
+    // Update the cached data
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
-
     if (path == ROOT_PATH) {
         VolumesMessage *volumesMessage = new VolumesMessage(loginInfo, this);
         connect(volumesMessage, SIGNAL(volumeList(QList<NodeInfoDTO*>*)),
@@ -49,7 +49,11 @@ NodeListView *NodeListController::createView(const QString &path)
         volumesMessage->getVolumes();
 
     } else {
-        // TODO
+        NodeChildrenMessage *childrenMessage = new NodeChildrenMessage(loginInfo, this);
+        connect(childrenMessage, SIGNAL(childrenList(QList<NodeInfoDTO*>*)),
+                this, SLOT(nodeListReceived(QList<NodeInfoDTO*>*)));
+        connect(childrenMessage, SIGNAL(errorGettingChildren(QString)), this, SLOT(errorGettingNodeList(QString)));
+        childrenMessage->getNodeChildren(path);
     }
 
     return nodeListView;

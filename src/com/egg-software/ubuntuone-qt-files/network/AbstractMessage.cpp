@@ -41,7 +41,7 @@ QNetworkReply *AbstractMessage::oauthGetRequest(const QString &url)
 {
     O1 *oauth = this->createO1();
     O1Requestor *requestor = new O1Requestor(this->networkAccessManager, oauth, this);
-    return requestor->get(QNetworkRequest(url), QList<O1RequestParameter>());;
+    return requestor->get(QNetworkRequest(url), QList<O1RequestParameter>());
 }
 
 QNetworkReply *AbstractMessage::oauthPutRequest(const QString &url, const QByteArray &data)
