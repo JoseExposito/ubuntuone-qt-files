@@ -2,4 +2,4 @@
 ABOUT THIRD-PARTY:
 ------------------
 
-	[+] o2 (OAuth 1.0 and 2.0 for Qt)	https://github.com/pipacs/o2	BSD License
+	[+] liboauthcpp <https://github.com/sirikata/liboauthcpp> MIT License

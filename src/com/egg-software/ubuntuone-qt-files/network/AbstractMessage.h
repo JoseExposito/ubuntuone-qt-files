@@ -19,7 +19,6 @@
 class LoginInfoDTO;
 class QNetworkAccessManager;
 class QNetworkReply;
-class O1;
 
 /**
  * The AbstractMessage class must be used as parent of all Message classes.
@@ -49,7 +48,7 @@ protected slots:
 protected:
 
     /**
-     * Mkes an OAuth GET/PUT request with the consumer info and token stored in "loginInfo".
+     * Makes an OAuth GET/PUT request with the consumer info and token stored in "loginInfo".
      */
     QNetworkReply *oauthGetRequest(const QString &url);
     QNetworkReply *oauthPutRequest(const QString &url, const QByteArray &data);
@@ -62,12 +61,6 @@ protected:
     LoginInfoDTO *loginInfo;
     QNetworkAccessManager *networkAccessManager;
 
-private:
-
-    /**
-     * Generates an O1 object with the required login information.
-     */
-    O1 *createO1();
 };
 
 #endif // ABSTRACTMESSAGE_H

@@ -14,10 +14,9 @@
  */
 #include "AbstractMessage.h"
 #include "LoginInfoDTO.h"
-#include "o1.h"
-#include "o1requestor.h"
 #include <QtCore>
 #include <QtNetwork>
+#include <liboauthcpp/liboauthcpp.h>
 
 AbstractMessage::AbstractMessage(LoginInfoDTO *loginInfo, QObject *parent)
     : QObject(parent),
@@ -39,26 +38,22 @@ AbstractMessage::~AbstractMessage()
 
 QNetworkReply *AbstractMessage::oauthGetRequest(const QString &url)
 {
-    O1 *oauth = this->createO1();
-    O1Requestor *requestor = new O1Requestor(this->networkAccessManager, oauth, this);
-    return requestor->get(QNetworkRequest(url), QList<O1RequestParameter>());
+    OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
+    OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
+    OAuth::Client oauth(&consumer, &token);
+    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Get, url.toStdString()));
+    QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
+    return this->networkAccessManager->get(QNetworkRequest(baseUrl + "?" + oauthParameters));
 }
 
 QNetworkReply *AbstractMessage::oauthPutRequest(const QString &url, const QByteArray &data)
 {
-    O1 *oauth = this->createO1();
-    O1Requestor* requestor = new O1Requestor(this->networkAccessManager, oauth, this);
-    return requestor->put(QNetworkRequest(url), QList<O1RequestParameter>(), data);
-}
-
-O1 *AbstractMessage::createO1()
-{
-    O1 *oauth = new O1(this);
-    oauth->setClientId(loginInfo->consumerKey);
-    oauth->setClientSecret(loginInfo->consumerSecret);
-    oauth->setToken(loginInfo->token);
-    oauth->setTokenSecret(loginInfo->tokenSecret);
-    return oauth;
+    OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
+    OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
+    OAuth::Client oauth(&consumer, &token);
+    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Post, url.toStdString()));
+    QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
+    return this->networkAccessManager->put(QNetworkRequest(baseUrl + "?" + oauthParameters), data);
 }
 
 void AbstractMessage::printJson(const QString &json)

@@ -13,8 +13,6 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include "NodeChildrenMessage.h"
-#include "o1.h"
-#include "o1requestor.h"
 #include "LoginInfoDTO.h"
 #include <QtCore>
 #include <QtNetwork>
