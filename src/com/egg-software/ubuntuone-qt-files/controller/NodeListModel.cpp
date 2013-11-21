@@ -24,6 +24,7 @@ namespace
     static const int PUBLIC_URL_ROLE    = Qt::UserRole + 5;
     static const int FILE_SIZE_ROLE     = Qt::UserRole + 6;
     static const int LAST_MODIFIED_ROLE = Qt::UserRole + 7;
+    static const int FILE_ICON_ROLE     = Qt::UserRole + 8;
 }
 
 NodeListModel::NodeListModel(QObject *parent)
@@ -53,13 +54,14 @@ int NodeListModel::rowCount(const QModelIndex &/*parent*/) const
 QHash<int, QByteArray> NodeListModel::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
-    roles.insert(FILE_TYPE_ROLE, QByteArray("fileType"));
+    roles.insert(FILE_TYPE_ROLE, QByteArray("isFolder"));
     roles.insert(FILE_PATH_ROLE, QByteArray("filePath"));
     roles.insert(FILE_NAME_ROLE, QByteArray("fileName"));
     roles.insert(IS_PUBLIC_ROLE, QByteArray("isPublic"));
     roles.insert(PUBLIC_URL_ROLE, QByteArray("publicUrl"));
     roles.insert(FILE_SIZE_ROLE, QByteArray("fileSize"));
     roles.insert(LAST_MODIFIED_ROLE, QByteArray("lastModified"));
+    roles.insert(FILE_ICON_ROLE, QByteArray("icon"));
     return roles;
 }
 
@@ -71,7 +73,7 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
     NodeInfoDTO *nodeInfo = this->nodeList->at(index.row());
     switch (role) {
     case FILE_TYPE_ROLE:
-        return nodeInfo->type;
+        return nodeInfo->type != NodeInfoDTO::FILE;
     case FILE_PATH_ROLE:
         return nodeInfo->path;
     case Qt::DisplayRole:
@@ -82,10 +84,43 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
     case PUBLIC_URL_ROLE:
         return nodeInfo->publicUrl;
     case FILE_SIZE_ROLE:
-        return nodeInfo->size;
+        return this->humanReadableSize(nodeInfo->size);
     case LAST_MODIFIED_ROLE:
-        return nodeInfo->lastModified;
+        return nodeInfo->lastModified.left(10);
+    case FILE_ICON_ROLE:
+        return this->fileIcon(nodeInfo->type, nodeInfo->name);
     default:
         return QVariant();
     }
+}
+
+QString NodeListModel::humanReadableSize(int size) const
+{
+    QStringList list;
+    list << "KB" << "MB" << "GB" << "TB";
+
+    QStringListIterator i(list);
+    QString unit("bytes");
+
+    while(size >= 1024 && i.hasNext()) {
+        unit = i.next();
+        size /= 1024;
+    }
+
+    return QString::number(size) + " " + unit;
+}
+
+QString NodeListModel::fileIcon(NodeInfoDTO::NodeType type, const QString &fileName) const
+{
+    if (type != NodeInfoDTO::FILE)
+        return "qrc:/mimetype/folder.png";
+
+    static QStringList imageExtension;
+    imageExtension << "bmp" << "gif" << "jpg" << "jpeg" << "png" << "tif" << "tiff" << "svg";
+
+    QString extension = QFileInfo(fileName).suffix();
+    if (imageExtension.contains(extension.toLower()))
+        return "qrc:/mimetype/image.png";
+    else
+        return "qrc:/mimetype/file.png";
 }

@@ -99,13 +99,10 @@ ApplicationWindow {
         Rectangle {
             id: bottomSeparator
             anchors.top: toolBarArea.bottom
-            Layout.minimumHeight: 3*u
-            Layout.maximumHeight: 3*u
+            Layout.minimumHeight: 2*u
+            Layout.maximumHeight: 2*u
             Layout.fillWidth: true
-            gradient: Gradient {
-                GradientStop { position: 0; color: Qt.rgba(213/255, 213/255, 213/255, 1) }
-                GradientStop { position: 1; color: Qt.rgba(176/255, 176/255, 176/255, 1) }
-            }
+            color: Qt.rgba(176/255, 176/255, 176/255, 1)
         }
 
     }

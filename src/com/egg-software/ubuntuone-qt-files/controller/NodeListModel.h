@@ -39,6 +39,16 @@ protected:
 
 private:
 
+    /**
+     * Returns the size of the file in KB, MB...
+     */
+    QString humanReadableSize(int size) const;
+
+    /**
+     * Returns the icon path for the specified file.
+     */
+    QString fileIcon(NodeInfoDTO::NodeType type, const QString &fileName) const;
+
     QList<NodeInfoDTO *> *nodeList;
 
 };

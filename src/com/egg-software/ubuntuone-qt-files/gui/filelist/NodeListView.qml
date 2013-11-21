@@ -23,7 +23,7 @@ Item {
 
         Item {
             width: parent.width
-            height: 50*u
+            height: 60*u
 
             // Area with the file name, file size...
             Rectangle {
@@ -33,19 +33,75 @@ Item {
                 width: parent.width
                 color: "transparent"
 
-                GridLayout {
-                    anchors.fill: parent
-                    anchors.margins: 15*u
+                // Icon
+                Image {
+                    id: nodeIcon
+                    anchors {
+                        left: parent.left
+                        top: parent.top
+                        bottom: parent.bottom
+                        leftMargin: 10*u
+                    }
+                    width: 24*u
+                    height: 24*u
 
-                    ULabel {
-                        Layout.fillWidth: true
-                        text: model.fileName
-                        font.bold: true
+                    source: model.icon
+                    fillMode: Image.PreserveAspectFit
+                    antialiasing: true
+                }
+
+                // Filename
+                ULabel {
+                    id: nodeFilename
+                    anchors {
+                        left: nodeIcon.right
+                        right: parent.right
+                        top: parent.top
+                        leftMargin: 10*u
+                        topMargin: 10*u
+                        rightMargin: 10*u
                     }
 
-                    /*ULabel {
-                        text: model.fileSize
-                    }*/
+                    text: model.fileName
+                    maximumLineCount: 1
+                    wrapMode: Text.Wrap
+                    elide: Text.ElideMiddle
+                    font.bold: true
+                }
+
+                // Last modified
+                ULabel {
+                    id: nodeLastModified
+                    anchors {
+                        left: nodeIcon.right
+                        right: nodeSize.left
+                        bottom: parent.bottom
+                        leftMargin: 10*u
+                        rightMargin: 10*u
+                        bottomMargin: 10*u
+                    }
+
+                    text: isFolder ? "..." : qsTr("Last modified: ") + model.lastModified
+                    color: Qt.rgba(109/255, 109/255, 109/255, 1)
+                    maximumLineCount: 1
+                    wrapMode: Text.Wrap
+                    elide: Text.ElideMiddle
+                    font.pixelSize: 13*u
+                }
+
+                // Size
+                ULabel {
+                    id: nodeSize
+                    anchors {
+                        right: parent.right
+                        bottom: parent.bottom
+                        rightMargin: 10*u
+                        bottomMargin: 10*u
+                    }
+
+                    text: isFolder ? "" : model.fileSize
+                    color: Qt.rgba(109/255, 109/255, 109/255, 1)
+                    font.pixelSize: 13*u
                 }
             }
 

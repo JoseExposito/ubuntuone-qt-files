@@ -92,7 +92,7 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
                     nodeIsPublic     = child.toObject().value(IS_PUBLIC_ID).toBool();
                     nodePublicUrl    = child.toObject().value(PUBLIC_URL_ID).toString();
                     nodeSize         = child.toObject().value(SIZE_ID).toInt();
-                    nodeLastModified = child.toObject().value(LAST_MODIFIED_ID).toInt();
+                    nodeLastModified = child.toObject().value(LAST_MODIFIED_ID).toString();
             }
 
             NodeInfoDTO *nodeInfo  = new NodeInfoDTO(nodeType, nodePath, nodeName);

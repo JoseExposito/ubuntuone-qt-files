@@ -7,8 +7,14 @@
     </qresource>
     <qresource prefix="/fonts">
         <file>Ubuntu.ttf</file>
+        <file>Ubuntu-B.ttf</file>
     </qresource>
     <qresource prefix="/theme">
         <file>navigation_previous_item.png</file>
+    </qresource>
+    <qresource prefix="/mimetype">
+        <file>folder.png</file>
+        <file>image.png</file>
+        <file>file.png</file>
     </qresource>
 </RCC>

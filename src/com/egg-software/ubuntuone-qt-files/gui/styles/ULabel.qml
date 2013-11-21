@@ -17,6 +17,7 @@ import QtQuick.Controls 1.1
 
 Text {
     FontLoader { source: "qrc:/fonts/Ubuntu.ttf" }
+    FontLoader { source: "qrc:/fonts/Ubuntu-B.ttf" }
 
     color: Qt.rgba(38/255, 38/255, 38/255, 1)
     font.pixelSize: 16*u
