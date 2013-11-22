@@ -30,6 +30,10 @@ public:
 
     NodeListView(NodeListModel *model);
 
+private slots:
+
+    void nodeClicked(const QString &path);
+
 };
 
 #endif // FILESLISTVIEW_H

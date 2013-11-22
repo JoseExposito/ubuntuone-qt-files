@@ -18,6 +18,8 @@ import "qrc:/."
 
 Item {
 
+    signal nodeClicked(string path)
+
     Component {
         id: nodeListDelegate
 
@@ -25,13 +27,18 @@ Item {
             width: parent.width
             height: 60*u
 
+            MouseArea {
+                id: cellMouseArea
+                anchors.fill: parent
+                onClicked: { nodeClicked(model.filePath) }
+            }
+
             // Area with the file name, file size...
             Rectangle {
-                id: infoArea
                 anchors.top: parent.top
                 anchors.bottom: separator.bottom
                 width: parent.width
-                color: "transparent"
+                color: cellMouseArea.pressed ? Qt.rgba(190/255, 190/255, 190/255, 1) : "transparent"
 
                 // Icon
                 Image {
@@ -111,7 +118,7 @@ Item {
                 anchors.bottom: parent.bottom
                 width: parent.width
                 height: 2*u
-                color: Qt.rgba(203/255, 203/255, 203/255, 1)
+                color: cellMouseArea.pressed ? "transparent" : Qt.rgba(203/255, 203/255, 203/255, 1)
             }
         }
     }

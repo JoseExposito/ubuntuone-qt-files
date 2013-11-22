@@ -15,6 +15,7 @@
 #include "NodeListView.h"
 #include "MainWindow.h"
 #include "NodeListModel.h"
+#include "NodeListController.h"
 #include <QtCore>
 #include <QtQuick>
 
@@ -24,4 +25,12 @@ NodeListView::NodeListView(NodeListModel *model)
     model->setParent(this);
     this->rootContext()->setContextProperty("nodeListModel", model);
     this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
+
+    connect(this->rootObject(), SIGNAL(nodeClicked(QString)), this, SLOT(nodeClicked(QString)));
+}
+
+void NodeListView::nodeClicked(const QString &path)
+{
+    NodeListController *nodeListController = new NodeListController();
+    MainWindow::getInstance()->push(nodeListController->createView(path));
 }
