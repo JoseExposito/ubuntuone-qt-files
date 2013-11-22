@@ -14,13 +14,15 @@
  */
 #include "CreateAccountOrLoginWindow.h"
 #include "MainWindow.h"
+#include "Utils.h"
 #include "LoginWindow.h"
 #include <QtCore>
 #include <QtQuick>
 
 CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
-    : QQuickView(MainWindow::getInstance()->getEngine(), MainWindow::getInstance()->getWindow())
+    : QQuickView(MainWindow::getInstance()->getWindow())
 {
+    Utils::setGlobalProperties(this->rootContext());
     this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
 
     connect(this->rootObject(), SIGNAL(loginClicked()), this, SLOT(loginClicked()));

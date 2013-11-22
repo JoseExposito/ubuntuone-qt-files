@@ -12,27 +12,15 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "NodeListView.h"
-#include "MainWindow.h"
 #include "Utils.h"
-#include "NodeListModel.h"
-#include "NodeListController.h"
 #include <QtCore>
 #include <QtQuick>
 
-NodeListView::NodeListView(NodeListModel *model)
-    : QQuickView(MainWindow::getInstance()->getWindow())
+void Utils::setGlobalProperties(QQmlContext *contex)
 {
-    Utils::setGlobalProperties(this->rootContext());
-    model->setParent(this);
-    this->rootContext()->setContextProperty("nodeListModel", model);
-    this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
-
-    connect(this->rootObject(), SIGNAL(nodeClicked(QString)), this, SLOT(nodeClicked(QString)));
-}
-
-void NodeListView::nodeClicked(const QString &path)
-{
-    NodeListController *nodeListController = new NodeListController();
-    MainWindow::getInstance()->push(nodeListController->createView(path));
+    // Resolution independent unit "u"
+    QScreen *screen = qApp->screens().at(0);
+    qreal desktopLogicalDotsPerInch = 72;
+    qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
+    contex->setContextProperty("u", u);
 }

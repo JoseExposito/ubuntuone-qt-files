@@ -15,6 +15,7 @@
 #include "MainWindow.h"
 #include <QtCore>
 #include <QtQuick>
+#include "Utils.h"
 
 MainWindow *MainWindow::instance = NULL;
 
@@ -29,7 +30,7 @@ MainWindow::MainWindow()
     : engine(new QQmlEngine(this)),
       window(NULL)
 {
-    this->setGlobalProperties();
+    Utils::setGlobalProperties(this->engine->rootContext());
     QQmlComponent component(this->engine, QUrl("qrc:/qml/MainWindow.qml"));
 
     if (!component.isReady())
@@ -74,13 +75,4 @@ void MainWindow::clear()
 {
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
     QMetaObject::invokeMethod(stackView, "clear");
-}
-
-void MainWindow::setGlobalProperties()
-{
-    // Resolution independent unit "u"
-    QScreen *screen = qApp->screens().at(0);
-    qreal desktopLogicalDotsPerInch = 72;
-    qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
-    this->engine->rootContext()->setContextProperty("u", u);
 }

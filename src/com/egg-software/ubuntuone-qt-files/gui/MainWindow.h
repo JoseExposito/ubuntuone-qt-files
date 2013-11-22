@@ -42,7 +42,6 @@ public:
     void show() const;
 
     inline QQuickWindow *getWindow() { return this->window; }
-    inline QQmlEngine   *getEngine() { return this->engine; }
 
 public slots:
 
@@ -54,11 +53,6 @@ public slots:
     void clear();
 
 private:
-
-    /**
-     * Sets a global properties to all QML files.
-     */
-    void setGlobalProperties();
 
     /**
      * QML Engine. It is VERY important to preserve it to be able to receive mouse events and etc

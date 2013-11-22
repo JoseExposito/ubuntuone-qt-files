@@ -14,6 +14,7 @@
  */
 #include "LoginWindow.h"
 #include "MainWindow.h"
+#include "Utils.h"
 #include "LoginController.h"
 #include "NodeListController.h"
 #include "NodeListView.h"
@@ -21,8 +22,9 @@
 #include <QtQuick>
 
 LoginWindow::LoginWindow()
-    : QQuickView(MainWindow::getInstance()->getEngine(), MainWindow::getInstance()->getWindow())
+    : QQuickView(MainWindow::getInstance()->getWindow())
 {
+    Utils::setGlobalProperties(this->rootContext());
     this->setSource(QUrl("qrc:/qml/LoginWindow.qml"));
     connect(this->rootObject(), SIGNAL(login(QString,QString)), this, SLOT(loginButtonPressed(QString,QString)));
 }
