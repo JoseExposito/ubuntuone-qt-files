@@ -39,6 +39,7 @@ public:
 private slots:
 
     void loginMessageFinished(LoginInfoDTO *loginInfo);
+    void loginMessageFinishedWithError(const QString &errorDescription);
 
 signals:
 

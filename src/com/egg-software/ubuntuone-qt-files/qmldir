@@ -1,11 +1,13 @@
 MainWindow.qml qrc:/qml/MainWindow.qml
+LoadingSpinner.qml qrc:/qml/LoadingSpinner.qml
+MainWindowToolbar.qml qrc:/qml/MainWindowToolbar.qml
 
 CreateAccountOrLoginWindow.qml qrc:/qml/CreateAccountOrLoginWindow.qml
 SlideViewer qrc:/qml/SlideViewer.qml
 Slide qrc:/qml/Slide.qml
 LoginWindow.qml qrc:/qml/LoginWindow.qml
 
-FilesListView.qml qrc:/qml/NodeListView.qml
+NodeListView.qml qrc:/qml/NodeListView.qml
 
 UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
 UbuntuTextFieldStyle.qml qrc:/qml/UbuntuTextFieldStyle.qml

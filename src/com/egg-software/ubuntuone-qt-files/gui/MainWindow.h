@@ -41,6 +41,11 @@ public:
      */
     void show() const;
 
+    /**
+     * Shows or not the full screen loading spinner.
+     */
+    void showLoadingSpinner(bool visible, const QString &text ="");
+
     inline QQuickWindow *getWindow() { return this->window; }
 
 public slots:

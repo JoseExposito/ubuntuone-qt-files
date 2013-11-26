@@ -19,6 +19,7 @@
 #include "NodeChildrenMessage.h"
 #include "LoginInfoDTO.h"
 #include "DatabaseManager.h"
+#include "MainWindow.h"
 #include <QtCore>
 #include <QtQuick>
 
@@ -40,6 +41,7 @@ NodeListView *NodeListController::createView(const QString &path)
     // TODO Load from the database if possible
 
     // Update the cached data
+    MainWindow::getInstance()->showLoadingSpinner(true, tr("Loading..."));
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
     if (path == ROOT_PATH) {
         VolumesMessage *volumesMessage = new VolumesMessage(loginInfo, this);
@@ -61,6 +63,7 @@ NodeListView *NodeListController::createView(const QString &path)
 
 void NodeListController::nodeListReceived(QList<NodeInfoDTO *> *nodeList)
 {
+    MainWindow::getInstance()->showLoadingSpinner(false);
     this->nodeListModel->setNodeList(nodeList);
 
     // TODO Cache the received data
@@ -68,5 +71,6 @@ void NodeListController::nodeListReceived(QList<NodeInfoDTO *> *nodeList)
 
 void NodeListController::errorGettingNodeList(const QString &errorDescription)
 {
+    MainWindow::getInstance()->showLoadingSpinner(false);
     qDebug() << "Error getting node list: " << errorDescription;
 }

@@ -34,6 +34,7 @@ Item {
 
         TextField {
             id: usernameTextField
+            focus: true
             placeholderText: qsTr("Email")
             style: UbuntuTextFieldStyle { }
             Layout.fillWidth: true

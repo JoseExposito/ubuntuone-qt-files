@@ -31,6 +31,7 @@ MainWindow::MainWindow()
       window(NULL)
 {
     Utils::setGlobalProperties(this->engine->rootContext());
+    this->engine->rootContext()->setContextProperty("loadingSpinnerText", "");
     QQmlComponent component(this->engine, QUrl("qrc:/qml/MainWindow.qml"));
 
     if (!component.isReady())
@@ -49,6 +50,13 @@ MainWindow::MainWindow()
 void MainWindow::show() const
 {
     this->window->showFullScreen();
+}
+
+void MainWindow::showLoadingSpinner(bool visible, const QString &text)
+{
+    QQuickItem *loadingSpinner = this->window->findChild<QQuickItem *>("loadingSpinner");
+    loadingSpinner->setProperty("visible", visible);
+    this->engine->rootContext()->setContextProperty("loadingSpinnerText", text);
 }
 
 void MainWindow::push(QQuickView *view)

@@ -16,19 +16,28 @@
 #include "LoginMessage.h"
 #include "DatabaseManager.h"
 #include "LoginInfoDTO.h"
+#include "MainWindow.h"
 #include <QtCore>
 
 void LoginController::login(const QString &username, const QString &password)
 {
+    MainWindow::getInstance()->showLoadingSpinner(true, tr("Log in..."));
     LoginMessage *loginMessage = new LoginMessage(this);
-    connect(loginMessage, SIGNAL(loginError(QString)), this, SIGNAL(loginError(QString)));
+    connect(loginMessage, SIGNAL(loginError(QString)), this, SLOT(loginMessageFinishedWithError(QString)));
     connect(loginMessage, SIGNAL(loginFinished(LoginInfoDTO*)), this, SLOT(loginMessageFinished(LoginInfoDTO*)));
     loginMessage->login(username, password);
 }
 
 void LoginController::loginMessageFinished(LoginInfoDTO *loginInfo)
 {
+    MainWindow::getInstance()->showLoadingSpinner(false);
     DatabaseManager::getInstance()->setLoginInfo(loginInfo);
     delete loginInfo;
     emit this->loginFinished();
+}
+
+void LoginController::loginMessageFinishedWithError(const QString &errorDescription)
+{
+    MainWindow::getInstance()->showLoadingSpinner(false);
+    emit this->loginError(errorDescription);
 }
