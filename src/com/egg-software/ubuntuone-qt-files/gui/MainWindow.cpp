@@ -49,7 +49,7 @@ MainWindow::MainWindow()
 
 void MainWindow::show() const
 {
-    this->window->showFullScreen();
+    this->window->show();
 }
 
 void MainWindow::showLoadingSpinner(bool visible, const QString &text)

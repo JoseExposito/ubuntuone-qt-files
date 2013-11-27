@@ -24,11 +24,6 @@ AbstractMessage::AbstractMessage(LoginInfoDTO *loginInfo, QObject *parent)
       networkAccessManager(new QNetworkAccessManager(this))
 {
     connect(this->networkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(replyFinished(QNetworkReply*)));
-
-    // HACK Check with Qt 5.2: http://stackoverflow.com/a/15707366/1204395
-    QNetworkProxy proxy = this->networkAccessManager->proxy();
-    proxy.setHostName(" ");
-    this->networkAccessManager->setProxy(proxy);
 }
 
 AbstractMessage::~AbstractMessage()
