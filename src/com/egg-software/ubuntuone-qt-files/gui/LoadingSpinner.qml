@@ -22,6 +22,8 @@ Item {
     id: loadingSpinner
     anchors.fill: parent
 
+    property string loadingSpinnerText: ""
+
     Item {
         id: loadingSpinnerBox
         width:  200*u
@@ -48,7 +50,7 @@ Item {
             ULabel {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
-                text: loadingSpinnerText // Set from C++
+                text: loadingSpinnerText
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
             }
