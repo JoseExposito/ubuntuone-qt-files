@@ -34,14 +34,21 @@ NodeListController::NodeListController(QObject *parent)
 
 NodeListView *NodeListController::createView(const QString &path)
 {
+    this->path = path;
+
     // Create the view and set the model
     this->nodeListModel = new NodeListModel();
     NodeListView *nodeListView = new NodeListView(this->nodeListModel);
 
-    // TODO Load from the database if possible
+    // Load the model from the database if possible
+    QList<NodeInfoDTO *> *nodeList = DatabaseManager::getInstance()->getNodeList(path);
+    if (nodeList == NULL || nodeList->isEmpty()) {
+        MainWindow::getInstance()->showLoadingSpinner(true, tr("Loading..."));
+    } else {
+        this->nodeListModel->setNodeList(nodeList);
+    }
 
     // Update the cached data
-    MainWindow::getInstance()->showLoadingSpinner(true, tr("Loading..."));
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
     if (path == ROOT_PATH) {
         VolumesMessage *volumesMessage = new VolumesMessage(loginInfo, this);
@@ -63,10 +70,9 @@ NodeListView *NodeListController::createView(const QString &path)
 
 void NodeListController::nodeListReceived(QList<NodeInfoDTO *> *nodeList)
 {
-    MainWindow::getInstance()->showLoadingSpinner(false);
     this->nodeListModel->setNodeList(nodeList);
-
-    // TODO Cache the received data
+    DatabaseManager::getInstance()->setNodeList(this->path, nodeList);
+    MainWindow::getInstance()->showLoadingSpinner(false);
 }
 
 void NodeListController::errorGettingNodeList(const QString &errorDescription)

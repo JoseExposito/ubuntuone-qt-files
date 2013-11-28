@@ -16,6 +16,7 @@
 #include "VersionDAO.h"
 #include "LoginInfoDAO.h"
 #include "LoginInfoDTO.h"
+#include "NodeListDAO.h"
 #include <QtCore>
 #include <QtSql>
 
@@ -55,6 +56,9 @@ DatabaseManager::DatabaseManager()
 
     LoginInfoDAO loginInfoDAO(this->db);
     loginInfoDAO.createTableIfNotExists();
+
+    NodeListDAO nodeListDAO(this->db);
+    nodeListDAO.createTableIfNotExists();
 }
 
 void DatabaseManager::closeDatabase()
@@ -74,4 +78,16 @@ LoginInfoDTO *DatabaseManager::getLoginInfo()
 {
     LoginInfoDAO loginInfoDAO(this->db);
     return loginInfoDAO.getLoginInfo();
+}
+
+void DatabaseManager::setNodeList(const QString &parentPath, QList<NodeInfoDTO *> *nodeList)
+{
+    NodeListDAO nodeListDAO(this->db);
+    nodeListDAO.setNodeList(parentPath, nodeList);
+}
+
+QList<NodeInfoDTO *> *DatabaseManager::getNodeList(const QString &parentPath)
+{
+    NodeListDAO nodeListDAO(this->db);
+    return nodeListDAO.getNodeList(parentPath);
 }

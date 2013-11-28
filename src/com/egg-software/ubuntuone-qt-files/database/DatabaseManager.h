@@ -16,6 +16,8 @@
 #define DATABASEMANAGER_H
 
 #include <QtCore/QObject>
+#include <QtCore/QList>
+#include "NodeInfoDTO.h"
 class QSqlDatabase;
 class LoginInfoDTO;
 
@@ -47,6 +49,12 @@ public:
      */
     void setLoginInfo(LoginInfoDTO *loginInfo);
     LoginInfoDTO *getLoginInfo();
+
+    /**
+     * Getting/Setting the node list.
+     */
+    void setNodeList(const QString &parentPath, QList<NodeInfoDTO *> *nodeList);
+    QList<NodeInfoDTO *> *getNodeList(const QString &parentPath);
 
 private:
 

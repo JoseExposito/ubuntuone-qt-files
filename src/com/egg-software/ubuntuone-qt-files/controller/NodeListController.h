@@ -57,6 +57,8 @@ private:
      */
     NodeListModel *nodeListModel;
 
+    QString path;
+
 };
 
 #endif // NODELISTCONTROLLER_H
