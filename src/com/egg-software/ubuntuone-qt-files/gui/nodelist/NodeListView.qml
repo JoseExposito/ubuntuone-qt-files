@@ -18,7 +18,8 @@ import "qrc:/."
 
 Item {
 
-    signal nodeClicked(string path)
+    signal openFolder(string path)
+    signal openFile(string path)
 
     Component {
         id: nodeListDelegate
@@ -30,7 +31,7 @@ Item {
             MouseArea {
                 id: cellMouseArea
                 anchors.fill: parent
-                onClicked: { nodeClicked(model.filePath) }
+                onClicked: { model.isFolder ? openFolder(model.filePath) : openFile(model.filePath) }
             }
 
             // Area with the file name, file size...
@@ -88,7 +89,7 @@ Item {
                         bottomMargin: 10*u
                     }
 
-                    text: isFolder ? "..." : qsTr("Last modified: ") + model.lastModified
+                    text: model.isFolder ? "..." : qsTr("Last modified: ") + model.lastModified
                     color: Qt.rgba(109/255, 109/255, 109/255, 1)
                     maximumLineCount: 1
                     wrapMode: Text.Wrap
@@ -106,7 +107,7 @@ Item {
                         bottomMargin: 10*u
                     }
 
-                    text: isFolder ? "" : model.fileSize
+                    text: model.isFolder ? "" : model.fileSize
                     color: Qt.rgba(109/255, 109/255, 109/255, 1)
                     font.pixelSize: 13*u
                 }

@@ -32,7 +32,8 @@ public:
 
 private slots:
 
-    void nodeClicked(const QString &path);
+    void openFolder(const QString &path);
+    void openFile(const QString &path);
 
 };
 

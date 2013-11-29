@@ -28,11 +28,18 @@ NodeListView::NodeListView(NodeListModel *model)
     this->rootContext()->setContextProperty("nodeListModel", model);
     this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
 
-    connect(this->rootObject(), SIGNAL(nodeClicked(QString)), this, SLOT(nodeClicked(QString)));
+    connect(this->rootObject(), SIGNAL(openFolder(QString)), this, SLOT(openFolder(QString)));
+    connect(this->rootObject(), SIGNAL(openFile(QString)), this, SLOT(openFile(QString)));
 }
 
-void NodeListView::nodeClicked(const QString &path)
+void NodeListView::openFolder(const QString &path)
 {
     NodeListController *nodeListController = new NodeListController();
     MainWindow::getInstance()->push(nodeListController->createView(path));
+}
+
+void NodeListView::openFile(const QString &path)
+{
+    Q_UNUSED(path);
+    // TODO
 }
