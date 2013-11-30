@@ -48,10 +48,11 @@ protected slots:
 protected:
 
     /**
-     * Makes an OAuth GET/PUT request with the consumer info and token stored in "loginInfo".
+     * Makes an OAuth GET/PUT/DELETE request with the consumer info and token stored in "loginInfo".
      */
     QNetworkReply *oauthGetRequest(const QString &url);
     QNetworkReply *oauthPutRequest(const QString &url, const QByteArray &data);
+    QNetworkReply *oauthDeleteRequest(const QString &url);
 
     /**
      * Prints a Json with format.

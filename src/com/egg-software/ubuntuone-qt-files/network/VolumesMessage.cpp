@@ -31,6 +31,7 @@ VolumesMessage::VolumesMessage(LoginInfoDTO *loginInfo, QObject *parent)
 {
 
 }
+
 VolumesMessage::~VolumesMessage()
 {
     delete this->volumesReply;

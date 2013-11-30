@@ -53,13 +53,13 @@ class LoginMessage : public AbstractMessage
 public:
 
     /**
-     * Initialices the LoginMessage with the specified username and password.
+     * Initialices the LoginMessage.
      */
     LoginMessage(QObject *parent = 0);
     virtual ~LoginMessage();
 
     /**
-     * Starts the login process.
+     * Starts the login process with the specified username and password.
      * @see loginFinished()
      * @see loginError()
      */
