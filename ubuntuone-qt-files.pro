@@ -1,5 +1,5 @@
 QT    += qml quick widgets network sql
-TARGET = ubuntuoneqtfiles
+TARGET = U1-Files
 
 VERSION = 0.1
 DEFINES += VERSION=\\\"$$VERSION\\\"

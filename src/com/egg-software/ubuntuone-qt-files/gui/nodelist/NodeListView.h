@@ -35,6 +35,13 @@ private slots:
     void openFolder(const QString &path);
     void openFile(const QString &path);
 
+    void renameNode(const QString &path, const QString &newName);
+    void deleteNode(const QString &path);
+
+    void downloadFile(const QString &path);
+    void publishFile(const QString &path, bool publish);
+    void copyPublicLink(const QString &path);
+
 };
 
 #endif // FILESLISTVIEW_H

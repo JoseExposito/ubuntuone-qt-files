@@ -30,6 +30,13 @@ NodeListView::NodeListView(NodeListModel *model)
 
     connect(this->rootObject(), SIGNAL(openFolder(QString)), this, SLOT(openFolder(QString)));
     connect(this->rootObject(), SIGNAL(openFile(QString)), this, SLOT(openFile(QString)));
+
+    connect(this->rootObject(), SIGNAL(renameNode(QString, QString)), this, SLOT(renameNode(QString, QString)));
+    connect(this->rootObject(), SIGNAL(deleteNode(QString)), this, SLOT(deleteNode(QString)));
+
+    connect(this->rootObject(), SIGNAL(downloadFile(QString)), this, SLOT(downloadFile(QString)));
+    connect(this->rootObject(), SIGNAL(publishFile(QString, bool)), this, SLOT(publishFile(QString, bool)));
+    connect(this->rootObject(), SIGNAL(copyPublicLink(QString)), this, SLOT(copyPublicLink(QString)));
 }
 
 void NodeListView::openFolder(const QString &path)
@@ -40,6 +47,30 @@ void NodeListView::openFolder(const QString &path)
 
 void NodeListView::openFile(const QString &path)
 {
-    Q_UNUSED(path);
-    // TODO
+    qDebug() << "Open file: " << path;
+}
+
+void NodeListView::renameNode(const QString &path, const QString &newName)
+{
+    qDebug() << "Rename file: " << path << " to " << newName;
+}
+
+void NodeListView::deleteNode(const QString &path)
+{
+    qDebug() << "Delete file: " << path;
+}
+
+void NodeListView::downloadFile(const QString &path)
+{
+    qDebug() << "Download file: " << path;
+}
+
+void NodeListView::publishFile(const QString &path, bool publish)
+{
+    qDebug() << (publish ? "Publis file: " : "Unpublis file: ") << path;
+}
+
+void NodeListView::copyPublicLink(const QString &path)
+{
+    qDebug() << "Copy public link: " << path;
 }

@@ -13,14 +13,76 @@
  * <http://www.gnu.org/licenses/>.
  */
 import QtQuick 2.1
+import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import "qrc:/."
 
 Item {
 
+    // Navigation signals
     signal openFolder(string path)
     signal openFile(string path)
 
+    // Folder & files action signals
+    signal renameNode(string path, string newName)
+    signal deleteNode(string path)
+
+    // File action signals
+    signal downloadFile(string path)
+    signal publishFile(string path, bool publish)
+    signal copyPublicLink(string path)
+
+    /**
+     * Popup menu for folders, excluding volumes.
+     */
+    Menu {
+        id: folderMenu
+        property string filePath: ""
+
+        MenuItem {
+            text: qsTr("Rename")
+            onTriggered: { renameNode(folderMenu.filePath, "New name") } // TODO Show a message box
+        }
+        MenuItem {
+            text: qsTr("Delete")
+            onTriggered: { deleteNode(folderMenu.filePath) }
+        }
+    }
+
+    /**
+     * Popup menu for files.
+     */
+    Menu {
+        id: fileMenu
+        property string filePath: ""
+        property bool isPublic: false
+
+        MenuItem {
+            text: qsTr("Download")
+            onTriggered: { downloadFile(fileMenu.filePath) }
+        }
+        MenuItem {
+            text: fileMenu.isPublic ? qsTr("Unpublish file") : qsTr("Publish file")
+            onTriggered: { publishFile(fileMenu.filePath, !fileMenu.isPublic) }
+        }
+        MenuItem {
+            visible: fileMenu.isPublic
+            text: qsTr("Copy publick link")
+            onTriggered: { copyPublicLink(fileMenu.filePath) }
+        }
+        MenuItem {
+            text: qsTr("Rename")
+            onTriggered: { renameNode(fileMenu.filePath, "New name") } // TODO Show a message box
+        }
+        MenuItem {
+            text: qsTr("Delete")
+            onTriggered: { deleteNode(fileMenu.filePath) }
+        }
+    }
+
+    /**
+     * Delegate for the node list view.
+     */
     Component {
         id: nodeListDelegate
 
@@ -32,6 +94,16 @@ Item {
                 id: cellMouseArea
                 anchors.fill: parent
                 onClicked: { model.isFolder ? openFolder(model.filePath) : openFile(model.filePath) }
+                onPressAndHold: {
+                    if (model.isFolder) {
+                        folderMenu.filePath = model.filePath
+                        folderMenu.popup()
+                    } else {
+                        fileMenu.filePath = model.filePath
+                        fileMenu.isPublic =model.isPublic
+                        fileMenu.popup()
+                    }
+                }
             }
 
             // Area with the file name, file size...
