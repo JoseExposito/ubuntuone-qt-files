@@ -93,15 +93,15 @@ Item {
             MouseArea {
                 id: cellMouseArea
                 anchors.fill: parent
-                onClicked: { model.isFolder ? openFolder(model.filePath) : openFile(model.filePath) }
+                onClicked: { model.isFile ? openFile(model.filePath) : openFolder(model.filePath) }
                 onPressAndHold: {
-                    if (model.isFolder) {
+                    if (model.isFile) {
+                        fileMenu.filePath = model.filePath
+                        fileMenu.isPublic = model.isPublic
+                        fileMenu.popup()
+                    } else if (model.isDirectory) {
                         folderMenu.filePath = model.filePath
                         folderMenu.popup()
-                    } else {
-                        fileMenu.filePath = model.filePath
-                        fileMenu.isPublic =model.isPublic
-                        fileMenu.popup()
                     }
                 }
             }
@@ -161,7 +161,7 @@ Item {
                         bottomMargin: 10*u
                     }
 
-                    text: model.isFolder ? "..." : qsTr("Last modified: ") + model.lastModified
+                    text: model.isFile ? qsTr("Last modified: ") + model.lastModified : "..."
                     color: Qt.rgba(109/255, 109/255, 109/255, 1)
                     maximumLineCount: 1
                     wrapMode: Text.Wrap
@@ -179,7 +179,7 @@ Item {
                         bottomMargin: 10*u
                     }
 
-                    text: model.isFolder ? "" : model.fileSize
+                    text: model.isFile ? model.fileSize : ""
                     color: Qt.rgba(109/255, 109/255, 109/255, 1)
                     font.pixelSize: 13*u
                 }
