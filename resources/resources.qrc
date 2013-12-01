@@ -12,9 +12,11 @@
     <qresource prefix="/theme">
         <file>navigation_previous_item.png</file>
     </qresource>
-    <qresource prefix="/mimetype">
+    <qresource prefix="/icons">
         <file>folder.png</file>
         <file>image.png</file>
         <file>file.png</file>
+        <file>published_indicator.png</file>
+        <file>saved_indicator.png</file>
     </qresource>
 </RCC>

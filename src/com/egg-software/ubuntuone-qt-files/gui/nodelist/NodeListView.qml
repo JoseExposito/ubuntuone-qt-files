@@ -135,11 +135,10 @@ Item {
                     id: nodeFilename
                     anchors {
                         left: nodeIcon.right
-                        right: parent.right
+                        right: nodePublicIndicator.left
                         top: parent.top
                         leftMargin: 10*u
                         topMargin: 10*u
-                        rightMargin: 10*u
                     }
 
                     text: model.fileName
@@ -147,6 +146,25 @@ Item {
                     wrapMode: Text.Wrap
                     elide: Text.ElideMiddle
                     font.bold: true
+                }
+
+                // Published indicator
+                Image {
+                    id: nodePublicIndicator
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        leftMargin: 10*u
+                        topMargin: 10*u
+                        rightMargin: 10*u
+                    }
+                    width: 16*u
+                    height: 16*u
+
+                    source: "qrc:/icons/published_indicator.png"
+                    fillMode: Image.PreserveAspectFit
+                    antialiasing: true
+                    visible: model.isPublic
                 }
 
                 // Last modified

@@ -137,14 +137,14 @@ QString NodeListModel::humanReadableSize(int size) const
 QString NodeListModel::fileIcon(NodeInfoDTO::NodeType type, const QString &fileName) const
 {
     if (type != NodeInfoDTO::FILE)
-        return "qrc:/mimetype/folder.png";
+        return "qrc:/icons/folder.png";
 
     static QStringList imageExtension;
     imageExtension << "bmp" << "gif" << "jpg" << "jpeg" << "png" << "tif" << "tiff" << "svg";
 
     QString extension = QFileInfo(fileName).suffix();
     if (imageExtension.contains(extension.toLower()))
-        return "qrc:/mimetype/image.png";
+        return "qrc:/icons/image.png";
     else
-        return "qrc:/mimetype/file.png";
+        return "qrc:/icons/file.png";
 }

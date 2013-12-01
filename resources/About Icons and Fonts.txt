@@ -1,0 +1,10 @@
+
+[+] ICONS:
+
+	- Icons “file.png”, “folder.png” and “image.png” from http://gentleface.com/free_icon_set.html
+	- Icons “published_indicator.png” and “saved_indicator.png” from ubuntu-mobile-icons package <http://packages.ubuntu.com/raring/gnome/ubuntu-mobile-icons>
+	- Slides[0-3].png from ubuntuone-ios-files <https://launchpad.net/ubuntuone-ios-files>
+
+[+] FONTS:
+
+	- “Ubuntu.ttf” and “Ubuntu-B.ttf” from Ubuntu Font Family <http://font.ubuntu.com/>
