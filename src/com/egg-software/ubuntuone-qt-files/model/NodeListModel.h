@@ -29,6 +29,7 @@ class NodeListModel : public QAbstractListModel
 public:
 
     NodeListModel(QObject *parent = 0);
+    virtual ~NodeListModel();
     void setNodeList(QList<NodeInfoDTO *> *nodeList);
 
 protected:

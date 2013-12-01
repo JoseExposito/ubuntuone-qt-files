@@ -36,6 +36,15 @@ NodeListModel::NodeListModel(QObject *parent)
 
 }
 
+NodeListModel::~NodeListModel()
+{
+    if (this->nodeList != NULL) {
+        for (int n=0; n<this->nodeList->count(); n++)
+            delete this->nodeList->at(n);
+        delete this->nodeList;
+    }
+}
+
 void NodeListModel::setNodeList(QList<NodeInfoDTO *> *nodeList)
 {
     // Delete all the showed rows
@@ -46,9 +55,8 @@ void NodeListModel::setNodeList(QList<NodeInfoDTO *> *nodeList)
     if (this->nodeList != NULL) {
         for (int n=0; n<this->nodeList->count(); n++)
             delete this->nodeList->at(n);
+        delete this->nodeList;
     }
-    delete this->nodeList;
-
     this->nodeList = nodeList;
 
     // Inset the new rows
