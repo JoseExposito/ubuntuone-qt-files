@@ -72,7 +72,7 @@ void NodeListView::downloadFile(const QString &path)
 
 void NodeListView::publishFile(const QString &path, bool publish)
 {
-    qDebug() << (publish ? "Publis file: " : "Unpublis file: ") << path;
+    this->fileAction->publishNode(path, publish);
 }
 
 void NodeListView::copyPublicLink(const QString &path)

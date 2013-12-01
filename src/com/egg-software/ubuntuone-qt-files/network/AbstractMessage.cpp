@@ -51,7 +51,7 @@ QNetworkReply *AbstractMessage::oauthPutRequest(const QString &url, const QByteA
     OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
     OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
     OAuth::Client oauth(&consumer, &token);
-    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Post, url.toStdString()));
+    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Put, url.toStdString()));
     QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
     return this->networkAccessManager->put(QNetworkRequest(baseUrl + "?" + oauthParameters), data);
 }
@@ -64,6 +64,11 @@ QNetworkReply *AbstractMessage::oauthDeleteRequest(const QString &url)
     QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Delete, url.toStdString()));
     QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
     return this->networkAccessManager->deleteResource(QNetworkRequest(baseUrl + "?" + oauthParameters));
+}
+
+QString AbstractMessage::toPercentEncoding(const QString &url)
+{
+    return QUrl::toPercentEncoding(url).replace("%2F", "/");
 }
 
 void AbstractMessage::printJson(const QString &json)

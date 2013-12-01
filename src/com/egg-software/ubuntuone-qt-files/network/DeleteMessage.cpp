@@ -38,8 +38,7 @@ void DeleteMessage::deleteNode(const QString &path)
 {
     qDebug() << "[+] DELETING NODE:";
     qDebug() << "\t Path: " << path;
-    QString url = DELETE_URL + QUrl::toPercentEncoding(path).replace("%2F", "/");
-    qDebug() << "\t URL: " << url;
+    QString url = DELETE_URL + this->toPercentEncoding(path);
     this->deleteReply = this->oauthDeleteRequest(url);
 }
 

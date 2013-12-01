@@ -12,32 +12,32 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef DELETEMESSAGE_H
-#define DELETEMESSAGE_H
+#ifndef PUBLISHMESSAGE_H
+#define PUBLISHMESSAGE_H
 
 #include "AbstractMessage.h"
 
 /**
- * The DeleteMessage class allows to delete files or folders from the Ubuntu One server.
+ * The PublishMessage allows to publish or unpublish the specified node. The node MUST be a file.
  *
  * DOCUMENTATION:
- * https://one.ubuntu.com/developer/files/store_files/cloud#delete--api-file_storage-v1-(volume)-(path)
+ * https://one.ubuntu.com/developer/files/store_files/cloud#put--api-file_storage-v1-(volume)-(path)
  */
-class DeleteMessage : public AbstractMessage
+class PublishMessage : public AbstractMessage
 {
     Q_OBJECT
 
 public:
 
-    DeleteMessage(LoginInfoDTO *loginInfo, QObject *parent = 0);
-    virtual ~DeleteMessage();
+    PublishMessage(LoginInfoDTO *loginInfo, QObject *parent = 0);
+    virtual ~PublishMessage();
 
     /**
-     * Deletes the specified node.
-     * @see nodeDeleted()
-     * @see errorDeletingNode()
+     * Publish or unpublish the specified node.
+     * @see nodePublished()
+     * @see errorPublishingNode()
      */
-    void deleteNode(const QString &path);
+    void publishNode(const QString &path, bool publish);
 
 protected slots:
 
@@ -46,20 +46,22 @@ protected slots:
 signals:
 
     /**
-     * Emmited when the node is correctly deleted.
+     * Emmited when the node is correctly published or unpublished.
      */
-    void nodeDeleted();
+    void nodePublished();
 
     /**
-     * Emmited when an error happens getting the volume list.
+     * Emmited when an error happens publishing or publishing the node.
      * @param errorDescription Human readable description of the problem.
      */
-    void errorDeletingNode(const QString &errorDescription);
+    void errorPublishingNode(const QString &errorDescription);
+
 
 private:
 
-    QNetworkReply *deleteReply;
+    QNetworkReply *publishReply;
+    bool publishing;
 
 };
 
-#endif // DELETEMESSAGE_H
+#endif // PUBLISHMESSAGE_H

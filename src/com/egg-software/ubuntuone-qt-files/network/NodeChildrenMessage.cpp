@@ -47,7 +47,7 @@ NodeChildrenMessage::~NodeChildrenMessage()
 void NodeChildrenMessage::getNodeChildren(const QString &path)
 {
     qDebug() << "[+] GETTING CHILDREN FOR NODE: " << path;
-    QString requestUrl = BASE_URL + QUrl::toPercentEncoding(path).replace("%2F", "/") + FINAL_URL;
+    QString requestUrl = BASE_URL + this->toPercentEncoding(path) + FINAL_URL;
     qDebug() << "\t Request URL: " << requestUrl;
     this->childrenReply = this->oauthGetRequest(requestUrl);
 }

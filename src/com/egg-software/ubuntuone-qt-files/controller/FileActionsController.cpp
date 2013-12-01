@@ -16,6 +16,7 @@
 #include "DatabaseManager.h"
 #include "LoginInfoDTO.h"
 #include "DeleteMessage.h"
+#include "PublishMessage.h"
 
 FileActionsController::FileActionsController(QObject *parent)
     : QObject(parent),
@@ -32,4 +33,14 @@ void FileActionsController::deleteNode(const QString &path)
     connect(deleteMessage, SIGNAL(errorDeletingNode(QString)), this, SIGNAL(actionFinishedWithError(QString)));
     connect(deleteMessage, SIGNAL(errorDeletingNode(QString)), deleteMessage, SLOT(deleteLater()));
     deleteMessage->deleteNode(path);
+}
+
+void FileActionsController::publishNode(const QString &path, bool publish)
+{
+    PublishMessage *publishMessage = new PublishMessage(this->loginInfo, this);
+    connect(publishMessage, SIGNAL(nodePublished()), this, SIGNAL(actionFinished()));
+    connect(publishMessage, SIGNAL(nodePublished()), publishMessage, SLOT(deleteLater()));
+    connect(publishMessage, SIGNAL(errorPublishingNode(QString)), this, SIGNAL(actionFinishedWithError(QString)));
+    connect(publishMessage, SIGNAL(errorPublishingNode(QString)), publishMessage, SLOT(deleteLater()));
+    publishMessage->publishNode(path, publish);
 }

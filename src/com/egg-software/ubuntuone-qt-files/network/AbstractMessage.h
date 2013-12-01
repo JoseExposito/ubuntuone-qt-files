@@ -55,6 +55,11 @@ protected:
     QNetworkReply *oauthDeleteRequest(const QString &url);
 
     /**
+     * Escapes the specified URL.
+     */
+    QString toPercentEncoding(const QString &url);
+
+    /**
      * Prints a Json with format.
      */
     void printJson(const QString &json);

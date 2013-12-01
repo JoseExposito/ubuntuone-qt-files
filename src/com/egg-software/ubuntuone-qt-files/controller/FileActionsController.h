@@ -27,6 +27,7 @@ public:
     FileActionsController(QObject *parent = 0);
 
     void deleteNode(const QString &path);
+    void publishNode(const QString &path, bool publish);
 
 signals:
 
