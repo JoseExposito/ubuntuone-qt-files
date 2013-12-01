@@ -17,11 +17,13 @@
 #include "Utils.h"
 #include "NodeListModel.h"
 #include "NodeListController.h"
+#include "FileActionsController.h"
 #include <QtCore>
 #include <QtQuick>
 
 NodeListView::NodeListView(NodeListModel *model)
-    : QQuickView(MainWindow::getInstance()->getWindow())
+    : QQuickView(MainWindow::getInstance()->getWindow()),
+      fileAction(new FileActionsController(this))
 {
     Utils::setGlobalProperties(this->rootContext());
     model->setParent(this);
@@ -37,6 +39,9 @@ NodeListView::NodeListView(NodeListModel *model)
     connect(this->rootObject(), SIGNAL(downloadFile(QString)), this, SLOT(downloadFile(QString)));
     connect(this->rootObject(), SIGNAL(publishFile(QString, bool)), this, SLOT(publishFile(QString, bool)));
     connect(this->rootObject(), SIGNAL(copyPublicLink(QString)), this, SLOT(copyPublicLink(QString)));
+
+    connect(this->fileAction, SIGNAL(actionFinished()), this, SLOT(refreshView()));
+    connect(this->fileAction, SIGNAL(actionFinishedWithError(QString)), this, SLOT(showError(QString)));
 }
 
 void NodeListView::openFolder(const QString &path)
@@ -57,7 +62,7 @@ void NodeListView::renameNode(const QString &path, const QString &newName)
 
 void NodeListView::deleteNode(const QString &path)
 {
-    qDebug() << "Delete file: " << path;
+    this->fileAction->deleteNode(path);
 }
 
 void NodeListView::downloadFile(const QString &path)
@@ -73,4 +78,16 @@ void NodeListView::publishFile(const QString &path, bool publish)
 void NodeListView::copyPublicLink(const QString &path)
 {
     qDebug() << "Copy public link: " << path;
+}
+
+void NodeListView::refreshView()
+{
+    // TODO Refresh the list
+    qDebug() << "Refresh me";
+}
+
+void NodeListView::showError(const QString &errorMessage)
+{
+    // TODO Add an alert or something similar
+    qDebug() << "Show error: " << errorMessage;
 }

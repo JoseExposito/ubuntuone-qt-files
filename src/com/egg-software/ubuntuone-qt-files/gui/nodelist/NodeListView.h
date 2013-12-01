@@ -17,6 +17,7 @@
 
 #include <QtQuick/QQuickView>
 class NodeListModel;
+class FileActionsController;
 
 /**
  * The NodeListView class shows a list of files, folders or volumes and allows to navigate between directories and
@@ -41,6 +42,17 @@ private slots:
     void downloadFile(const QString &path);
     void publishFile(const QString &path, bool publish);
     void copyPublicLink(const QString &path);
+
+    void refreshView();
+    void showError(const QString &errorMessage);
+
+private:
+
+    /**
+     * @see refreshView()
+     * @see showError()
+     */
+    FileActionsController *fileAction;
 
 };
 
