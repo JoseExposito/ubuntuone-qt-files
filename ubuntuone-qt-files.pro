@@ -1,4 +1,5 @@
 QT    += qml quick widgets network sql
+android: QT += androidextras
 TARGET = U1-Files
 
 VERSION = 0.1

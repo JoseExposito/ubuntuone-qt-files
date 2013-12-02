@@ -18,6 +18,7 @@
 #include "NodeListModel.h"
 #include "NodeListController.h"
 #include "FileActionsController.h"
+#include "DownloadsController.h"
 #include <QtCore>
 #include <QtQuick>
 
@@ -70,8 +71,9 @@ void NodeListView::deleteNode(const QString &path)
 
 void NodeListView::downloadFile(const QString &path)
 {
-    // TODO
-    qDebug() << "Download file: " << path;
+    // TODO Return NodeInfoDTO from the view
+    DownloadsController *downloader = new DownloadsController(this);
+    downloader->downloadNode(new NodeInfoDTO(NodeInfoDTO::FILE, path, "/content"+path, QFileInfo(path).fileName()));
 }
 
 void NodeListView::publishFile(const QString &path, bool publish)
