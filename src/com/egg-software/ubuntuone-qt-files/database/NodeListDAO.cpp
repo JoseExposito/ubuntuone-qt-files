@@ -22,11 +22,13 @@ namespace
     static const QString PARENT_PATH_COLUMN   = "parent_path";
     static const QString TYPE_COLUMN          = "type";
     static const QString PATH_COLUMN          = "path";
+    static const QString CONTENT_PATH_COLUMN  = "content_path";
     static const QString NAME_COLUMN          = "name";
     static const QString IS_PUBLIC_COLUMN     = "is_public";
     static const QString PUBLIC_URL_COLUMN    = "public_url";
     static const QString SIZE_COLUMN          = "size";
     static const QString LAST_MODIFIED_COLUMN = "last_modified";
+    static const QString HASH_COLUMN          = "hash";
 }
 
 NodeListDAO::NodeListDAO(QSqlDatabase *db, QObject *parent)
@@ -42,11 +44,13 @@ void NodeListDAO::createTableIfNotExists() const
             + PARENT_PATH_COLUMN +" TEXT, "
             + TYPE_COLUMN + " INTEGER, "
             + PATH_COLUMN +" TEXT, "
+            + CONTENT_PATH_COLUMN +" TEXT, "
             + NAME_COLUMN + " TEXT, "
             + IS_PUBLIC_COLUMN + " INTEGER, "
             + PUBLIC_URL_COLUMN + " TEXT, "
             + SIZE_COLUMN + " INTEGER, "
-            + LAST_MODIFIED_COLUMN + " TEXT)")) {
+            + LAST_MODIFIED_COLUMN + " TEXT, "
+            + HASH_COLUMN + " TEXT)")) {
         this->printQueryError(query);
     }
 }
@@ -67,11 +71,13 @@ void NodeListDAO::setNodeList(const QString &parentPath, QList<NodeInfoDTO *> *n
                         + "\"" + parentPath + "\", "
                         + "\"" + QString::number(node->type) + "\", "
                         + "\"" + node->path + "\", "
+                        + "\"" + node->contentPath + "\", "
                         + "\"" + node->name + "\", "
                         + "\"" + QString::number(node->isPublic) + "\", "
                         + "\"" + node->publicUrl + "\", "
                         + "\"" + QString::number(node->size) + "\", "
-                        + "\"" + node->lastModified + "\")")) {
+                        + "\"" + node->lastModified + "\", "
+                        + "\"" + node->hash + "\")")) {
             this->printQueryError(query);
             return;
         }
@@ -83,11 +89,13 @@ QList<NodeInfoDTO *> *NodeListDAO::getNodeList(const QString &parentPath)
     QSqlQuery query;
     if (!query.exec("SELECT " + TYPE_COLUMN + ", "
             + PATH_COLUMN + ", "
+            + CONTENT_PATH_COLUMN + ", "
             + NAME_COLUMN + ", "
             + IS_PUBLIC_COLUMN + ", "
             + PUBLIC_URL_COLUMN + ", "
             + SIZE_COLUMN + ", "
-            + LAST_MODIFIED_COLUMN
+            + LAST_MODIFIED_COLUMN + ", "
+            + HASH_COLUMN
             + " FROM " + NODES_TABLE
             + " WHERE " + PARENT_PATH_COLUMN + " = \"" + parentPath + "\"")) {
         this->printQueryError(query);
@@ -97,11 +105,12 @@ QList<NodeInfoDTO *> *NodeListDAO::getNodeList(const QString &parentPath)
     QList<NodeInfoDTO *> *nodeList = new QList<NodeInfoDTO *>();
     while (query.next()) {
         NodeInfoDTO *node = new NodeInfoDTO((NodeInfoDTO::NodeType)query.value(0).toInt(),
-                query.value(1).toString(), query.value(2).toString());
-        node->isPublic     = query.value(3).toBool();
-        node->publicUrl    = query.value(4).toString();
-        node->size         = query.value(5).toInt();
-        node->lastModified = query.value(6).toString();
+                query.value(1).toString(), query.value(2).toString(), query.value(3).toString());
+        node->isPublic     = query.value(4).toBool();
+        node->publicUrl    = query.value(5).toString();
+        node->size         = query.value(6).toInt();
+        node->lastModified = query.value(7).toString();
+        node->hash         = query.value(8).toString();
         nodeList->append(node);
     }
 

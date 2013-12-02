@@ -33,24 +33,31 @@ public:
         DIRECTORY
     };
 
-    NodeInfoDTO(NodeType type, const QString &path, const QString &name)
+    NodeInfoDTO(NodeType type, const QString &path, const QString &contentPath, const QString &name)
         : type(type),
           path(path),
+          contentPath(contentPath),
           name(name),
           isPublic(false),
           publicUrl(""),
           size(-1),
-          lastModified("") {}
+          lastModified(""),
+          hash("")
+    {
 
-    NodeType type; /// Volume root (Ubuntu One), volume, file or directory
-    QString path; /// Complete path: /~/Ubuntu One/file.txt
-    QString name; /// Human readable file name: file.txt
+    }
+
+    NodeType type;       /// Volume root (Ubuntu One), volume, file or directory
+    QString path;        /// Complete path: /~/Ubuntu One/file.txt
+    QString contentPath; /// Path used to download the file: /content/~/Ubuntu One/file.txt
+    QString name;        /// Human readable file name: file.txt
 
     // Only for type FILE
-    bool isPublic; /// If the file is public or not
-    QString publicUrl; /// If the file is public, the public URL
-    int size; /// File size in bytes
+    bool isPublic;        /// If the file is public or not
+    QString publicUrl;    /// If the file is public, the public URL
+    int size;             /// File size in bytes
     QString lastModified; /// DD/MM/YYYY
+    QString hash;         /// SHA1 hash, used to know if the local file is up to date
 };
 
 

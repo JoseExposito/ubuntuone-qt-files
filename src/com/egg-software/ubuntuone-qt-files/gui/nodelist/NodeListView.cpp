@@ -52,11 +52,14 @@ void NodeListView::openFolder(const QString &path)
 
 void NodeListView::openFile(const QString &path)
 {
+    // TODO QDesktopServices::openUrl() is not working on Android
     qDebug() << "Open file: " << path;
 }
 
 void NodeListView::renameNode(const QString &path, const QString &newName)
 {
+    // TODO QInputDialog is not working on Android and is it not possible to build your own dialogs in QML, check the
+    //      Qt Quick Dialogs documentation, so for the moment... to do
     qDebug() << "Rename file: " << path << " to " << newName;
 }
 
@@ -67,6 +70,7 @@ void NodeListView::deleteNode(const QString &path)
 
 void NodeListView::downloadFile(const QString &path)
 {
+    // TODO
     qDebug() << "Download file: " << path;
 }
 
@@ -77,6 +81,7 @@ void NodeListView::publishFile(const QString &path, bool publish)
 
 void NodeListView::copyPublicLink(const QString &path)
 {
+    // TODO On iOS copy to the clipboard, on Android try to share the URL with other apps
     qDebug() << "Copy public link: " << path;
 }
 

@@ -25,10 +25,12 @@ namespace
     static const QString CHILDREN_ID      = "children";
     static const QString TYPE_ID          = "kind";
     static const QString PATH_ID          = "resource_path";
+    static const QString CONTENT_PATH_ID  = "content_path";
     static const QString IS_PUBLIC_ID     = "is_public";
     static const QString PUBLIC_URL_ID    = "public_url";
     static const QString SIZE_ID          = "size";
     static const QString LAST_MODIFIED_ID = "when_changed";
+    static const QString HASH_ID          = "hash";
 }
 
 
@@ -82,24 +84,28 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
                     ? NodeInfoDTO::DIRECTORY
                     : NodeInfoDTO::FILE;
             QString nodePath         = child.toObject().value(PATH_ID).toString();
+            QString nodeContentPath  = child.toObject().value(CONTENT_PATH_ID).toString();
             QString nodeName         = QFileInfo(nodePath).fileName();
             bool    nodeIsPublic     = false;
             QString nodePublicUrl    = "";
             int     nodeSize         = -1;
             QString nodeLastModified = "";
+            QString nodeHash         = "";
 
             if (nodeType == NodeInfoDTO::FILE) {
                     nodeIsPublic     = child.toObject().value(IS_PUBLIC_ID).toBool();
                     nodePublicUrl    = child.toObject().value(PUBLIC_URL_ID).toString();
                     nodeSize         = child.toObject().value(SIZE_ID).toInt();
                     nodeLastModified = child.toObject().value(LAST_MODIFIED_ID).toString();
+                    nodeHash         = child.toObject().value(HASH_ID).toString();
             }
 
-            NodeInfoDTO *nodeInfo  = new NodeInfoDTO(nodeType, nodePath, nodeName);
+            NodeInfoDTO *nodeInfo  = new NodeInfoDTO(nodeType, nodePath, nodeContentPath, nodeName);
             nodeInfo->isPublic     = nodeIsPublic;
             nodeInfo->publicUrl    = nodePublicUrl;
             nodeInfo->size         = nodeSize;
             nodeInfo->lastModified = nodeLastModified;
+            nodeInfo->hash         = nodeHash;
             childrenList->append(nodeInfo);
         }
 

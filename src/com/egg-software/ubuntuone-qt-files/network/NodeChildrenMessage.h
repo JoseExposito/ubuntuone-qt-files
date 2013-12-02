@@ -25,8 +25,8 @@
  * with this format:
  *
  * {
- *    "kind": "directory",
- *    "when_created": "2012-08-25T15:34:49Z",
+ *     "kind": "directory",
+ *     "when_created": "2012-08-25T15:34:49Z",
  *     "generation": 0, "has_children": true,
  *     "content_path": "/content/~/Ubuntu One",
  *     "generation_created": 0,

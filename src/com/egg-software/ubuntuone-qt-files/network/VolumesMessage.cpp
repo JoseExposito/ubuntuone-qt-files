@@ -21,8 +21,9 @@ namespace
 {
     static const QString GET_VOLUMES_URL = "https://one.ubuntu.com/api/file_storage/v1/volumes";
 
-    static const QString PATH_ID = "node_path";
-    static const QString TYPE_ID = "type";
+    static const QString PATH_ID         = "node_path";
+    static const QString CONTENT_PATH_ID = "content_path";
+    static const QString TYPE_ID         = "type";
 }
 
 VolumesMessage::VolumesMessage(LoginInfoDTO *loginInfo, QObject *parent)
@@ -66,8 +67,9 @@ void VolumesMessage::replyFinished(QNetworkReply *reply)
                     ? NodeInfoDTO::VOLUME_ROOT
                     : NodeInfoDTO::VOLUME;
             QString nodePath = volume.toObject().value(PATH_ID).toString();
+            QString nodeContentPath = volume.toObject().value(CONTENT_PATH_ID).toString();
             QString nodeName = QFileInfo(nodePath).fileName();
-            NodeInfoDTO *nodeInfo = new NodeInfoDTO(nodeType, nodePath, nodeName);
+            NodeInfoDTO *nodeInfo = new NodeInfoDTO(nodeType, nodePath, nodeContentPath, nodeName);
             volumeList->append(nodeInfo);
         }
 
