@@ -18,6 +18,7 @@
 #include "DatabaseManager.h"
 #include "DownloadNodeMessage.h"
 #include <QtCore>
+#include <QtGui>
 #ifdef Q_OS_ANDROID
 #include <QtAndroidExtras>
 #endif
@@ -28,16 +29,26 @@ DownloadsController::DownloadsController(QObject *parent)
 
 }
 
-void DownloadsController::downloadNode(NodeInfoDTO *node)
+void DownloadsController::downloadAndOpenNode(NodeInfoDTO *node)
 {
     // TODO Check if the file exists, check the SHA1... (QCryptographicHash)
 
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
-    QString savePath = this->getLocalPath(node->path);
-    QDir().mkpath(QFileInfo(savePath).dir().path());
+    this->savePath = this->getLocalPath(node->path);
+    QDir().mkpath(QFileInfo(this->savePath).dir().path());
 
     DownloadNodeMessage *downloadMessage = new DownloadNodeMessage(loginInfo, this);
-    downloadMessage->downloadNode(node, savePath);
+    connect(downloadMessage, SIGNAL(downloadProgress(int)), this, SIGNAL(downloadProgress(int)));
+    connect(downloadMessage, SIGNAL(errorDownloadingNode(QString)), this, SIGNAL(errorDownloadingNode(QString)));
+    connect(downloadMessage, SIGNAL(nodeDownloaded()), this, SLOT(nodeDownloaded()));
+    downloadMessage->downloadNode(node, this->savePath);
+}
+
+void DownloadsController::nodeDownloaded()
+{
+    // TODO QDesktopServices::openUrl is not working on Android, check with a stable version of Qt or implement in java:
+    //      http://stackoverflow.com/a/11088980/1204395
+    QDesktopServices::openUrl(QUrl::fromLocalFile(this->savePath));
 }
 
 QString DownloadsController::getLocalPath(const QString &nodePath)
@@ -47,7 +58,7 @@ QString DownloadsController::getLocalPath(const QString &nodePath)
 #ifdef Q_OS_ANDROID
     QAndroidJniObject mediaDir = QAndroidJniObject::callStaticObjectMethod("android/os/Environment",
             "getExternalStorageDirectory", "()Ljava/io/File;");
-    QAndroidJniObject mediaPath = mediaDir.callObjectMethod( "getAbsolutePath", "()Ljava/lang/String;" );
+    QAndroidJniObject mediaPath = mediaDir.callObjectMethod("getAbsolutePath", "()Ljava/lang/String;");
     baseLocalPath = mediaPath.toString() + "/u1/";
     QAndroidJniEnvironment env;
     if (env->ExceptionCheck())

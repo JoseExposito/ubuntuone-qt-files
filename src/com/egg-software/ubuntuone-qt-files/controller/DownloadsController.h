@@ -33,7 +33,16 @@ public:
     /**
      * Donloads the specified node.
      */
-    void downloadNode(NodeInfoDTO *node);
+    void downloadAndOpenNode(NodeInfoDTO *node);
+
+signals:
+
+    void downloadProgress(int progress);
+    void errorDownloadingNode(const QString &errorDescription);
+
+private slots:
+
+    void nodeDownloaded();
 
 private:
 
@@ -43,6 +52,7 @@ private:
      */
     QString getLocalPath(const QString &nodePath);
 
+    QString savePath;
 };
 
 #endif // DOWNLOADERCONTROLLER_H

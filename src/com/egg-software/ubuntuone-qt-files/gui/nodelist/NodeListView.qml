@@ -28,7 +28,6 @@ Item {
     signal deleteNode(int nodeIndex)
 
     // File action signals
-    signal downloadFile(int nodeIndex)
     signal publishFile(int nodeIndex, bool publish)
     signal copyPublicLink(int nodeIndex)
 
@@ -39,6 +38,10 @@ Item {
         id: folderMenu
         property int nodeIndex: -1
 
+        MenuItem {
+            text: qsTr("Open")
+            onTriggered: { openFolder(folderMenu.nodeIndex) }
+        }
         MenuItem {
             text: qsTr("Rename")
             onTriggered: { renameNode(folderMenu.nodeIndex, "New name") } // TODO Show a message box
@@ -58,8 +61,8 @@ Item {
         property bool isPublic: false
 
         MenuItem {
-            text: qsTr("Download")
-            onTriggered: { downloadFile(fileMenu.nodeIndex) }
+            text: qsTr("Open")
+            onTriggered: { openFile(fileMenu.nodeIndex) }
         }
         MenuItem {
             text: fileMenu.isPublic ? qsTr("Unpublish file") : qsTr("Publish file")

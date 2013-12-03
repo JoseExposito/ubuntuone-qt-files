@@ -55,9 +55,8 @@ void NodeListView::openFolder(int nodeIndex)
 
 void NodeListView::openFile(int nodeIndex)
 {
-    // TODO QDesktopServices::openUrl() is not working on Android
-    QString path = this->model->getNode(nodeIndex)->path;
-    qDebug() << "Open file: " << path;
+    DownloadsController *downloader = new DownloadsController(this);
+    downloader->downloadAndOpenNode(this->model->getNode(nodeIndex));
 }
 
 void NodeListView::renameNode(int nodeIndex, const QString &newName)
@@ -72,12 +71,6 @@ void NodeListView::deleteNode(int nodeIndex)
 {
     QString path = this->model->getNode(nodeIndex)->path;
     this->fileAction->deleteNode(path);
-}
-
-void NodeListView::downloadFile(int nodeIndex)
-{
-    DownloadsController *downloader = new DownloadsController(this);
-    downloader->downloadNode(this->model->getNode(nodeIndex));
 }
 
 void NodeListView::publishFile(int nodeIndex, bool publish)

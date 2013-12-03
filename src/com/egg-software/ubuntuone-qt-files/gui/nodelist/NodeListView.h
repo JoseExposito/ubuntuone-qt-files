@@ -38,8 +38,6 @@ private slots:
 
     void renameNode(int nodeIndex, const QString &newName);
     void deleteNode(int nodeIndex);
-
-    void downloadFile(int nodeIndex);
     void publishFile(int nodeIndex, bool publish);
     void copyPublicLink(int nodeIndex);
 
