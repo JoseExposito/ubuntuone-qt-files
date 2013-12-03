@@ -17,16 +17,17 @@
 
 namespace
 {
-    static const int FILE_TYPE_VOLUME_ROLE    = Qt::UserRole + 1;
-    static const int FILE_TYPE_FILE_ROLE      = Qt::UserRole + 2;
-    static const int FILE_TYPE_DIRECTORY_ROLE = Qt::UserRole + 3;
-    static const int FILE_PATH_ROLE           = Qt::UserRole + 4;
-    static const int FILE_NAME_ROLE           = Qt::UserRole + 5;
-    static const int IS_PUBLIC_ROLE           = Qt::UserRole + 6;
-    static const int PUBLIC_URL_ROLE          = Qt::UserRole + 7;
-    static const int FILE_SIZE_ROLE           = Qt::UserRole + 8;
-    static const int LAST_MODIFIED_ROLE       = Qt::UserRole + 9;
-    static const int FILE_ICON_ROLE           = Qt::UserRole + 10;
+    static const int INDEX_ROLE               = Qt::UserRole + 1;
+    static const int FILE_TYPE_VOLUME_ROLE    = Qt::UserRole + 2;
+    static const int FILE_TYPE_FILE_ROLE      = Qt::UserRole + 3;
+    static const int FILE_TYPE_DIRECTORY_ROLE = Qt::UserRole + 4;
+    static const int FILE_PATH_ROLE           = Qt::UserRole + 5;
+    static const int FILE_NAME_ROLE           = Qt::UserRole + 6;
+    static const int IS_PUBLIC_ROLE           = Qt::UserRole + 7;
+    static const int PUBLIC_URL_ROLE          = Qt::UserRole + 8;
+    static const int FILE_SIZE_ROLE           = Qt::UserRole + 9;
+    static const int LAST_MODIFIED_ROLE       = Qt::UserRole + 10;
+    static const int FILE_ICON_ROLE           = Qt::UserRole + 11;
 }
 
 NodeListModel::NodeListModel(QObject *parent)
@@ -64,6 +65,13 @@ void NodeListModel::setNodeList(QList<NodeInfoDTO *> *nodeList)
     this->endInsertRows();
 }
 
+NodeInfoDTO *NodeListModel::getNode(int index)
+{
+    if (this->nodeList == NULL || index < 0 || index >= this->nodeList->count())
+        return NULL;
+    return this->nodeList->at(index);
+}
+
 int NodeListModel::rowCount(const QModelIndex &/*parent*/) const
 {
     return (this->nodeList != NULL) ? this->nodeList->count() : 0;
@@ -72,6 +80,7 @@ int NodeListModel::rowCount(const QModelIndex &/*parent*/) const
 QHash<int, QByteArray> NodeListModel::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
+    roles.insert(INDEX_ROLE, QByteArray("index"));
     roles.insert(FILE_TYPE_VOLUME_ROLE, QByteArray("isVolume"));
     roles.insert(FILE_TYPE_FILE_ROLE, QByteArray("isFile"));
     roles.insert(FILE_TYPE_DIRECTORY_ROLE, QByteArray("isDirectory"));
@@ -92,6 +101,8 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
 
     NodeInfoDTO *nodeInfo = this->nodeList->at(index.row());
     switch (role) {
+    case INDEX_ROLE:
+        return index.row();
     case FILE_TYPE_VOLUME_ROLE:
         return nodeInfo->type == NodeInfoDTO::VOLUME || nodeInfo->type == NodeInfoDTO::VOLUME_ROOT;
     case FILE_TYPE_FILE_ROLE:

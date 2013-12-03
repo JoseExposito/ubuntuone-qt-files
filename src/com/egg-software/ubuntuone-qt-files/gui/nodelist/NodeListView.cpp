@@ -24,66 +24,72 @@
 
 NodeListView::NodeListView(NodeListModel *model)
     : QQuickView(MainWindow::getInstance()->getWindow()),
-      fileAction(new FileActionsController(this))
+      fileAction(new FileActionsController(this)),
+      model(model)
 {
     Utils::setGlobalProperties(this->rootContext());
-    model->setParent(this);
-    this->rootContext()->setContextProperty("nodeListModel", model);
+    this->model->setParent(this);
+    this->rootContext()->setContextProperty("nodeListModel", this->model);
     this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
 
-    connect(this->rootObject(), SIGNAL(openFolder(QString)), this, SLOT(openFolder(QString)));
-    connect(this->rootObject(), SIGNAL(openFile(QString)), this, SLOT(openFile(QString)));
+    connect(this->rootObject(), SIGNAL(openFolder(int)), this, SLOT(openFolder(int)));
+    connect(this->rootObject(), SIGNAL(openFile(int)), this, SLOT(openFile(int)));
 
-    connect(this->rootObject(), SIGNAL(renameNode(QString, QString)), this, SLOT(renameNode(QString, QString)));
-    connect(this->rootObject(), SIGNAL(deleteNode(QString)), this, SLOT(deleteNode(QString)));
+    connect(this->rootObject(), SIGNAL(renameNode(int, QString)), this, SLOT(renameNode(int, QString)));
+    connect(this->rootObject(), SIGNAL(deleteNode(int)), this, SLOT(deleteNode(int)));
 
-    connect(this->rootObject(), SIGNAL(downloadFile(QString)), this, SLOT(downloadFile(QString)));
-    connect(this->rootObject(), SIGNAL(publishFile(QString, bool)), this, SLOT(publishFile(QString, bool)));
-    connect(this->rootObject(), SIGNAL(copyPublicLink(QString)), this, SLOT(copyPublicLink(QString)));
+    connect(this->rootObject(), SIGNAL(downloadFile(int)), this, SLOT(downloadFile(int)));
+    connect(this->rootObject(), SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
+    connect(this->rootObject(), SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
 
     connect(this->fileAction, SIGNAL(actionFinished()), this, SLOT(refreshView()));
     connect(this->fileAction, SIGNAL(actionFinishedWithError(QString)), this, SLOT(showError(QString)));
 }
 
-void NodeListView::openFolder(const QString &path)
+void NodeListView::openFolder(int nodeIndex)
 {
+    QString path = this->model->getNode(nodeIndex)->path;
     NodeListController *nodeListController = new NodeListController();
     MainWindow::getInstance()->push(nodeListController->createView(path));
 }
 
-void NodeListView::openFile(const QString &path)
+void NodeListView::openFile(int nodeIndex)
 {
     // TODO QDesktopServices::openUrl() is not working on Android
+    QString path = this->model->getNode(nodeIndex)->path;
     qDebug() << "Open file: " << path;
 }
 
-void NodeListView::renameNode(const QString &path, const QString &newName)
+void NodeListView::renameNode(int nodeIndex, const QString &newName)
 {
     // TODO QInputDialog is not working on Android and is it not possible to build your own dialogs in QML, check the
     //      Qt Quick Dialogs documentation, so for the moment... to do
+    QString path = this->model->getNode(nodeIndex)->path;
     qDebug() << "Rename file: " << path << " to " << newName;
 }
 
-void NodeListView::deleteNode(const QString &path)
+void NodeListView::deleteNode(int nodeIndex)
 {
+    QString path = this->model->getNode(nodeIndex)->path;
     this->fileAction->deleteNode(path);
 }
 
-void NodeListView::downloadFile(const QString &path)
+void NodeListView::downloadFile(int nodeIndex)
 {
-    // TODO Return NodeInfoDTO from the view
     DownloadsController *downloader = new DownloadsController(this);
-    downloader->downloadNode(new NodeInfoDTO(NodeInfoDTO::FILE, path, "/content"+path, QFileInfo(path).fileName()));
+    downloader->downloadNode(this->model->getNode(nodeIndex));
 }
 
-void NodeListView::publishFile(const QString &path, bool publish)
+void NodeListView::publishFile(int nodeIndex, bool publish)
 {
+    QString path = this->model->getNode(nodeIndex)->path;
     this->fileAction->publishNode(path, publish);
 }
 
-void NodeListView::copyPublicLink(const QString &path)
+void NodeListView::copyPublicLink(int nodeIndex)
 {
     // TODO On iOS copy to the clipboard, on Android try to share the URL with other apps
+    QString path = this->model->getNode(nodeIndex)->path;
     qDebug() << "Copy public link: " << path;
 }
 

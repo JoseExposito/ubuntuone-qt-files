@@ -20,32 +20,32 @@ import "qrc:/."
 Item {
 
     // Navigation signals
-    signal openFolder(string path)
-    signal openFile(string path)
+    signal openFolder(int nodeIndex)
+    signal openFile(int nodeIndex)
 
     // Folder & files action signals
-    signal renameNode(string path, string newName)
-    signal deleteNode(string path)
+    signal renameNode(int nodeIndex, string newName)
+    signal deleteNode(int nodeIndex)
 
     // File action signals
-    signal downloadFile(string path)
-    signal publishFile(string path, bool publish)
-    signal copyPublicLink(string path)
+    signal downloadFile(int nodeIndex)
+    signal publishFile(int nodeIndex, bool publish)
+    signal copyPublicLink(int nodeIndex)
 
     /**
      * Popup menu for folders, excluding volumes.
      */
     Menu {
         id: folderMenu
-        property string filePath: ""
+        property int nodeIndex: -1
 
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(folderMenu.filePath, "New name") } // TODO Show a message box
+            onTriggered: { renameNode(folderMenu.nodeIndex, "New name") } // TODO Show a message box
         }
         MenuItem {
             text: qsTr("Delete")
-            onTriggered: { deleteNode(folderMenu.filePath) }
+            onTriggered: { deleteNode(folderMenu.nodeIndex) }
         }
     }
 
@@ -54,29 +54,29 @@ Item {
      */
     Menu {
         id: fileMenu
-        property string filePath: ""
+        property int nodeIndex: -1
         property bool isPublic: false
 
         MenuItem {
             text: qsTr("Download")
-            onTriggered: { downloadFile(fileMenu.filePath) }
+            onTriggered: { downloadFile(fileMenu.nodeIndex) }
         }
         MenuItem {
             text: fileMenu.isPublic ? qsTr("Unpublish file") : qsTr("Publish file")
-            onTriggered: { publishFile(fileMenu.filePath, !fileMenu.isPublic) }
+            onTriggered: { publishFile(fileMenu.nodeIndex, !fileMenu.isPublic) }
         }
         MenuItem {
             visible: fileMenu.isPublic
             text: qsTr("Copy publick link")
-            onTriggered: { copyPublicLink(fileMenu.filePath) }
+            onTriggered: { copyPublicLink(fileMenu.nodeIndex) }
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(fileMenu.filePath, "New name") } // TODO Show a message box
+            onTriggered: { renameNode(fileMenu.nodeIndex, "New name") } // TODO Show a message box
         }
         MenuItem {
             text: qsTr("Delete")
-            onTriggered: { deleteNode(fileMenu.filePath) }
+            onTriggered: { deleteNode(fileMenu.nodeIndex) }
         }
     }
 
@@ -93,14 +93,14 @@ Item {
             MouseArea {
                 id: cellMouseArea
                 anchors.fill: parent
-                onClicked: { model.isFile ? openFile(model.filePath) : openFolder(model.filePath) }
+                onClicked: { model.isFile ? openFile(model.index) : openFolder(model.index) }
                 onPressAndHold: {
                     if (model.isFile) {
-                        fileMenu.filePath = model.filePath
+                        fileMenu.nodeIndex = model.index
                         fileMenu.isPublic = model.isPublic
                         fileMenu.popup()
                     } else if (model.isDirectory) {
-                        folderMenu.filePath = model.filePath
+                        folderMenu.nodeIndex = model.index
                         folderMenu.popup()
                     }
                 }

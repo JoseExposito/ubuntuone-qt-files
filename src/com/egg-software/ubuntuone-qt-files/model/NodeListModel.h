@@ -31,6 +31,7 @@ public:
     NodeListModel(QObject *parent = 0);
     virtual ~NodeListModel();
     void setNodeList(QList<NodeInfoDTO *> *nodeList);
+    NodeInfoDTO *getNode(int index);
 
 protected:
 

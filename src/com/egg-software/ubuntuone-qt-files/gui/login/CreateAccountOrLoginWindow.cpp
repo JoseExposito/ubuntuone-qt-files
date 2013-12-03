@@ -37,5 +37,5 @@ void CreateAccountOrLoginWindow::loginClicked()
 
 void CreateAccountOrLoginWindow::createAccountClicked()
 {
-    // TODO
+    // TODO Allow to create account
 }
