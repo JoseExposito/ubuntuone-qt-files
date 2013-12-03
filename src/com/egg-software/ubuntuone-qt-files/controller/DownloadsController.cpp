@@ -18,9 +18,10 @@
 #include "DatabaseManager.h"
 #include "DownloadNodeMessage.h"
 #include <QtCore>
-#include <QtGui>
 #ifdef Q_OS_ANDROID
-#include <QtAndroidExtras>
+#include "AndroidUtils.h"
+#else
+#include <QtGui>
 #endif
 
 DownloadsController::DownloadsController(QObject *parent)
@@ -46,23 +47,19 @@ void DownloadsController::downloadAndOpenNode(NodeInfoDTO *node)
 
 void DownloadsController::nodeDownloaded()
 {
-    // TODO QDesktopServices::openUrl is not working on Android, check with a stable version of Qt or implement in java:
-    //      http://stackoverflow.com/a/11088980/1204395
+#ifdef Q_OS_ANDROID
+    AndroidUtils::openFile(this->savePath);
+#else
     QDesktopServices::openUrl(QUrl::fromLocalFile(this->savePath));
+#endif
 }
 
 QString DownloadsController::getLocalPath(const QString &nodePath)
 {
-    QString baseLocalPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-
 #ifdef Q_OS_ANDROID
-    QAndroidJniObject mediaDir = QAndroidJniObject::callStaticObjectMethod("android/os/Environment",
-            "getExternalStorageDirectory", "()Ljava/io/File;");
-    QAndroidJniObject mediaPath = mediaDir.callObjectMethod("getAbsolutePath", "()Ljava/lang/String;");
-    baseLocalPath = mediaPath.toString() + "/u1/";
-    QAndroidJniEnvironment env;
-    if (env->ExceptionCheck())
-            env->ExceptionClear();
+    QString baseLocalPath = AndroidUtils::getSDCardPath() + "/u1";
+#else
+    QString baseLocalPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #endif
 
     return baseLocalPath.endsWith(QDir::separator())
