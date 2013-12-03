@@ -52,7 +52,10 @@ Item {
             text: qsTr("Sign in")
             style: UbuntuButtonStyle { }
             Layout.fillWidth: true
-            onClicked: { login(usernameTextField.text, passwordTextField.text) }
+            onClicked: {
+                Qt.inputMethod.hide()
+                login(usernameTextField.text, passwordTextField.text)
+            }
         }
     }
 

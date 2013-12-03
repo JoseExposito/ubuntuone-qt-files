@@ -51,7 +51,10 @@ ColumnLayout {
                     id: backmouse
                     anchors.fill: parent
                     anchors.margins: -10
-                    onClicked: popStackView()
+                    onClicked: {
+                        Qt.inputMethod.hide()
+                        popStackView()
+                    }
                 }
             }
 
