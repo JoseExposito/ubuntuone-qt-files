@@ -32,25 +32,41 @@ DownloadsController::DownloadsController(QObject *parent)
 
 void DownloadsController::downloadAndOpenNode(NodeInfoDTO *node)
 {
-    // TODO Check if the file exists, check the SHA1... (QCryptographicHash)
+    // Check if the file is downloaded and in the last version
+    this->localPath = this->getLocalPath(node->path);
 
+    if (QFileInfo(this->localPath).exists()) {
+        // Calculate the SHA1 of the local file to determine is it is in the last version
+        QFile file(this->localPath);
+        file.open(QIODevice::ReadOnly);
+        QCryptographicHash fileSHA1(QCryptographicHash::Sha1);
+        fileSHA1.addData(file.readAll());
+        file.close();
+        QString sha1 = "sha1:" + fileSHA1.result().toHex();
+
+        if (node->hash == sha1) {
+            qDebug() << "The file is in the last version, opening it without download";
+            this->nodeDownloaded();
+            return;
+        }
+    }
+
+    // Download and open the file
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
-    this->savePath = this->getLocalPath(node->path);
-    QDir().mkpath(QFileInfo(this->savePath).dir().path());
-
+    QDir().mkpath(QFileInfo(this->localPath).dir().path());
     DownloadNodeMessage *downloadMessage = new DownloadNodeMessage(loginInfo, this);
     connect(downloadMessage, SIGNAL(downloadProgress(int)), this, SIGNAL(downloadProgress(int)));
     connect(downloadMessage, SIGNAL(errorDownloadingNode(QString)), this, SIGNAL(errorDownloadingNode(QString)));
     connect(downloadMessage, SIGNAL(nodeDownloaded()), this, SLOT(nodeDownloaded()));
-    downloadMessage->downloadNode(node, this->savePath);
+    downloadMessage->downloadNode(node, this->localPath);
 }
 
 void DownloadsController::nodeDownloaded()
 {
 #ifdef Q_OS_ANDROID
-    AndroidUtils::openFile(this->savePath);
+    AndroidUtils::openFile(this->localPath);
 #else
-    QDesktopServices::openUrl(QUrl::fromLocalFile(this->savePath));
+    QDesktopServices::openUrl(QUrl::fromLocalFile(this->localPath));
 #endif
 }
 

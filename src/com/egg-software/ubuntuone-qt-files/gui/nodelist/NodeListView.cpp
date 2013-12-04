@@ -38,7 +38,6 @@ NodeListView::NodeListView(NodeListModel *model)
     connect(this->rootObject(), SIGNAL(renameNode(int, QString)), this, SLOT(renameNode(int, QString)));
     connect(this->rootObject(), SIGNAL(deleteNode(int)), this, SLOT(deleteNode(int)));
 
-    connect(this->rootObject(), SIGNAL(downloadFile(int)), this, SLOT(downloadFile(int)));
     connect(this->rootObject(), SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
     connect(this->rootObject(), SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
 

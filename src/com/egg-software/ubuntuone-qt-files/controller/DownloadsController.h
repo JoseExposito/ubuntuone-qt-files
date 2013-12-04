@@ -52,7 +52,7 @@ private:
      */
     QString getLocalPath(const QString &nodePath);
 
-    QString savePath;
+    QString localPath;
 };
 
 #endif // DOWNLOADERCONTROLLER_H
