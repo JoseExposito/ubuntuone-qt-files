@@ -80,9 +80,8 @@ void NodeListView::publishFile(int nodeIndex, bool publish)
 
 void NodeListView::copyPublicLink(int nodeIndex)
 {
-    // TODO On iOS copy to the clipboard, on Android try to share the URL with other apps
-    QString path = this->model->getNode(nodeIndex)->path;
-    qDebug() << "Copy public link: " << path;
+    NodeInfoDTO *node = this->model->getNode(nodeIndex);
+    this->fileAction->shareLink(node);
 }
 
 void NodeListView::refreshView()

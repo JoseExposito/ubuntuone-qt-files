@@ -44,4 +44,12 @@ public class AndroidUtils extends org.qtproject.qt5.android.bindings.QtActivity 
     public static void getSDCardPath(String retValue) {
         retValue = Environment.getExternalStorageDirectory().getAbsolutePath();
     }
+
+    public static void shareLink(String link) {
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.putExtra(Intent.EXTRA_TEXT, link);
+        instance.startActivity(Intent.createChooser(share, ""));
+    }
+
 }

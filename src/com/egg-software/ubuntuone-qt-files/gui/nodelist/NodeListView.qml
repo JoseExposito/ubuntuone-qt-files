@@ -70,7 +70,7 @@ Item {
         }
         MenuItem {
             visible: fileMenu.isPublic
-            text: qsTr("Copy publick link")
+            text: qsTr("Share publick link")
             onTriggered: { copyPublicLink(fileMenu.nodeIndex) }
         }
         MenuItem {

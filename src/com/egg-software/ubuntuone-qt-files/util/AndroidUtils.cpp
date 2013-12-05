@@ -32,4 +32,11 @@ QString AndroidUtils::getSDCardPath()
     return mediaPath.toString();
 }
 
+void AndroidUtils::shareLink(const QString &link)
+{
+    QAndroidJniObject jLink = QAndroidJniObject::fromString(link);
+    QAndroidJniObject::callStaticMethod<void>("org/qtproject/ubuntuqtfiles/AndroidUtils",
+            "shareLink", "(Ljava/lang/String;)V", jLink.object<jstring>());
+}
+
 #endif // Q_OS_ANDROID

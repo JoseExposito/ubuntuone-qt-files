@@ -17,6 +17,12 @@
 #include "LoginInfoDTO.h"
 #include "DeleteMessage.h"
 #include "PublishMessage.h"
+#include "NodeInfoDTO.h"
+#ifdef Q_OS_ANDROID
+#include "AndroidUtils.h"
+#endif
+#include <QtCore>
+#include <QtGui>
 
 FileActionsController::FileActionsController(QObject *parent)
     : QObject(parent),
@@ -43,4 +49,21 @@ void FileActionsController::publishNode(const QString &path, bool publish)
     connect(publishMessage, SIGNAL(errorPublishingNode(QString)), this, SIGNAL(actionFinishedWithError(QString)));
     connect(publishMessage, SIGNAL(errorPublishingNode(QString)), publishMessage, SLOT(deleteLater()));
     publishMessage->publishNode(path, publish);
+}
+
+void FileActionsController::shareLink(NodeInfoDTO *node)
+{
+    if (!node->isPublic) {
+        emit this->actionFinishedWithError(tr("Error sharing the public link"));
+        return;
+    }
+
+    emit this->actionFinished();
+
+#ifdef Q_OS_ANDROID
+    AndroidUtils::shareLink(node->publicUrl);
+#else
+    QClipboard *clipboard = qApp->clipboard();
+    clipboard->setText(node->publicUrl);
+#endif
 }

@@ -17,6 +17,7 @@
 
 #include <QtCore/QObject>
 class LoginInfoDTO;
+class NodeInfoDTO;
 
 class FileActionsController : public QObject
 {
@@ -28,6 +29,7 @@ public:
 
     void deleteNode(const QString &path);
     void publishNode(const QString &path, bool publish);
+    void shareLink(NodeInfoDTO *node);
 
 signals:
 

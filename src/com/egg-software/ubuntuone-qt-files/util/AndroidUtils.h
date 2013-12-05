@@ -36,6 +36,11 @@ public:
      */
     static QString getSDCardPath();
 
+    /**
+     * Shares the specified link on Android.
+     */
+    static void shareLink(const QString &link);
+
 };
 
 #endif // Q_OS_ANDROID
