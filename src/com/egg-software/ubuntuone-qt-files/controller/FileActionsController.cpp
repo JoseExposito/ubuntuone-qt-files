@@ -31,24 +31,24 @@ FileActionsController::FileActionsController(QObject *parent)
 
 }
 
-void FileActionsController::deleteNode(const QString &path)
+void FileActionsController::deleteNode(NodeInfoDTO *node)
 {
     DeleteMessage *deleteMessage = new DeleteMessage(this->loginInfo, this);
     connect(deleteMessage, SIGNAL(nodeDeleted()), this, SIGNAL(actionFinished()));
     connect(deleteMessage, SIGNAL(nodeDeleted()), deleteMessage, SLOT(deleteLater()));
     connect(deleteMessage, SIGNAL(errorDeletingNode(QString)), this, SIGNAL(actionFinishedWithError(QString)));
     connect(deleteMessage, SIGNAL(errorDeletingNode(QString)), deleteMessage, SLOT(deleteLater()));
-    deleteMessage->deleteNode(path);
+    deleteMessage->deleteNode(node->path);
 }
 
-void FileActionsController::publishNode(const QString &path, bool publish)
+void FileActionsController::publishNode(NodeInfoDTO *node, bool publish)
 {
     PublishMessage *publishMessage = new PublishMessage(this->loginInfo, this);
     connect(publishMessage, SIGNAL(nodePublished()), this, SIGNAL(actionFinished()));
     connect(publishMessage, SIGNAL(nodePublished()), publishMessage, SLOT(deleteLater()));
     connect(publishMessage, SIGNAL(errorPublishingNode(QString)), this, SIGNAL(actionFinishedWithError(QString)));
     connect(publishMessage, SIGNAL(errorPublishingNode(QString)), publishMessage, SLOT(deleteLater()));
-    publishMessage->publishNode(path, publish);
+    publishMessage->publishNode(node->path, publish);
 }
 
 void FileActionsController::shareLink(NodeInfoDTO *node)

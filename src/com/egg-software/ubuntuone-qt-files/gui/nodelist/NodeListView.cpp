@@ -68,14 +68,14 @@ void NodeListView::renameNode(int nodeIndex, const QString &newName)
 
 void NodeListView::deleteNode(int nodeIndex)
 {
-    QString path = this->model->getNode(nodeIndex)->path;
-    this->fileAction->deleteNode(path);
+    NodeInfoDTO *node = this->model->getNode(nodeIndex);
+    this->fileAction->deleteNode(node);
 }
 
 void NodeListView::publishFile(int nodeIndex, bool publish)
 {
-    QString path = this->model->getNode(nodeIndex)->path;
-    this->fileAction->publishNode(path, publish);
+    NodeInfoDTO *node = this->model->getNode(nodeIndex);
+    this->fileAction->publishNode(node, publish);
 }
 
 void NodeListView::copyPublicLink(int nodeIndex)
