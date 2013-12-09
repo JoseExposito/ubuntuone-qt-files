@@ -45,6 +45,11 @@ NodeListView::NodeListView(NodeListModel *model)
     connect(this->fileAction, SIGNAL(actionFinishedWithError(QString)), this, SLOT(showError(QString)));
 }
 
+void NodeListView::setToolBarTitle(const QString &toolBarTitle)
+{
+    this->rootObject()->setProperty("toolBarTitle", toolBarTitle);
+}
+
 void NodeListView::openFolder(int nodeIndex)
 {
     QString path = this->model->getNode(nodeIndex)->path;

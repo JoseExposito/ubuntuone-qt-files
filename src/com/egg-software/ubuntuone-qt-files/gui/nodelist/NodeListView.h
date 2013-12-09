@@ -30,6 +30,7 @@ class NodeListView : public QQuickView
 public:
 
     NodeListView(NodeListModel *model);
+    void setToolBarTitle(const QString &toolBarTitle);
 
 private slots:
 

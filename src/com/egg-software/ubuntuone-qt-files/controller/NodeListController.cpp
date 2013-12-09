@@ -39,6 +39,7 @@ NodeListView *NodeListController::createView(const QString &path)
     // Create the view and set the model
     this->nodeListModel = new NodeListModel();
     NodeListView *nodeListView = new NodeListView(this->nodeListModel);
+    nodeListView->setToolBarTitle(path == ROOT_PATH ? "Ubuntu One" : QFileInfo(path).fileName());
 
     // Load the model from the database if possible
     QList<NodeInfoDTO *> *nodeList = DatabaseManager::getInstance()->getNodeList(path);

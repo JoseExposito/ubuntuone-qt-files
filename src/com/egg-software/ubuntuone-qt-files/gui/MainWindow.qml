@@ -49,6 +49,7 @@ ApplicationWindow {
     toolBar: MainWindowToolbar {
         id: mainWindowToolbar
         enabled: !loadingSpinner.visible
+        toolBarTitle: stackView.currentItem == null ? "" : stackView.currentItem.toolBarTitle
     }
 
     /**

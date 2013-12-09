@@ -18,6 +18,9 @@ import QtQuick.Layouts 1.1
 import "qrc:/."
 
 ColumnLayout {
+
+        property string toolBarTitle: ""
+
         width: parent.width
         height: toolBarArea.height + bottomSeparator.height
 
@@ -65,7 +68,10 @@ ColumnLayout {
                 Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
                 font.pixelSize: 30*u
                 color: "black"
-                text: "Ubuntu One" // TODO To a property
+                text: toolBarTitle
+                maximumLineCount: 1
+                wrapMode: Text.Wrap
+                elide: Text.ElideMiddle
             }
         }
 

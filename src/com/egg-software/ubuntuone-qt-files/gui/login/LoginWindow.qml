@@ -19,6 +19,7 @@ import "qrc:/."
 
 Item {
 
+    property string toolBarTitle: qsTr("Sign in")
     signal login(string username, string password)
 
     ColumnLayout {

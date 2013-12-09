@@ -19,9 +19,9 @@ import "qrc:/."
 
 Item {
 
+    property string toolBarTitle: qsTr("Welcome")
     signal loginClicked()
     signal createAccountClicked()
-
 
     // Slideshows
     SlideViewer {

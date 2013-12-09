@@ -19,6 +19,8 @@ import "qrc:/."
 
 Item {
 
+    property string toolBarTitle: qsTr("Ubuntu One")
+
     // Navigation signals
     signal openFolder(int nodeIndex)
     signal openFile(int nodeIndex)
