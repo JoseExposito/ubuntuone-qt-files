@@ -69,13 +69,13 @@ signals:
      * Returns the volume list.
      * IMPORTANT: Delete "volumeList" and its content after use it.
      */
-    void volumeList(QList<NodeInfoDTO *> *volumeList);
+    void volumeList(const QString &path, QList<NodeInfoDTO *> *volumeList);
 
     /**
      * Emmited when an error happens getting the volume list.
      * @param errorDescription Human readable description of the problem.
      */
-    void errorGettingVolumes(const QString &errorDescription);
+    void errorGettingVolumes(const QString &path, const QString &errorDescription);
 
 protected slots:
 

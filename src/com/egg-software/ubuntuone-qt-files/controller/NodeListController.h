@@ -17,6 +17,7 @@
 
 #include <QtCore/QObject>
 #include <QtCore/QList>
+#include <QtCore/QHash>
 #include "NodeInfoDTO.h"
 class NodeListView;
 class NodeListModel;
@@ -31,11 +32,14 @@ class NodeListController : public QObject
 
 public:
 
-    NodeListController(QObject *parent = 0);
+    /**
+     * Only method to get an instance of the class.
+     * @return The single instance of the class.
+     */
+    static NodeListController *getInstance();
 
     /**
      * Creates a view to visualize the specified path.
-     * IMPORTANT: Free the view after use it.
      */
     NodeListView *createView(const QString &path);
 
@@ -46,18 +50,21 @@ public:
 
 private slots:
 
-    void nodeListReceived(QList<NodeInfoDTO *> *nodeList);
-    void errorGettingNodeList(const QString &errorDescription);
+    void nodeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList);
+    void errorGettingNodeList(const QString &path, const QString &errorDescription);
 
 private:
 
     /**
-     * Model attached to the view returned in createView(). It is stored to be able to update it when the data from the
-     * Uuntu One server is returned.
+     * QHash that stores all the views identified by their path.
      */
-    NodeListModel *nodeListModel;
+    QHash<QString /*View path*/, NodeListView * /*The view*/> views;
 
-    QString path;
+    // Singleton
+    static NodeListController *instance;
+    NodeListController() {}
+    NodeListController(const NodeListController &);
+    const NodeListController &operator = (const NodeListController &);
 
 };
 

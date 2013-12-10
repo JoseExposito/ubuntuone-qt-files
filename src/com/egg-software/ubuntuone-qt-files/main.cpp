@@ -25,11 +25,10 @@ int main(int argc, char *argv[])
 
     DatabaseManager *db = DatabaseManager::getInstance();
     MainWindow *mainWindow = MainWindow::getInstance();
-    NodeListController *nodeListController = new NodeListController();
 
     QQuickView *initialView = (db->getLoginInfo() == NULL)
             ? (QQuickView *)new CreateAccountOrLoginWindow()
-            : (QQuickView *)nodeListController->createView(NodeListController::ROOT_PATH);
+            : (QQuickView *)NodeListController::getInstance()->createView(NodeListController::ROOT_PATH);
 
     mainWindow->push(initialView);
     mainWindow->show();
@@ -38,6 +37,5 @@ int main(int argc, char *argv[])
 
     // Free memory and exit
     db->closeDatabase();
-    delete nodeListController;
     return returnCode;
 }

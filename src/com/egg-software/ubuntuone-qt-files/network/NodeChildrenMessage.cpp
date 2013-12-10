@@ -48,8 +48,10 @@ NodeChildrenMessage::~NodeChildrenMessage()
 
 void NodeChildrenMessage::getNodeChildren(const QString &path)
 {
-    qDebug() << "[+] GETTING CHILDREN FOR NODE: " << path;
-    QString requestUrl = BASE_URL + this->toPercentEncoding(path) + FINAL_URL;
+    this->path = path;
+
+    qDebug() << "[+] GETTING CHILDREN FOR NODE: " << this->path;
+    QString requestUrl = BASE_URL + this->toPercentEncoding(this->path) + FINAL_URL;
     qDebug() << "\t Request URL: " << requestUrl;
     this->childrenReply = this->oauthGetRequest(requestUrl);
 }
@@ -59,7 +61,7 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
     if (reply == this->childrenReply) {
         if (this->childrenReply->error() != QNetworkReply::NoError) {
             qDebug() << "\t Error receiving the children list: " << this->childrenReply->errorString();
-            emit this->errorGettingChildren(tr("Error loading folder"));
+            emit this->errorGettingChildren(this->path, tr("Error loading folder"));
             return;
         }
 
@@ -72,7 +74,7 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
 
         if (jsonDoc.object().value(CHILDREN_ID).isNull()) {
             qDebug() << "\t Error parsing the message. Is the specified path a directory or a volume?";
-            emit this->errorGettingChildren(tr("Error loading folder"));
+            emit this->errorGettingChildren(this->path, tr("Error loading folder"));
             return;
         }
 
@@ -109,6 +111,6 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
             childrenList->append(nodeInfo);
         }
 
-        emit this->childrenList(childrenList);
+        emit this->childrenList(this->path, childrenList);
     }
 }

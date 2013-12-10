@@ -41,9 +41,8 @@ void LoginWindow::loginFinished()
 {
     delete this->loginController;
 
-    NodeListController *nodeListController = new NodeListController();
     MainWindow::getInstance()->clear();
-    MainWindow::getInstance()->push(nodeListController->createView(NodeListController::ROOT_PATH));
+    MainWindow::getInstance()->push(NodeListController::getInstance()->createView(NodeListController::ROOT_PATH));
 }
 
 void LoginWindow::loginError(const QString &errorDescription)

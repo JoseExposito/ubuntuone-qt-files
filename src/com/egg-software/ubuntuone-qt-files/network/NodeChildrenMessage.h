@@ -116,13 +116,13 @@ signals:
      * Returns the children list.
      * IMPORTANT: Delete "childrenList" and its content after use it.
      */
-    void childrenList(QList<NodeInfoDTO *> *childrenList);
+    void childrenList(const QString &path, QList<NodeInfoDTO *> *childrenList);
 
     /**
      * Emmited when an error happens getting the children list.
      * @param errorDescription Human readable description of the problem.
      */
-    void errorGettingChildren(const QString &errorDescription);
+    void errorGettingChildren(const QString &path, const QString &errorDescription);
 
 protected slots:
 
@@ -131,6 +131,7 @@ protected slots:
 private:
 
     QNetworkReply *childrenReply;
+    QString path;
 
 };
 

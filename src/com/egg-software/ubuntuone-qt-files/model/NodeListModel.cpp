@@ -36,13 +36,11 @@ namespace
     static const int LAST_MODIFIED_ROLE              = Qt::UserRole + 14;
     static const int FILE_ICON_ROLE                  = Qt::UserRole + 15;
     static const int FILE_DOWNLOAD_PROGRESS_ROLE     = Qt::UserRole + 16;
-
-
 }
 
 NodeListModel::NodeListModel(QObject *parent)
     : QAbstractListModel(parent),
-      nodeList(NULL)
+      nodeList(new QList<NodeInfoDTO *>())
 {
 
 }
@@ -58,17 +56,57 @@ NodeListModel::~NodeListModel()
 
 void NodeListModel::setNodeList(QList<NodeInfoDTO *> *nodeList)
 {
+    QList<NodeInfoDTO *> *newNodeList = new QList<NodeInfoDTO *>();
+    QList<NodeInfoDTO *> deleteNodeList;
+
+    // Check if the new node list have nodes already contained in the old node list
+    // Old nodes will be used
+    for (int i=0; i<nodeList->count(); i++) {
+        NodeInfoDTO *newNode = nodeList->at(i);
+        bool found = false;
+
+        for (int j=0; j<this->nodeList->count(); j++) {
+            NodeInfoDTO *oldNode = this->nodeList->at(j);
+            if (newNode->path == oldNode->path) {
+                found = true;
+                deleteNodeList.append(newNode);
+                newNodeList->append(oldNode);
+                break;
+            }
+        }
+
+        if (!found)
+            newNodeList->append(newNode);
+    }
+
+    // Check the unused node in the old node list and delete them
+    for (int i=0; i<this->nodeList->count(); i++) {
+        NodeInfoDTO *oldNode = this->nodeList->at(i);
+        bool found = false;
+
+        for (int j=0; j<nodeList->count(); j++) {
+            NodeInfoDTO *newNode = nodeList->at(j);
+            if (oldNode->path == newNode->path) {
+                found = true;
+                break;
+            }
+        }
+
+        if (!found)
+            deleteNodeList.append(oldNode);
+    }
+
     // Delete all the showed rows
     this->beginRemoveRows(QModelIndex(), 0, this->rowCount()-1);
     this->endRemoveRows();
 
+    // Delete the unused nodes
+    for (int n=0; n<deleteNodeList.count(); n++)
+        delete deleteNodeList.at(n);
+
     // Free and replace the node list
-    if (this->nodeList != NULL) {
-        for (int n=0; n<this->nodeList->count(); n++)
-            delete this->nodeList->at(n);
-        delete this->nodeList;
-    }
-    this->nodeList = nodeList;
+    delete this->nodeList;
+    this->nodeList = newNodeList;
 
     // Inset the new rows
     this->beginInsertRows(QModelIndex(), 0, this->nodeList->count() - 1);

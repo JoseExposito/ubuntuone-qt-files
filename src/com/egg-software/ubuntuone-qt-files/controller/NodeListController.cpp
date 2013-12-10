@@ -24,60 +24,81 @@
 #include <QtQuick>
 
 const QString NodeListController::ROOT_PATH = "/~/";
+NodeListController *NodeListController::instance = NULL;
 
-NodeListController::NodeListController(QObject *parent)
-    : QObject(parent),
-      nodeListModel(NULL)
+NodeListController *NodeListController::getInstance()
 {
-
+    if (NodeListController::instance == NULL)
+        NodeListController::instance = new NodeListController();
+    return NodeListController::instance;
 }
 
 NodeListView *NodeListController::createView(const QString &path)
 {
-    this->path = path;
+    NodeListView *nodeListView;
 
-    // Create the view and set the model
-    this->nodeListModel = new NodeListModel();
-    NodeListView *nodeListView = new NodeListView(this->nodeListModel);
-    nodeListView->setToolBarTitle(path == ROOT_PATH ? "Ubuntu One" : QFileInfo(path).fileName());
+    // If the view exists, refresh it. Otherwise create it.
+    if (this->views.contains(path)) {
+        nodeListView = this->views.value(path);
+    } else {
+        nodeListView = new NodeListView();
+        nodeListView->setToolBarTitle(path == ROOT_PATH ? "Ubuntu One" : QFileInfo(path).fileName());
+    }
+
+    // Add the view to the views hash
+    this->views.insert(path, nodeListView);
 
     // Load the model from the database if possible
     QList<NodeInfoDTO *> *nodeList = DatabaseManager::getInstance()->getNodeList(path);
     if (nodeList == NULL || nodeList->isEmpty()) {
         MainWindow::getInstance()->showLoadingSpinner(true, tr("Loading..."));
     } else {
-        this->nodeListModel->setNodeList(nodeList);
+        nodeListView->getModel()->setNodeList(nodeList);
     }
 
     // Update the cached data
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
     if (path == ROOT_PATH) {
         VolumesMessage *volumesMessage = new VolumesMessage(loginInfo, this);
-        connect(volumesMessage, SIGNAL(volumeList(QList<NodeInfoDTO*>*)),
-                this, SLOT(nodeListReceived(QList<NodeInfoDTO*>*)));
-        connect(volumesMessage, SIGNAL(errorGettingVolumes(QString)), this, SLOT(errorGettingNodeList(QString)));
+
+        connect(volumesMessage, SIGNAL(volumeList(QString,QList<NodeInfoDTO*>*)),
+                this, SLOT(nodeListReceived(QString,QList<NodeInfoDTO*>*)));
+        connect(volumesMessage, SIGNAL(errorGettingVolumes(QString,QString)),
+                this, SLOT(errorGettingNodeList(QString,QString)));
+        connect(volumesMessage, SIGNAL(volumeList(QString,QList<NodeInfoDTO*>*)), volumesMessage, SLOT(deleteLater()));
+        connect(volumesMessage, SIGNAL(errorGettingVolumes(QString,QString)), volumesMessage, SLOT(deleteLater()));
+
         volumesMessage->getVolumes();
 
     } else {
         NodeChildrenMessage *childrenMessage = new NodeChildrenMessage(loginInfo, this);
-        connect(childrenMessage, SIGNAL(childrenList(QList<NodeInfoDTO*>*)),
-                this, SLOT(nodeListReceived(QList<NodeInfoDTO*>*)));
-        connect(childrenMessage, SIGNAL(errorGettingChildren(QString)), this, SLOT(errorGettingNodeList(QString)));
+
+        connect(childrenMessage, SIGNAL(childrenList(QString,QList<NodeInfoDTO*>*)),
+                this, SLOT(nodeListReceived(QString,QList<NodeInfoDTO*>*)));
+        connect(childrenMessage, SIGNAL(errorGettingChildren(QString,QString)),
+                this, SLOT(errorGettingNodeList(QString,QString)));
+        connect(childrenMessage, SIGNAL(childrenList(QString,QList<NodeInfoDTO*>*)),
+                childrenMessage, SLOT(deleteLater()));
+        connect(childrenMessage, SIGNAL(errorGettingChildren(QString,QString)), childrenMessage, SLOT(deleteLater()));
+
         childrenMessage->getNodeChildren(path);
     }
 
     return nodeListView;
 }
 
-void NodeListController::nodeListReceived(QList<NodeInfoDTO *> *nodeList)
+void NodeListController::nodeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList)
 {
-    this->nodeListModel->setNodeList(nodeList);
-    DatabaseManager::getInstance()->setNodeList(this->path, nodeList);
+    DatabaseManager::getInstance()->setNodeList(path, nodeList);
+
+    NodeListView *view = this->views.value(path);
+    view->getModel()->setNodeList(nodeList);
+
     MainWindow::getInstance()->showLoadingSpinner(false);
 }
 
-void NodeListController::errorGettingNodeList(const QString &errorDescription)
+void NodeListController::errorGettingNodeList(const QString &path, const QString &errorDescription)
 {
     MainWindow::getInstance()->showLoadingSpinner(false);
-    qDebug() << "Error getting node list: " << errorDescription;
+    qDebug() << "Error getting node list at " << path << ": " << errorDescription;
 }

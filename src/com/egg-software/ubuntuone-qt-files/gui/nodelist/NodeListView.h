@@ -29,8 +29,9 @@ class NodeListView : public QQuickView
 
 public:
 
-    NodeListView(NodeListModel *model);
+    NodeListView();
     void setToolBarTitle(const QString &toolBarTitle);
+    NodeListModel *getModel() const { return this->model; }
 
 private slots:
 
@@ -53,6 +54,9 @@ private:
      */
     FileActionsController *fileAction;
 
+    /**
+     * Model showed by the view.
+     */
     NodeListModel *model;
 
 };

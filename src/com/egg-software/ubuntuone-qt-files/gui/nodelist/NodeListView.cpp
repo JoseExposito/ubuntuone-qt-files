@@ -22,13 +22,12 @@
 #include <QtCore>
 #include <QtQuick>
 
-NodeListView::NodeListView(NodeListModel *model)
+NodeListView::NodeListView()
     : QQuickView(MainWindow::getInstance()->getWindow()),
       fileAction(new FileActionsController(this)),
-      model(model)
+      model(new NodeListModel(this))
 {
     Utils::setGlobalProperties(this->rootContext());
-    this->model->setParent(this);
     this->rootContext()->setContextProperty("nodeListModel", this->model);
     this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
 
@@ -53,8 +52,7 @@ void NodeListView::setToolBarTitle(const QString &toolBarTitle)
 void NodeListView::openFolder(int nodeIndex)
 {
     QString path = this->model->getNode(nodeIndex)->path;
-    NodeListController *nodeListController = new NodeListController();
-    MainWindow::getInstance()->push(nodeListController->createView(path));
+    MainWindow::getInstance()->push(NodeListController::getInstance()->createView(path));
 }
 
 void NodeListView::openFile(int nodeIndex)

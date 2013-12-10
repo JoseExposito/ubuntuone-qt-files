@@ -49,7 +49,7 @@ void VolumesMessage::replyFinished(QNetworkReply *reply)
     if (reply == this->volumesReply) {
         if (this->volumesReply->error() != QNetworkReply::NoError) {
             qDebug() << "\t Error receiving the volume list: " << this->volumesReply->errorString();
-            emit this->errorGettingVolumes(tr("Error receiving the volume list"));
+            emit this->errorGettingVolumes("/~/", tr("Error receiving the volume list"));
             return;
         }
 
@@ -73,6 +73,6 @@ void VolumesMessage::replyFinished(QNetworkReply *reply)
             volumeList->append(nodeInfo);
         }
 
-        emit this->volumeList(volumeList);
+        emit this->volumeList("/~/", volumeList);
     }
 }
