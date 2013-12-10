@@ -11,4 +11,5 @@ NodeListView.qml qrc:/qml/NodeListView.qml
 
 UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
 UbuntuTextFieldStyle.qml qrc:/qml/UbuntuTextFieldStyle.qml
-ULabel qrc:/qml/ULabel.qml
+ULabel.qml qrc:/qml/ULabel.qml
+UbuntuProgressBarStyle.qml qrc:/qml/UbuntuProgressBarStyle.qml

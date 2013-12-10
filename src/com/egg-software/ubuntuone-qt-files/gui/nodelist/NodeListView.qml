@@ -218,13 +218,17 @@ Item {
                         bottom: parent.bottom
                         leftMargin: 10*u
                         rightMargin: 10*u
-                        bottomMargin: 5*u
+                        bottomMargin: 10*u
                     }
 
                     visible: model.downloadingStatus
+                    minimumValue: 0
+                    maximumValue: 100
                     value: model.downloadProgress
-                    height: nodeLastModified.hight
+                    height: nodeLastModified.height
                     indeterminate: (model.downloadProgress <= 0)
+
+                    style: UbuntuProgressBarStyle { }
                 }
             }
 

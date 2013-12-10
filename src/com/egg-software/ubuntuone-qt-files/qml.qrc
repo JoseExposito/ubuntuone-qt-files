@@ -8,6 +8,8 @@
         <file alias="UbuntuButtonStyle.qml">gui/styles/UbuntuButtonStyle.qml</file>
         <file alias="UbuntuTextFieldStyle.qml">gui/styles/UbuntuTextFieldStyle.qml</file>
         <file alias="ULabel.qml">gui/styles/ULabel.qml</file>
+        <file alias="UbuntuProgressBarStyle.qml">gui/styles/UbuntuProgressBarStyle.qml</file>
+
         <file alias="CreateAccountOrLoginWindow.qml">gui/login/CreateAccountOrLoginWindow.qml</file>
         <file alias="SlideViewer.qml">gui/login/SlideViewer.qml</file>
         <file alias="Slide.qml">gui/login/Slide.qml</file>
