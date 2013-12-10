@@ -32,6 +32,7 @@ public:
     virtual ~NodeListModel();
     void setNodeList(QList<NodeInfoDTO *> *nodeList);
     NodeInfoDTO *getNode(int index);
+    void refresNode(int index);
 
 protected:
 

@@ -33,6 +33,14 @@ public:
         DIRECTORY
     };
 
+    enum Status
+    {
+        UNKNOW,
+        NOT_DOWNLOADED,
+        DOWNLOADED,
+        DOWNLOADING
+    };
+
     NodeInfoDTO(NodeType type, const QString &path, const QString &contentPath, const QString &name)
         : type(type),
           path(path),
@@ -42,7 +50,9 @@ public:
           publicUrl(""),
           size(-1),
           lastModified(""),
-          hash("")
+          hash(""),
+          status(UNKNOW),
+          downloadProgress(-1)
     {
 
     }
@@ -58,7 +68,9 @@ public:
     int size;             /// File size in bytes
     QString lastModified; /// DD/MM/YYYY
     QString hash;         /// SHA1 hash, used to know if the local file is up to date
-};
+    Status status;        /// Status of the node
+    int downloadProgress; /// If the status is DOWNLOADING, the download progress
 
+};
 
 #endif // NODEINFODTO_H

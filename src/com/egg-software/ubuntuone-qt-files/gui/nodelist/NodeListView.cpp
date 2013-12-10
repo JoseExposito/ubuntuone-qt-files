@@ -58,9 +58,9 @@ void NodeListView::openFolder(int nodeIndex)
 }
 
 void NodeListView::openFile(int nodeIndex)
-{
+{    
     DownloadsController *downloader = new DownloadsController(this);
-    downloader->downloadAndOpenNode(this->model->getNode(nodeIndex));
+    downloader->downloadAndOpenNode(this->model, nodeIndex);
 }
 
 void NodeListView::renameNode(int nodeIndex, const QString &newName)

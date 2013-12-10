@@ -17,6 +17,7 @@
 
 #include <QtCore/QObject>
 class NodeInfoDTO;
+class NodeListModel;
 
 /**
  * The DownloadsController class manages the file download process, including hash checking to check if the downloaded
@@ -33,15 +34,15 @@ public:
     /**
      * Donloads the specified node.
      */
-    void downloadAndOpenNode(NodeInfoDTO *node);
+    void downloadAndOpenNode(NodeListModel *model, int nodeIndex);
 
 signals:
 
-    void downloadProgress(int progress);
     void errorDownloadingNode(const QString &errorDescription);
 
 private slots:
 
+    void downloadProgress(int progress);
     void nodeDownloaded();
 
 private:
@@ -52,6 +53,9 @@ private:
      */
     QString getLocalPath(const QString &nodePath);
 
+    NodeListModel *model;
+    int nodeIndex;
+    NodeInfoDTO *node;
     QString localPath;
 };
 

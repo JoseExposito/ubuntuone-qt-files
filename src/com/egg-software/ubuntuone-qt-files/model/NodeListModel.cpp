@@ -17,17 +17,27 @@
 
 namespace
 {
-    static const int INDEX_ROLE               = Qt::UserRole + 1;
-    static const int FILE_TYPE_VOLUME_ROLE    = Qt::UserRole + 2;
-    static const int FILE_TYPE_FILE_ROLE      = Qt::UserRole + 3;
-    static const int FILE_TYPE_DIRECTORY_ROLE = Qt::UserRole + 4;
-    static const int FILE_PATH_ROLE           = Qt::UserRole + 5;
-    static const int FILE_NAME_ROLE           = Qt::UserRole + 6;
-    static const int IS_PUBLIC_ROLE           = Qt::UserRole + 7;
-    static const int PUBLIC_URL_ROLE          = Qt::UserRole + 8;
-    static const int FILE_SIZE_ROLE           = Qt::UserRole + 9;
-    static const int LAST_MODIFIED_ROLE       = Qt::UserRole + 10;
-    static const int FILE_ICON_ROLE           = Qt::UserRole + 11;
+    static const int INDEX_ROLE                      = Qt::UserRole + 1;
+
+    static const int FILE_TYPE_VOLUME_ROLE           = Qt::UserRole + 2;
+    static const int FILE_TYPE_FILE_ROLE             = Qt::UserRole + 3;
+    static const int FILE_TYPE_DIRECTORY_ROLE        = Qt::UserRole + 4;
+
+    static const int FILE_STATUS_UNKNOW_ROLE         = Qt::UserRole + 5;
+    static const int FILE_STATUS_NOT_DOWNLOADED_ROLE = Qt::UserRole + 6;
+    static const int FILE_STATUS_DOWNLOADED_ROLE     = Qt::UserRole + 7;
+    static const int FILE_STATUS_DOWNLOADING_ROLE    = Qt::UserRole + 8;
+
+    static const int FILE_PATH_ROLE                  = Qt::UserRole + 9;
+    static const int FILE_NAME_ROLE                  = Qt::UserRole + 10;
+    static const int IS_PUBLIC_ROLE                  = Qt::UserRole + 11;
+    static const int PUBLIC_URL_ROLE                 = Qt::UserRole + 12;
+    static const int FILE_SIZE_ROLE                  = Qt::UserRole + 13;
+    static const int LAST_MODIFIED_ROLE              = Qt::UserRole + 14;
+    static const int FILE_ICON_ROLE                  = Qt::UserRole + 15;
+    static const int FILE_DOWNLOAD_PROGRESS_ROLE     = Qt::UserRole + 16;
+
+
 }
 
 NodeListModel::NodeListModel(QObject *parent)
@@ -72,6 +82,11 @@ NodeInfoDTO *NodeListModel::getNode(int index)
     return this->nodeList->at(index);
 }
 
+void NodeListModel::refresNode(int index)
+{
+    emit this->dataChanged(this->createIndex(index, 0), this->createIndex(index, 0));
+}
+
 int NodeListModel::rowCount(const QModelIndex &/*parent*/) const
 {
     return (this->nodeList != NULL) ? this->nodeList->count() : 0;
@@ -81,9 +96,16 @@ QHash<int, QByteArray> NodeListModel::roleNames() const
 {
     QHash<int, QByteArray> roles = QAbstractListModel::roleNames();
     roles.insert(INDEX_ROLE, QByteArray("index"));
+
     roles.insert(FILE_TYPE_VOLUME_ROLE, QByteArray("isVolume"));
     roles.insert(FILE_TYPE_FILE_ROLE, QByteArray("isFile"));
     roles.insert(FILE_TYPE_DIRECTORY_ROLE, QByteArray("isDirectory"));
+
+    roles.insert(FILE_STATUS_UNKNOW_ROLE, QByteArray("unknowStatus"));
+    roles.insert(FILE_STATUS_NOT_DOWNLOADED_ROLE, QByteArray("downloadedStatus"));
+    roles.insert(FILE_STATUS_DOWNLOADED_ROLE, QByteArray("downloadedStatus"));
+    roles.insert(FILE_STATUS_DOWNLOADING_ROLE, QByteArray("downloadingStatus"));
+
     roles.insert(FILE_PATH_ROLE, QByteArray("filePath"));
     roles.insert(FILE_NAME_ROLE, QByteArray("fileName"));
     roles.insert(IS_PUBLIC_ROLE, QByteArray("isPublic"));
@@ -91,6 +113,8 @@ QHash<int, QByteArray> NodeListModel::roleNames() const
     roles.insert(FILE_SIZE_ROLE, QByteArray("fileSize"));
     roles.insert(LAST_MODIFIED_ROLE, QByteArray("lastModified"));
     roles.insert(FILE_ICON_ROLE, QByteArray("icon"));
+    roles.insert(FILE_DOWNLOAD_PROGRESS_ROLE, QByteArray("downloadProgress"));
+
     return roles;
 }
 
@@ -103,12 +127,23 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
     switch (role) {
     case INDEX_ROLE:
         return index.row();
+
     case FILE_TYPE_VOLUME_ROLE:
-        return nodeInfo->type == NodeInfoDTO::VOLUME || nodeInfo->type == NodeInfoDTO::VOLUME_ROOT;
+        return (nodeInfo->type == NodeInfoDTO::VOLUME) || (nodeInfo->type == NodeInfoDTO::VOLUME_ROOT);
     case FILE_TYPE_FILE_ROLE:
-        return nodeInfo->type == NodeInfoDTO::FILE;
+        return (nodeInfo->type == NodeInfoDTO::FILE);
     case FILE_TYPE_DIRECTORY_ROLE:
-        return nodeInfo->type == NodeInfoDTO::DIRECTORY;
+        return (nodeInfo->type == NodeInfoDTO::DIRECTORY);
+
+    case FILE_STATUS_UNKNOW_ROLE:
+        return (nodeInfo->status == NodeInfoDTO::UNKNOW);
+    case FILE_STATUS_NOT_DOWNLOADED_ROLE:
+        return (nodeInfo->status == NodeInfoDTO::NOT_DOWNLOADED);
+    case FILE_STATUS_DOWNLOADED_ROLE:
+        return (nodeInfo->status == NodeInfoDTO::DOWNLOADED);
+    case FILE_STATUS_DOWNLOADING_ROLE:
+        return (nodeInfo->status == NodeInfoDTO::DOWNLOADING);
+
     case FILE_PATH_ROLE:
         return nodeInfo->path;
     case Qt::DisplayRole:
@@ -124,6 +159,9 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
         return nodeInfo->lastModified.left(10);
     case FILE_ICON_ROLE:
         return this->fileIcon(nodeInfo->type, nodeInfo->name);
+    case FILE_DOWNLOAD_PROGRESS_ROLE:
+        return nodeInfo->downloadProgress;
+
     default:
         return QVariant();
     }

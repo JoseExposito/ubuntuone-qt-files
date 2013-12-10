@@ -17,6 +17,7 @@
 #include "LoginInfoDTO.h"
 #include "DatabaseManager.h"
 #include "DownloadNodeMessage.h"
+#include "NodeListModel.h"
 #include <QtCore>
 #ifdef Q_OS_ANDROID
 #include "AndroidUtils.h"
@@ -30,11 +31,18 @@ DownloadsController::DownloadsController(QObject *parent)
 
 }
 
-void DownloadsController::downloadAndOpenNode(NodeInfoDTO *node)
+void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeIndex)
 {
-    // Check if the file is downloaded and in the last version
-    this->localPath = this->getLocalPath(node->path);
+    this->model     = model;
+    this->nodeIndex = nodeIndex;
+    this->node      = this->model->getNode(this->nodeIndex);
+    this->localPath = this->getLocalPath(this->node->path);
 
+    // Avoid download twice the same file
+    if (this->node->status == NodeInfoDTO::DOWNLOADING)
+        return;
+
+    // Check if the file is downloaded and in the last version
     if (QFileInfo(this->localPath).exists()) {
         // Calculate the SHA1 of the local file to determine is it is in the last version
         QFile file(this->localPath);
@@ -44,25 +52,40 @@ void DownloadsController::downloadAndOpenNode(NodeInfoDTO *node)
         file.close();
         QString sha1 = "sha1:" + fileSHA1.result().toHex();
 
-        if (node->hash == sha1) {
+        if (this->node->hash == sha1) {
             qDebug() << "The file is in the last version, opening it without download";
             this->nodeDownloaded();
             return;
         }
     }
 
+    // Set the node in download status
+    this->node->status = NodeInfoDTO::DOWNLOADING;
+    this->node->downloadProgress = 0;
+    this->model->refresNode(this->nodeIndex);
+
     // Download and open the file
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
     QDir().mkpath(QFileInfo(this->localPath).dir().path());
     DownloadNodeMessage *downloadMessage = new DownloadNodeMessage(loginInfo, this);
-    connect(downloadMessage, SIGNAL(downloadProgress(int)), this, SIGNAL(downloadProgress(int)));
+    connect(downloadMessage, SIGNAL(downloadProgress(int)), this, SLOT(downloadProgress(int)));
     connect(downloadMessage, SIGNAL(errorDownloadingNode(QString)), this, SIGNAL(errorDownloadingNode(QString)));
     connect(downloadMessage, SIGNAL(nodeDownloaded()), this, SLOT(nodeDownloaded()));
-    downloadMessage->downloadNode(node, this->localPath);
+    downloadMessage->downloadNode(this->node, this->localPath);
+}
+
+void DownloadsController::downloadProgress(int progress)
+{
+    this->node->downloadProgress = progress;
+    this->model->refresNode(this->nodeIndex);
 }
 
 void DownloadsController::nodeDownloaded()
 {
+    this->node->status = NodeInfoDTO::DOWNLOADED;
+    this->node->downloadProgress = -1;
+    this->model->refresNode(this->nodeIndex);
+
 #ifdef Q_OS_ANDROID
     AndroidUtils::openFile(this->localPath);
 #else

@@ -184,6 +184,7 @@ Item {
                         bottomMargin: 10*u
                     }
 
+                    visible: !model.downloadingStatus
                     text: model.isFile ? qsTr("Last modified: ") + model.lastModified : "..."
                     color: Qt.rgba(109/255, 109/255, 109/255, 1)
                     maximumLineCount: 1
@@ -202,9 +203,28 @@ Item {
                         bottomMargin: 10*u
                     }
 
+                    visible: !model.downloadingStatus
                     text: model.isFile ? model.fileSize : ""
                     color: Qt.rgba(109/255, 109/255, 109/255, 1)
                     font.pixelSize: 13*u
+                }
+
+                // Download ProgressBar
+                ProgressBar {
+                    id: nodeDownloadProgressBar
+                    anchors {
+                        left: nodeIcon.right
+                        right: parent.right
+                        bottom: parent.bottom
+                        leftMargin: 10*u
+                        rightMargin: 10*u
+                        bottomMargin: 5*u
+                    }
+
+                    visible: model.downloadingStatus
+                    value: model.downloadProgress
+                    height: nodeLastModified.hight
+                    indeterminate: (model.downloadProgress <= 0)
                 }
             }
 
