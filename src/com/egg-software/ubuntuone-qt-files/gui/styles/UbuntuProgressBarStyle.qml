@@ -19,6 +19,7 @@ import QtQuick.Controls.Styles 1.1
 Component {
 
     ProgressBarStyle {
+
         background: Rectangle {
             color: Qt.rgba(213/255, 213/255, 213/255, 1)
             radius: 6*u
@@ -26,12 +27,48 @@ Component {
             border.color: Qt.rgba(158/255, 158/255, 158/255, 1)
         }
 
-        progress: Rectangle {
+        progress: control.indeterminate ? indeterminateProgress : determinateProgress
+
+        property Component determinateProgress: Rectangle {
             color: Qt.rgba(213/255, 213/255, 213/255, 1)
             radius: 6*u
             border.width: 1*u
             border.color: Qt.rgba(158/255, 158/255, 158/255, 1)
         }
+
+        property Component indeterminateProgress: Rectangle {
+            id: indeterminateProgress
+            color: "transparent"
+            anchors.fill: parent
+            anchors.leftMargin:  2*u
+            anchors.rightMargin: 2*u
+            radius: 6*u
+            clip: true
+
+            property int posX: 0
+            Row {
+                x: parent.posX
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 10*u
+                Repeater {
+                    model: Math.ceil(parent.parent.width / 9*u)
+                    Rectangle {
+                        width: 3*u
+                        height: indeterminateProgress.height + 20*u
+                        color: Qt.rgba(158/255, 158/255, 158/255, 1)
+                        rotation: 45
+                        smooth: true
+                    }
+                }
+            }
+            Timer {
+                interval:30
+                repeat: true
+                running: true
+                onTriggered: if (parent.posX++ > 10*u) parent.posX = 0
+            }
+        }
+
     }
 
 }
