@@ -31,14 +31,16 @@ ApplicationWindow {
     color:  Qt.rgba(232/255, 232/255, 232/255, 1)
 
     // Implements back key navigation
-    // TODO In the Qt 5.2 BETA this is not working, test it in the future
-    Keys.onReleased: {
-        if (event.key === Qt.Key_Back) {
-            if (stackView.depth > 1) {
-                stackView.pop();
-                event.accepted = true;
-            } else {
-                Qt.quit();
+    Item {
+        focus: true
+        Keys.onReleased: {
+            if (event.key === Qt.Key_Back) {
+                if (stackView.depth > 1) {
+                    popStackView();
+                    event.accepted = true;
+                } else {
+                    Qt.quit();
+                }
             }
         }
     }
