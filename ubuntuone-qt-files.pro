@@ -1,4 +1,4 @@
-QT    += qml quick widgets network sql
+QT    += qml quick network sql
 android: QT += androidextras
 TARGET = U1Files
 

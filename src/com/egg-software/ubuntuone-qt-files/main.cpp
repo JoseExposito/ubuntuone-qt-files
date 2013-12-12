@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include <QApplication>
+#include <QtGui/QGuiApplication>
 #include "DatabaseManager.h"
 #include "MainWindow.h"
 #include "CreateAccountOrLoginWindow.h"
@@ -21,7 +21,7 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    QGuiApplication app(argc, argv);
 
     DatabaseManager *db = DatabaseManager::getInstance();
     MainWindow *mainWindow = MainWindow::getInstance();
