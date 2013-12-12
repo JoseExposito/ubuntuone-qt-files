@@ -82,4 +82,8 @@ void MainWindow::clear()
 {
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
     QMetaObject::invokeMethod(stackView, "clear");
+
+    // To activate the back key navigation again after login
+    QQuickItem *backKeyNavigationItem = this->window->findChild<QQuickItem *>("backKeyNavigationItem");
+    backKeyNavigationItem->setProperty("focus", true);
 }

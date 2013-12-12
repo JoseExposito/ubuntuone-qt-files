@@ -54,7 +54,9 @@ Item {
             style: UbuntuButtonStyle { }
             Layout.fillWidth: true
             onClicked: {
-                Qt.inputMethod.hide()
+                usernameTextField.focus = false;
+                passwordTextField.focus = false;
+                Qt.inputMethod.hide();
                 login(usernameTextField.text, passwordTextField.text)
             }
         }

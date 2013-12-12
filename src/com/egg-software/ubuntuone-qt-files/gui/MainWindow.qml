@@ -32,11 +32,13 @@ ApplicationWindow {
 
     // Implements back key navigation
     Item {
+        objectName: "backKeyNavigationItem"
         focus: true
         Keys.onReleased: {
             if (event.key === Qt.Key_Back) {
                 if (stackView.depth > 1) {
-                    popStackView();
+                    if (!stackView.busy && !loadingSpinner.visible)
+                        popStackView();
                     event.accepted = true;
                 } else {
                     Qt.quit();
