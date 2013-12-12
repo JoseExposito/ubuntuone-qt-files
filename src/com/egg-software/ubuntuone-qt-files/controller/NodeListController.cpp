@@ -41,7 +41,7 @@ NodeListView *NodeListController::createView(const QString &path)
     if (this->views.contains(path)) {
         nodeListView = this->views.value(path);
     } else {
-        nodeListView = new NodeListView();
+        nodeListView = new NodeListView(path);
         nodeListView->setToolBarTitle(path == ROOT_PATH ? "Ubuntu One" : QFileInfo(path).fileName());
     }
 
@@ -85,6 +85,11 @@ NodeListView *NodeListController::createView(const QString &path)
     }
 
     return nodeListView;
+}
+
+void NodeListController::refreshView(const QString &path)
+{
+    this->createView(path);
 }
 
 void NodeListController::nodeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList)

@@ -44,6 +44,11 @@ public:
     NodeListView *createView(const QString &path);
 
     /**
+     * Refresh the node list of the specified path. The view must exists.
+     */
+    void refreshView(const QString &path);
+
+    /**
      * The Ubuntu One root path is "/~/". It is used to list the volumes.
      */
     static const QString ROOT_PATH;

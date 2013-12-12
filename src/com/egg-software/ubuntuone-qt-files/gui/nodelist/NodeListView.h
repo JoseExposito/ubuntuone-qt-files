@@ -29,7 +29,7 @@ class NodeListView : public QQuickView
 
 public:
 
-    NodeListView();
+    NodeListView(const QString &path);
     void setToolBarTitle(const QString &toolBarTitle);
     NodeListModel *getModel() const { return this->model; }
 
@@ -47,6 +47,11 @@ private slots:
     void showError(const QString &errorMessage);
 
 private:
+
+    /**
+     * The path displayed in this view.
+     */
+    QString viewPath;
 
     /**
      * @see refreshView()

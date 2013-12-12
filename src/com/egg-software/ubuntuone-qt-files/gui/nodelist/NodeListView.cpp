@@ -22,8 +22,9 @@
 #include <QtCore>
 #include <QtQuick>
 
-NodeListView::NodeListView()
+NodeListView::NodeListView(const QString &path)
     : QQuickView(MainWindow::getInstance()->getWindow()),
+      viewPath(path),
       fileAction(new FileActionsController(this)),
       model(new NodeListModel(this))
 {
@@ -89,8 +90,7 @@ void NodeListView::copyPublicLink(int nodeIndex)
 
 void NodeListView::refreshView()
 {
-    // TODO Refresh the list
-    qDebug() << "Refresh me";
+    NodeListController::getInstance()->refreshView(this->viewPath);
 }
 
 void NodeListView::showError(const QString &errorMessage)
