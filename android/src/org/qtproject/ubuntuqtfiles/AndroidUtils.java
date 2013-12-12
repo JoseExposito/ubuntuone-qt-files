@@ -35,7 +35,7 @@ public class AndroidUtils extends org.qtproject.qt5.android.bindings.QtActivity 
         int p = Math.max(filePath.lastIndexOf('/'), filePath.lastIndexOf('\\'));
         if (i > p)
             extension = filePath.substring(i+1);
-        String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        String type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
 
         if (type == null)
             type = "*/*";
