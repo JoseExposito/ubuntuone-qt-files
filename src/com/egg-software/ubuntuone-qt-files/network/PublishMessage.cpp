@@ -41,6 +41,7 @@ void PublishMessage::publishNode(const QString &path, bool publish)
     QString json = QString() + "{ \"is_public\": " + (publish ? "true" : "false") + " }";
 
     qDebug() << "\t Path: " << path;
+    qDebug() << "\t URL: "  << url;
     this->printJson(json);
 
     this->publishReply = this->oauthPutRequest(url, json.toUtf8());
