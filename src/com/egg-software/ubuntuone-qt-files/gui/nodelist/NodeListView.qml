@@ -21,10 +21,10 @@ Item {
 
     property string toolBarTitle: "Ubuntu One"
     property Menu toolBarMenu: Menu {
-        MenuItem { text: qsTr("Refresh"); onTriggered: { } }
-        MenuItem { text: qsTr("Settings"); onTriggered: { } }
-        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
+        MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
     }
+    signal menuRefresh()
     signal menuAbout()
 
     // Navigation signals

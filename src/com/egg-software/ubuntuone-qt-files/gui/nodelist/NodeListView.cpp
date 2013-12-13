@@ -41,6 +41,7 @@ NodeListView::NodeListView(const QString &path)
     connect(this->rootObject(), SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
     connect(this->rootObject(), SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
 
+    connect(this->rootObject(), SIGNAL(menuRefresh()), this, SLOT(refreshView()));
     connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 
     connect(this->fileAction, SIGNAL(actionFinished()), this, SLOT(refreshView()));
