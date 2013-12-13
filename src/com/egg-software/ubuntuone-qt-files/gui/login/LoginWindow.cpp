@@ -50,7 +50,8 @@ void LoginWindow::loginFinished()
 void LoginWindow::loginError(const QString &errorDescription)
 {
     delete this->loginController;
-    qDebug() << "Login error: " << errorDescription;
+    this->rootObject()->setProperty("errorDialogText", errorDescription);
+    QMetaObject::invokeMethod(this->rootObject(), "showErrorDialog");
 }
 
 void LoginWindow::menuAbout()

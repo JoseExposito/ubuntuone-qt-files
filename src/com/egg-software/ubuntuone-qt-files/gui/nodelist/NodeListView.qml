@@ -15,6 +15,7 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
+import QtQuick.Dialogs 1.1
 import "qrc:/."
 
 Item {
@@ -52,7 +53,7 @@ Item {
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(folderMenu.nodeIndex, "New name") } // TODO Show a message box
+            onTriggered: { renameNode(folderMenu.nodeIndex, "New name") }
         }
         MenuItem {
             text: qsTr("Delete")
@@ -83,7 +84,7 @@ Item {
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(fileMenu.nodeIndex, "New name") } // TODO Show a message box
+            onTriggered: { renameNode(fileMenu.nodeIndex, "New name") }
         }
         MenuItem {
             text: qsTr("Delete")
@@ -253,6 +254,17 @@ Item {
         anchors.fill: parent
         delegate: nodeListDelegate
         model: nodeListModel
+    }
+
+    /**
+     * Error message.
+     */
+    function showErrorDialog() { errorDialog.visible = true }
+    property string errorDialogText: ""
+    MessageDialog {
+        id: errorDialog
+        title: qsTr("Error")
+        text: errorDialogText
     }
 
 }
