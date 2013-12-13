@@ -51,10 +51,10 @@ Item {
             text: qsTr("Open")
             onTriggered: { openFolder(folderMenu.nodeIndex) }
         }
-        MenuItem {
+        /*MenuItem {
             text: qsTr("Rename")
             onTriggered: { renameNode(folderMenu.nodeIndex, "New name") }
-        }
+        }*/
         MenuItem {
             text: qsTr("Delete")
             onTriggered: { deleteNode(folderMenu.nodeIndex) }
@@ -82,10 +82,10 @@ Item {
             text: qsTr("Share publick link")
             onTriggered: { copyPublicLink(fileMenu.nodeIndex) }
         }
-        MenuItem {
+        /*MenuItem {
             text: qsTr("Rename")
             onTriggered: { renameNode(fileMenu.nodeIndex, "New name") }
-        }
+        }*/
         MenuItem {
             text: qsTr("Delete")
             onTriggered: { deleteNode(fileMenu.nodeIndex) }
