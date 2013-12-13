@@ -26,7 +26,9 @@ LoginWindow::LoginWindow()
 {
     Utils::setGlobalProperties(this->rootContext());
     this->setSource(QUrl("qrc:/qml/LoginWindow.qml"));
+
     connect(this->rootObject(), SIGNAL(login(QString,QString)), this, SLOT(loginButtonPressed(QString,QString)));
+    connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 }
 
 void LoginWindow::loginButtonPressed(const QString &username, const QString &password)
@@ -49,4 +51,9 @@ void LoginWindow::loginError(const QString &errorDescription)
 {
     delete this->loginController;
     qDebug() << "Login error: " << errorDescription;
+}
+
+void LoginWindow::menuAbout()
+{
+    MainWindow::getInstance()->showAboutDialog();
 }

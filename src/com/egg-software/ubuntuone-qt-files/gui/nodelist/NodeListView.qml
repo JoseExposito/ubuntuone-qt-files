@@ -23,8 +23,9 @@ Item {
     property Menu toolBarMenu: Menu {
         MenuItem { text: qsTr("Refresh"); onTriggered: { } }
         MenuItem { text: qsTr("Settings"); onTriggered: { } }
-        MenuItem { text: qsTr("About"); onTriggered: { } }
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
     }
+    signal menuAbout()
 
     // Navigation signals
     signal openFolder(int nodeIndex)

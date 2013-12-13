@@ -21,11 +21,12 @@ Item {
 
     property string toolBarTitle: qsTr("Welcome")
     property Menu toolBarMenu: Menu {
-        MenuItem { text: qsTr("About"); onTriggered: { } }
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
     }
 
     signal loginClicked()
     signal createAccountClicked()
+    signal menuAbout()
 
     // Slideshows
     SlideViewer {

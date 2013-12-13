@@ -58,6 +58,11 @@ void MainWindow::showLoadingSpinner(bool visible, const QString &text)
     loadingSpinner->setProperty("loadingSpinnerText", text);
 }
 
+void MainWindow::showAboutDialog()
+{
+    QMetaObject::invokeMethod(this->window, "showAboutDialog");
+}
+
 void MainWindow::push(QQuickView *view)
 {
     QVariant viewItem = QVariant::fromValue(qobject_cast<QQuickItem *>(view->rootObject()));

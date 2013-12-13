@@ -21,10 +21,11 @@ Item {
 
     property string toolBarTitle: qsTr("Sign in")
     property Menu toolBarMenu: Menu {
-        MenuItem { text: qsTr("About"); onTriggered: { } }
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
     }
 
     signal login(string username, string password)
+    signal menuAbout()
 
     ColumnLayout {
         spacing: 10*u

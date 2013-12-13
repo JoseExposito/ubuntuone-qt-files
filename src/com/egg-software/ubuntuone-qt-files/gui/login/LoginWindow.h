@@ -37,6 +37,7 @@ private slots:
 
     void loginFinished();
     void loginError(const QString &errorDescription);
+    void menuAbout();
 
 private:
 

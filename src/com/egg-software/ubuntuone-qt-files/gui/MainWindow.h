@@ -46,6 +46,11 @@ public:
      */
     void showLoadingSpinner(bool visible, const QString &text ="");
 
+    /**
+     * Show the "About" dialog.
+     */
+    void showAboutDialog();
+
     inline QQuickWindow *getWindow() { return this->window; }
 
 public slots:

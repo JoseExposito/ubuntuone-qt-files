@@ -27,6 +27,7 @@ CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
 
     connect(this->rootObject(), SIGNAL(loginClicked()), this, SLOT(loginClicked()));
     connect(this->rootObject(), SIGNAL(createAccountClicked()), this, SLOT(createAccountClicked()));
+    connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 }
 
 void CreateAccountOrLoginWindow::loginClicked()
@@ -38,4 +39,9 @@ void CreateAccountOrLoginWindow::loginClicked()
 void CreateAccountOrLoginWindow::createAccountClicked()
 {
     // TODO Allow to create account
+}
+
+void CreateAccountOrLoginWindow::menuAbout()
+{
+    MainWindow::getInstance()->showAboutDialog();
 }

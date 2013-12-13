@@ -43,6 +43,8 @@ private slots:
     void publishFile(int nodeIndex, bool publish);
     void copyPublicLink(int nodeIndex);
 
+    void menuAbout();
+
     void refreshView();
     void showError(const QString &errorMessage);
 

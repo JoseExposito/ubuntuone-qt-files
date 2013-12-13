@@ -29,10 +29,11 @@ public:
 
     CreateAccountOrLoginWindow();
 
-public slots:
+private slots:
 
     void loginClicked();
     void createAccountClicked();
+    void menuAbout();
 
 };
 
