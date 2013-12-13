@@ -58,8 +58,6 @@ void FileActionsController::shareLink(NodeInfoDTO *node)
         return;
     }
 
-    emit this->actionFinished();
-
 #ifdef Q_OS_ANDROID
     AndroidUtils::shareLink(node->publicUrl);
 #else
