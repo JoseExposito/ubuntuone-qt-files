@@ -11,6 +11,7 @@
     </qresource>
     <qresource prefix="/theme">
         <file>navigation_previous_item.png</file>
+        <file>menu_button.png</file>
     </qresource>
     <qresource prefix="/icons">
         <file>folder.png</file>

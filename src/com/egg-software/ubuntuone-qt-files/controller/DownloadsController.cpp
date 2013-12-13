@@ -33,6 +33,9 @@ DownloadsController::DownloadsController(QObject *parent)
 
 void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeIndex)
 {
+    // TODO Use the native API on Android?
+    // http://united-coders.com/nico-heid/show-progressbar-in-notification-area-like-google-does-when-downloading-from-android/
+
     this->model     = model;
     this->nodeIndex = nodeIndex;
     this->node      = this->model->getNode(this->nodeIndex);

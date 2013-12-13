@@ -19,70 +19,97 @@ import "qrc:/."
 
 ColumnLayout {
 
-        property string toolBarTitle: ""
+    id: mainWindowToolbar
 
-        width: parent.width
-        height: toolBarArea.height + bottomSeparator.height
+    property string toolBarTitle: ""
+    signal menuButtonClicked()
 
+    width:  parent.width
+    height: toolBarArea.height + bottomSeparator.height
+
+    Rectangle {
+        id: toolBarArea
+        anchors.top: parent.top
+        Layout.minimumHeight: 50*u
+        Layout.maximumHeight: 50*u
+        Layout.fillWidth: true
+        color: Qt.rgba(213/255, 213/255, 213/255, 1)
+
+        // Back button, visible if the stack have more than one item
         Rectangle {
-            id: toolBarArea
-            anchors.top: parent.top
-            Layout.minimumHeight: 50*u
-            Layout.maximumHeight: 50*u
-            Layout.fillWidth: true
-            color: Qt.rgba(213/255, 213/255, 213/255, 1)
+            id: backButton
+            anchors.left: parent.left
+            anchors.leftMargin: 10*u
+            anchors.verticalCenter: parent.verticalCenter
+            width: stackView.depth > 1 ? 30*u : 0
+            height: 30*u
+            opacity: stackView.depth > 1 ? 1 : 0
+            Behavior on opacity { NumberAnimation{} }
+            color: "transparent"
 
-            // Back button, visible if the stack have more than one item
-            Rectangle {
-                id: backButton
-                anchors.left: parent.left
-                anchors.leftMargin: 10*u
-                anchors.verticalCenter: parent.verticalCenter
-                width: stackView.depth > 1 ? 30*u : 0
-                height: 30*u
-                opacity: stackView.depth > 1 ? 1 : 0
-                Behavior on opacity { NumberAnimation{} }
-                color: "transparent"
-
-                Image {
-                    anchors.fill: parent
-                    source: "qrc:/theme/navigation_previous_item.png"
-                    antialiasing: true
-                    fillMode: Image.PreserveAspectFit
-                }
-                MouseArea {
-                    id: backmouse
-                    anchors.fill: parent
-                    anchors.margins: -10
-                    onClicked: {
-                        Qt.inputMethod.hide()
-                        popStackView()
-                    }
-                }
+            Image {
+                anchors.fill: parent
+                source: "qrc:/theme/navigation_previous_item.png"
+                antialiasing: true
+                fillMode: Image.PreserveAspectFit
             }
-
-            // Title
-            ULabel {
-                anchors.verticalCenter: parent.verticalCenter
-                x: backButton.x + backButton.width + 10*u
-                Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
-                font.pixelSize: 30*u
-                color: "black"
-                text: toolBarTitle
-                maximumLineCount: 1
-                wrapMode: Text.Wrap
-                elide: Text.ElideMiddle
+            MouseArea {
+                anchors.fill: parent
+                anchors.margins: -10
+                onClicked: {
+                    Qt.inputMethod.hide()
+                    popStackView()
+                }
             }
         }
 
-        // Bottom separator
-        Rectangle {
-            id: bottomSeparator
-            anchors.top: toolBarArea.bottom
-            Layout.minimumHeight: 2*u
-            Layout.maximumHeight: 2*u
-            Layout.fillWidth: true
-            color: Qt.rgba(176/255, 176/255, 176/255, 1)
+        // Title
+        ULabel {
+            id: titleLabel
+            anchors.right: menuButton.left
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.leftMargin: 10*u
+            anchors.left: backButton.right
+            font.pixelSize: 24*u
+            color: "black"
+            text: toolBarTitle
+            maximumLineCount: 1
+            wrapMode: Text.Wrap
+            elide: Text.ElideMiddle
         }
 
+        // Menu button
+        Rectangle {
+            id: menuButton
+            anchors.right: parent.right
+            anchors.rightMargin: 10*u
+            anchors.verticalCenter: parent.verticalCenter
+            width: 30*u
+            height: 30*u
+            color: "transparent"
+
+            Image {
+                anchors.fill: parent
+                source: "qrc:/theme/menu_button.png"
+                antialiasing: true
+                fillMode: Image.PreserveAspectFit
+            }
+            MouseArea {
+                anchors.fill: parent
+                anchors.margins: -10
+                onClicked: menuButtonClicked()
+            }
+        }
     }
+
+    // Bottom separator
+    Rectangle {
+        id: bottomSeparator
+        anchors.top: toolBarArea.bottom
+        Layout.minimumHeight: 2*u
+        Layout.maximumHeight: 2*u
+        Layout.fillWidth: true
+        color: Qt.rgba(176/255, 176/255, 176/255, 1)
+    }
+
+}

@@ -20,6 +20,10 @@ import "qrc:/."
 Item {
 
     property string toolBarTitle: qsTr("Welcome")
+    property Menu toolBarMenu: Menu {
+        MenuItem { text: qsTr("About"); onTriggered: { } }
+    }
+
     signal loginClicked()
     signal createAccountClicked()
 

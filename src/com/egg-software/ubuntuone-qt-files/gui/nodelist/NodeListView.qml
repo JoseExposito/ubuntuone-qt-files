@@ -19,7 +19,12 @@ import "qrc:/."
 
 Item {
 
-    property string toolBarTitle: qsTr("Ubuntu One")
+    property string toolBarTitle: "Ubuntu One"
+    property Menu toolBarMenu: Menu {
+        MenuItem { text: qsTr("Refresh"); onTriggered: { } }
+        MenuItem { text: qsTr("Settings"); onTriggered: { } }
+        MenuItem { text: qsTr("About"); onTriggered: { } }
+    }
 
     // Navigation signals
     signal openFolder(int nodeIndex)
