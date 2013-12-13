@@ -58,6 +58,9 @@ void LoginMessage::login(const QString &username, const QString &password)
 
 void LoginMessage::replyFinished(QNetworkReply *reply)
 {
+    // Not call the parent to avoid delete the database and send the user to the first screen when the username or
+    // password is incrrect
+
     if (reply == this->ssoReply) {
         if (this->ssoReply->error() != QNetworkReply::NoError) {
             qDebug() << "\t Error receiving the Ubuntu SSO reply: " << this->ssoReply->errorString();

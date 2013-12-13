@@ -44,6 +44,8 @@ void DeleteMessage::deleteNode(const QString &path)
 
 void DeleteMessage::replyFinished(QNetworkReply *reply)
 {
+    AbstractMessage::replyFinished(reply);
+
     if (reply == this->deleteReply) {
         if (this->deleteReply->error() == QNetworkReply::NoError) {
             qDebug() << "\t Node correctly deleted";

@@ -45,6 +45,11 @@ public:
     void closeDatabase();
 
     /**
+     * Deletes the database.
+     */
+    void deleteDatabase();
+
+    /**
      * Getting/Setting in the database the required login info.
      */
     void setLoginInfo(LoginInfoDTO *loginInfo);
@@ -57,6 +62,9 @@ public:
     QList<NodeInfoDTO *> *getNodeList(const QString &parentPath);
 
 private:
+
+    QString getDatabaseFolder();
+    QString getDatabsePath();
 
     /**
      * Unique handler of the database.

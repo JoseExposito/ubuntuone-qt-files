@@ -58,6 +58,8 @@ void NodeChildrenMessage::getNodeChildren(const QString &path)
 
 void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
 {
+    AbstractMessage::replyFinished(reply);
+
     if (reply == this->childrenReply) {
         if (this->childrenReply->error() != QNetworkReply::NoError) {
             qDebug() << "\t Error receiving the children list: " << this->childrenReply->errorString();

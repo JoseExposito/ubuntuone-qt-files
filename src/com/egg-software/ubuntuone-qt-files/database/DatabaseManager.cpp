@@ -37,10 +37,8 @@ DatabaseManager *DatabaseManager::getInstance()
 DatabaseManager::DatabaseManager()
     : db(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE")))
 {
-    QString dbFolder = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-    QString dbPath = dbFolder.endsWith(QDir::separator())
-            ? dbFolder + DB_NAME
-            : dbFolder + QDir::separator() + DB_NAME;
+    QString dbFolder = this->getDatabaseFolder();
+    QString dbPath   = this->getDatabsePath();
 
     qDebug() << "Opening DB at " << dbPath;
     QDir().mkpath(dbFolder);
@@ -68,6 +66,14 @@ void DatabaseManager::closeDatabase()
     delete this->instance;
 }
 
+void DatabaseManager::deleteDatabase()
+{
+    this->db->close();
+    delete this->db;
+    QFile::remove(this->getDatabsePath());
+    delete this->instance;
+}
+
 void DatabaseManager::setLoginInfo(LoginInfoDTO *loginInfo)
 {
     LoginInfoDAO loginInfoDAO(this->db);
@@ -90,4 +96,17 @@ QList<NodeInfoDTO *> *DatabaseManager::getNodeList(const QString &parentPath)
 {
     NodeListDAO nodeListDAO(this->db);
     return nodeListDAO.getNodeList(parentPath);
+}
+
+QString DatabaseManager::getDatabaseFolder()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+}
+
+QString DatabaseManager::getDatabsePath()
+{
+    QString dbFolder = this->getDatabaseFolder();
+    return dbFolder.endsWith(QDir::separator())
+            ? dbFolder + DB_NAME
+            : dbFolder + QDir::separator() + DB_NAME;
 }

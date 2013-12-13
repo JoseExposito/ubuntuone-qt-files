@@ -43,7 +43,7 @@ protected slots:
      * This slot is connected to the networkAccessManager finished() SIGNAL.
      * Must be implemented by the children.
      */
-    virtual void replyFinished(QNetworkReply *reply) = 0;
+    virtual void replyFinished(QNetworkReply *reply);
 
 protected:
 

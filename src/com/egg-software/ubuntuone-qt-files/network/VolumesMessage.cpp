@@ -46,6 +46,8 @@ void VolumesMessage::getVolumes()
 
 void VolumesMessage::replyFinished(QNetworkReply *reply)
 {
+    AbstractMessage::replyFinished(reply);
+
     if (reply == this->volumesReply) {
         if (this->volumesReply->error() != QNetworkReply::NoError) {
             qDebug() << "\t Error receiving the volume list: " << this->volumesReply->errorString();

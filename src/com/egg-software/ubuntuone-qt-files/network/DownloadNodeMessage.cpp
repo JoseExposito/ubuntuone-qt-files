@@ -70,6 +70,8 @@ void DownloadNodeMessage::downloadReadyRead()
 
 void DownloadNodeMessage::replyFinished(QNetworkReply *reply)
 {
+    AbstractMessage::replyFinished(reply);
+
     if (reply == this->downloadReply) {
         if (this->downloadReply->error() == QNetworkReply::NoError) {
             qDebug() << "\t Node correctly downloaded";

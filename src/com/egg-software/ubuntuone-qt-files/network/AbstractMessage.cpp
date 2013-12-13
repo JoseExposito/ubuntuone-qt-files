@@ -14,6 +14,7 @@
  */
 #include "AbstractMessage.h"
 #include "LoginInfoDTO.h"
+#include "LogoutController.h"
 #include <QtCore>
 #include <QtNetwork>
 #include <liboauthcpp/liboauthcpp.h>
@@ -99,4 +100,13 @@ void AbstractMessage::printJson(const QString &json)
     }
 
     qDebug() << qPrintable(output);
+}
+
+void AbstractMessage::replyFinished(QNetworkReply *reply)
+{
+    // If the OAuth token is deleted in the web page an AuthenticationRequiredError is received. Show the first screen
+    // and delete the database
+    if (reply->error() == QNetworkReply::AuthenticationRequiredError) {
+        LogoutController::logout();
+    }
 }

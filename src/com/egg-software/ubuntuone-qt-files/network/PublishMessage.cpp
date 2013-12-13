@@ -49,6 +49,8 @@ void PublishMessage::publishNode(const QString &path, bool publish)
 
 void PublishMessage::replyFinished(QNetworkReply *reply)
 {
+    AbstractMessage::replyFinished(reply);
+
     if (reply == this->publishReply) {
         if (this->publishReply->error() == QNetworkReply::NoError) {
             qDebug() << "\t Node correctly published or unpublished";
