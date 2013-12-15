@@ -18,12 +18,8 @@
 #include "DatabaseManager.h"
 #include "DownloadNodeMessage.h"
 #include "NodeListModel.h"
+#include "Utils.h"
 #include <QtCore>
-#ifdef Q_OS_ANDROID
-#include "AndroidUtils.h"
-#else
-#include <QtGui>
-#endif
 
 DownloadsController::DownloadsController(QObject *parent)
     : QObject(parent)
@@ -39,7 +35,7 @@ void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeInde
     this->model     = model;
     this->nodeIndex = nodeIndex;
     this->node      = this->model->getNode(this->nodeIndex);
-    this->localPath = this->getLocalPath(this->node->path);
+    this->localPath = Utils::getLocalPath(this->node->path);
 
     // Avoid download twice the same file
     if (this->node->status == NodeInfoDTO::DOWNLOADING)
@@ -89,22 +85,6 @@ void DownloadsController::nodeDownloaded()
     this->node->downloadProgress = -1;
     this->model->refresNode(this->nodeIndex);
 
-#ifdef Q_OS_ANDROID
-    AndroidUtils::openFile(this->localPath);
-#else
-    QDesktopServices::openUrl(QUrl::fromLocalFile(this->localPath));
-#endif
+    Utils::openFile(this->localPath);
 }
 
-QString DownloadsController::getLocalPath(const QString &nodePath)
-{
-#ifdef Q_OS_ANDROID
-    QString baseLocalPath = AndroidUtils::getSDCardPath() + "/u1";
-#else
-    QString baseLocalPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#endif
-
-    return baseLocalPath.endsWith(QDir::separator())
-            ? baseLocalPath + QString(nodePath).replace("/~/", "")
-            : baseLocalPath + QDir::separator() + QString(nodePath).replace("/~/", "");
-}

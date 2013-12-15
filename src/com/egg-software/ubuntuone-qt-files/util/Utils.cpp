@@ -15,6 +15,11 @@
 #include "Utils.h"
 #include <QtCore>
 #include <QtQuick>
+#ifdef Q_OS_ANDROID
+#include "AndroidUtils.h"
+#else
+#include <QtGui>
+#endif
 
 void Utils::setGlobalProperties(QQmlContext *contex)
 {
@@ -23,4 +28,26 @@ void Utils::setGlobalProperties(QQmlContext *contex)
     qreal desktopLogicalDotsPerInch = 72;
     qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
     contex->setContextProperty("u", u);
+}
+
+QString Utils::getLocalPath(const QString &nodePath)
+{
+#ifdef Q_OS_ANDROID
+    QString baseLocalPath = AndroidUtils::getSDCardPath() + "/u1";
+#else
+    QString baseLocalPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+#endif
+
+    return baseLocalPath.endsWith(QDir::separator())
+            ? baseLocalPath + QString(nodePath).replace("/~/", "")
+            : baseLocalPath + QDir::separator() + QString(nodePath).replace("/~/", "");
+}
+
+void Utils::openFile(const QString &localPath)
+{
+#ifdef Q_OS_ANDROID
+    AndroidUtils::openFile(localPath);
+#else
+    QDesktopServices::openUrl(QUrl::fromLocalFile(localPath));
+#endif
 }

@@ -15,6 +15,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <QtCore/QString>
 class QQmlContext;
 
 /**
@@ -29,6 +30,17 @@ public:
      * Set the global variables in the specified context.
      */
     static void setGlobalProperties(QQmlContext *contex);
+
+    /**
+     * Returns the local path for the specified node path. For example, the local path for the node
+     * "/~/Ubuntu One/file.txt" will be "/storage/emulated/0/u1/Ubuntu One/file.txt" on Android.
+     */
+    static QString getLocalPath(const QString &nodePath);
+
+    /**
+     * Opens the specified downloaded local file.
+     */
+    static void openFile(const QString &localPath);
 
 };
 

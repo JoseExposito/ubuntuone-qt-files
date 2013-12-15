@@ -164,11 +164,11 @@ Item {
                 Image {
                     id: nodePublicIndicator
                     anchors {
-                        right: parent.right
+                        right: nodeDownloadedIndicator.left
                         top: parent.top
                         leftMargin: 10*u
                         topMargin: 10*u
-                        rightMargin: 10*u
+                        rightMargin: nodeDownloadedIndicator.visible ? 10*u : 0
                     }
                     width: 16*u
                     height: 16*u
@@ -177,6 +177,24 @@ Item {
                     fillMode: Image.PreserveAspectFit
                     antialiasing: true
                     visible: model.isPublic
+                }
+
+                // Downloaded indicator
+                Image {
+                    id: nodeDownloadedIndicator
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        topMargin: 10*u
+                        rightMargin: 10*u
+                    }
+                    visible: model.downloadedStatus
+                    width: model.downloadedStatus ? 16*u : 0
+                    height: 16*u
+
+                    source: "qrc:/icons/saved_indicator.png"
+                    fillMode: Image.PreserveAspectFit
+                    antialiasing: true
                 }
 
                 // Last modified

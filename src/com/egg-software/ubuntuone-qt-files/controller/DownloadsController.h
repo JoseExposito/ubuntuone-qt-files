@@ -47,12 +47,6 @@ private slots:
 
 private:
 
-    /**
-     * Returns the local path for the specified node path. For example, the local path for the node
-     * "/~/Ubuntu One/file.txt" will be "/storage/emulated/0/u1/Ubuntu One/file.txt" on Android.
-     */
-    QString getLocalPath(const QString &nodePath);
-
     NodeListModel *model;
     int nodeIndex;
     NodeInfoDTO *node;
