@@ -18,7 +18,7 @@ import QtQuick.Layouts 1.1
 import QtQuick.Dialogs 1.1
 import "qrc:/."
 
-ScrollView {
+Item {
 
     property string toolBarTitle: qsTr("Sign in")
     property Menu toolBarMenu: Menu {

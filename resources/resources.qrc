@@ -20,4 +20,7 @@
         <file>published_indicator.png</file>
         <file>saved_indicator.png</file>
     </qresource>
+    <qresource prefix="/translations">
+        <file>es_ES.qm</file>
+    </qresource>
 </RCC>

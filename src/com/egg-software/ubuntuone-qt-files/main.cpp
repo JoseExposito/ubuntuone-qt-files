@@ -23,6 +23,13 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    // Load translations
+    QString locale = QLocale::system().name();
+    QTranslator translator;
+    translator.load(":/translations/" + locale + ".qm");
+    app.installTranslator(&translator);
+
+    // Show the volumes or the create account or login screen
     DatabaseManager *db = DatabaseManager::getInstance();
     MainWindow *mainWindow = MainWindow::getInstance();
 
