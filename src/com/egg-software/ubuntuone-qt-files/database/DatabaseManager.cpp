@@ -61,9 +61,12 @@ DatabaseManager::DatabaseManager()
 
 void DatabaseManager::closeDatabase()
 {
-    this->db->close();
-    delete this->db;
-    delete this->instance;
+    if (this->instance != NULL) {
+        this->db->close();
+        delete this->db;
+        delete this->instance;
+        this->instance = NULL;
+    }
 }
 
 void DatabaseManager::deleteDatabase()
@@ -72,6 +75,7 @@ void DatabaseManager::deleteDatabase()
     delete this->db;
     QFile::remove(this->getDatabsePath());
     delete this->instance;
+    this->instance = NULL;
 }
 
 void DatabaseManager::setLoginInfo(LoginInfoDTO *loginInfo)
