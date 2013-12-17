@@ -13,6 +13,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include <QtGui/QGuiApplication>
+#include <QtCore/QTranslator>
 #include "DatabaseManager.h"
 #include "MainWindow.h"
 #include "CreateAccountOrLoginWindow.h"
