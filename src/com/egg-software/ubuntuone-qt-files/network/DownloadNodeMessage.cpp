@@ -14,8 +14,10 @@
  */
 #include "DownloadNodeMessage.h"
 #include "NodeInfoDTO.h"
+#include "LoginInfoDTO.h"
 #include <QtCore>
 #include <QtNetwork>
+#include <liboauthcpp/liboauthcpp.h>
 
 namespace
 {
@@ -83,4 +85,15 @@ void DownloadNodeMessage::replyFinished(QNetworkReply *reply)
         }
     }
 
+}
+
+QString DownloadNodeMessage::getDownloadUrlWithCredentials(NodeInfoDTO *node)
+{
+    QString url = DOWNLOAD_URL + this->toPercentEncoding(node->contentPath);
+    OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
+    OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
+    OAuth::Client oauth(&consumer, &token);
+    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Get, url.toStdString()));
+    QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
+    return baseUrl + "?" + oauthParameters;
 }

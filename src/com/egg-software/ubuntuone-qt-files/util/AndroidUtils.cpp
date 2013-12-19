@@ -39,4 +39,15 @@ void AndroidUtils::shareLink(const QString &link)
             "shareLink", "(Ljava/lang/String;)V", jLink.object<jstring>());
 }
 
+
+void AndroidUtils::downloadFile(const QString &url, const QString &localSaveDir, const QString &localSaveName)
+{
+    QAndroidJniObject jURL           = QAndroidJniObject::fromString(url);
+    QAndroidJniObject jLocalSaveDir  = QAndroidJniObject::fromString(localSaveDir);
+    QAndroidJniObject jLocalSaveName = QAndroidJniObject::fromString(localSaveName);
+    QAndroidJniObject::callStaticMethod<void>("org/qtproject/ubuntuqtfiles/AndroidUtils",
+            "downloadFile", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+            jURL.object<jstring>(), jLocalSaveDir.object<jstring>(), jLocalSaveName.object<jstring>());
+}
+
 #endif // Q_OS_ANDROID

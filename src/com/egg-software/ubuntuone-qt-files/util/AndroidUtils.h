@@ -41,6 +41,11 @@ public:
      */
     static void shareLink(const QString &link);
 
+    /**
+     * Downloads the specified file using the Android DownloadManager native API.
+     */
+    static void downloadFile(const QString &url, const QString &localSaveDir, const QString &localSaveName);
+
 };
 
 #endif // Q_OS_ANDROID

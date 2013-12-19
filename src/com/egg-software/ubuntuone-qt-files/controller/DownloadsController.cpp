@@ -19,6 +19,9 @@
 #include "DownloadNodeMessage.h"
 #include "NodeListModel.h"
 #include "Utils.h"
+#ifdef Q_OS_ANDROID
+#include "AndroidUtils.h"
+#endif
 #include <QtCore>
 
 DownloadsController::DownloadsController(QObject *parent)
@@ -29,9 +32,6 @@ DownloadsController::DownloadsController(QObject *parent)
 
 void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeIndex)
 {
-    // TODO Use the native API on Android?
-    // http://united-coders.com/nico-heid/show-progressbar-in-notification-area-like-google-does-when-downloading-from-android/
-
     this->model     = model;
     this->nodeIndex = nodeIndex;
     this->node      = this->model->getNode(this->nodeIndex);
@@ -65,12 +65,23 @@ void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeInde
 
     // Download and open the file
     LoginInfoDTO *loginInfo = DatabaseManager::getInstance()->getLoginInfo();
-    QDir().mkpath(QFileInfo(this->localPath).dir().path());
+    QString localSaveDir = QFileInfo(this->localPath).dir().path();
+    QDir().mkpath(localSaveDir);
+
+/*#ifdef Q_OS_ANDROID
+    DownloadNodeMessage downloadMessage(loginInfo, this);
+    QString url = downloadMessage.getDownloadUrlWithCredentials(this->node);
+    qDebug() << url;
+    qDebug() << localSaveDir;
+    qDebug() << QFileInfo(this->localPath).fileName();
+    AndroidUtils::downloadFile(url, localSaveDir, QFileInfo(this->localPath).fileName());
+#else*/
     DownloadNodeMessage *downloadMessage = new DownloadNodeMessage(loginInfo, this);
     connect(downloadMessage, SIGNAL(downloadProgress(int)), this, SLOT(downloadProgress(int)));
     connect(downloadMessage, SIGNAL(errorDownloadingNode(QString)), this, SIGNAL(errorDownloadingNode(QString)));
     connect(downloadMessage, SIGNAL(nodeDownloaded()), this, SLOT(nodeDownloaded()));
     downloadMessage->downloadNode(this->node, this->localPath);
+//#endif
 }
 
 void DownloadsController::downloadProgress(int progress)
