@@ -23,10 +23,7 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
 
 public class AndroidUtils extends org.qtproject.qt5.android.bindings.QtActivity {
 
@@ -107,4 +104,10 @@ public class AndroidUtils extends org.qtproject.qt5.android.bindings.QtActivity 
             }
         }).start();
     }
+
+    public static void showInputDialog(final String title, final String description, final String defaultInput,
+            final String okButtonTitle, final String cancelButtonTitle) {
+        InputDialog.showInputDialog(instance, title, description, defaultInput, okButtonTitle, cancelButtonTitle);
+    }
+
 }

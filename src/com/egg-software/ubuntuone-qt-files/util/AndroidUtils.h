@@ -17,6 +17,7 @@
 
 #include <QtCore/QString>
 #ifdef Q_OS_ANDROID
+#include <jni.h>
 
 /**
  * The AndroidUtils class brings easy access to the AndroidUtils.java class from C++.
@@ -45,6 +46,14 @@ public:
      * Downloads the specified file using the Android DownloadManager native API.
      */
     static void downloadFile(const QString &url, const QString &localSaveDir, const QString &localSaveName);
+
+    /**
+     * QInputDialog is not working in Android and QML doesn't offer a similar dialog or a way to build personalized
+     * dialogs. Due to this, this method offers a simple way to show an input dialog.
+     */
+    static void showInputDialog(const QString &title, const QString &description, const QString &defaultInput,
+        const QString &okButtonTitle, const QString &cancelButtonTitle);
+    static void showInputDialogResultCallback(JNIEnv *env, jobject object, jstring result);
 
 };
 

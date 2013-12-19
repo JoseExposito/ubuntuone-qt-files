@@ -50,4 +50,41 @@ void AndroidUtils::downloadFile(const QString &url, const QString &localSaveDir,
             jURL.object<jstring>(), jLocalSaveDir.object<jstring>(), jLocalSaveName.object<jstring>());
 }
 
+void AndroidUtils::showInputDialog(const QString &title, const QString &description, const QString &defaultInput,
+    const QString &okButtonTitle, const QString &cancelButtonTitle)
+{
+    // Register the native callbacks
+    JNINativeMethod methods[] = {
+        {
+            "showInputDialogResultCallback",
+            "(Ljava/lang/String;)V",
+            reinterpret_cast<void *>(AndroidUtils::showInputDialogResultCallback)
+        }
+    };
+
+    QAndroidJniObject javaClass("org/qtproject/ubuntuqtfiles/InputDialog");
+    QAndroidJniEnvironment env;
+    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
+    env->RegisterNatives(objectClass, methods, sizeof(methods) / sizeof(methods[0]));
+    env->DeleteLocalRef(objectClass);
+
+    // Show the dialog
+    QAndroidJniObject jTitle             = QAndroidJniObject::fromString(title);
+    QAndroidJniObject jDescription       = QAndroidJniObject::fromString(description);
+    QAndroidJniObject jDefaultInput      = QAndroidJniObject::fromString(defaultInput);
+    QAndroidJniObject jOkButtonTitle     = QAndroidJniObject::fromString(okButtonTitle);
+    QAndroidJniObject jCancelButtonTitle = QAndroidJniObject::fromString(cancelButtonTitle);
+    QAndroidJniObject::callStaticMethod<void>("org/qtproject/ubuntuqtfiles/AndroidUtils",
+            "showInputDialog",
+            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
+            jTitle.object<jstring>(), jDescription.object<jstring>(), jDefaultInput.object<jstring>(),
+            jOkButtonTitle.object<jstring>(), jCancelButtonTitle.object<jstring>());
+}
+
+void AndroidUtils::showInputDialogResultCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
+{
+    QString qtResult = QAndroidJniObject(result).toString();
+    qDebug() << qtResult;
+}
+
 #endif // Q_OS_ANDROID
