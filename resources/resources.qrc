@@ -22,5 +22,6 @@
     </qresource>
     <qresource prefix="/translations">
         <file>es_ES.qm</file>
+        <file>fr_FR.qm</file>
     </qresource>
 </RCC>
