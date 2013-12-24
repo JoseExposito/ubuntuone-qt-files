@@ -20,9 +20,12 @@
 #include "NodeInfoDTO.h"
 #ifdef Q_OS_ANDROID
 #include "AndroidUtils.h"
+#include <QtAndroidExtras>
+#else
+#include <QtWidgets/QInputDialog>
+#include <QtGui>
 #endif
 #include <QtCore>
-#include <QtGui>
 
 FileActionsController::FileActionsController(QObject *parent)
     : QObject(parent),
@@ -63,5 +66,31 @@ void FileActionsController::shareLink(NodeInfoDTO *node)
 #else
     QClipboard *clipboard = qApp->clipboard();
     clipboard->setText(node->publicUrl);
+#endif
+}
+
+#ifdef Q_OS_ANDROID
+static void renameCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
+{
+    // TODO Add the rename message
+
+    QString newName = QAndroidJniObject(result).toString();
+    if (newName == "") {
+        qDebug() << "Cancel";
+        return;
+    }
+
+    qDebug() << "New name: " << newName;
+}
+#endif
+
+void FileActionsController::rename(NodeInfoDTO *node)
+{
+#ifdef Q_OS_ANDROID
+    AndroidUtils::showInputDialog(tr("Rename"), "", node->name, tr("Rename file"), tr("Cancel"),
+            (void *)renameCallback);
+#else
+    QString newName = QInputDialog::getText(NULL, tr("Rename"), "", QLineEdit::Normal, node->name);
+    // TODO Add the rename message
 #endif
 }

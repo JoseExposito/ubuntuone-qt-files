@@ -1,4 +1,4 @@
-QT    += qml quick network sql
+QT    += qml quick network sql widgets
 android: QT += androidextras
 
 # In iOS the modules are not added automatically

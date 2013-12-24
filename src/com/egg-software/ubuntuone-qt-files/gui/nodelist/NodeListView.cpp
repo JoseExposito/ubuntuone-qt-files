@@ -35,7 +35,7 @@ NodeListView::NodeListView(const QString &path)
     connect(this->rootObject(), SIGNAL(openFolder(int)), this, SLOT(openFolder(int)));
     connect(this->rootObject(), SIGNAL(openFile(int)), this, SLOT(openFile(int)));
 
-    connect(this->rootObject(), SIGNAL(renameNode(int, QString)), this, SLOT(renameNode(int, QString)));
+    connect(this->rootObject(), SIGNAL(renameNode(int)), this, SLOT(renameNode(int)));
     connect(this->rootObject(), SIGNAL(deleteNode(int)), this, SLOT(deleteNode(int)));
 
     connect(this->rootObject(), SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
@@ -65,12 +65,10 @@ void NodeListView::openFile(int nodeIndex)
     downloader->downloadAndOpenNode(this->model, nodeIndex);
 }
 
-void NodeListView::renameNode(int nodeIndex, const QString &newName)
+void NodeListView::renameNode(int nodeIndex)
 {
-    // TODO QInputDialog is not working on Android and is it not possible to build your own dialogs in QML, check the
-    //      Qt Quick Dialogs documentation, so for the moment... to do
-    QString path = this->model->getNode(nodeIndex)->path;
-    qDebug() << "Rename file: " << path << " to " << newName;
+    NodeInfoDTO *node = this->model->getNode(nodeIndex);
+    this->fileAction->rename(node);
 }
 
 void NodeListView::deleteNode(int nodeIndex)

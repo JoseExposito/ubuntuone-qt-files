@@ -38,7 +38,7 @@ private slots:
     void openFolder(int nodeIndex);
     void openFile(int nodeIndex);
 
-    void renameNode(int nodeIndex, const QString &newName);
+    void renameNode(int nodeIndex);
     void deleteNode(int nodeIndex);
     void publishFile(int nodeIndex, bool publish);
     void copyPublicLink(int nodeIndex);

@@ -33,7 +33,7 @@ Item {
     signal openFile(int nodeIndex)
 
     // Folder & files action signals
-    signal renameNode(int nodeIndex, string newName)
+    signal renameNode(int nodeIndex)
     signal deleteNode(int nodeIndex)
 
     // File action signals
@@ -53,7 +53,7 @@ Item {
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(folderMenu.nodeIndex, "New name") }
+            onTriggered: { renameNode(folderMenu.nodeIndex) }
         }
         MenuItem {
             text: qsTr("Delete")
@@ -84,7 +84,7 @@ Item {
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(fileMenu.nodeIndex, "New name") }
+            onTriggered: { renameNode(fileMenu.nodeIndex) }
         }
         MenuItem {
             text: qsTr("Delete")

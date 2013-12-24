@@ -52,8 +52,7 @@ public:
      * dialogs. Due to this, this method offers a simple way to show an input dialog.
      */
     static void showInputDialog(const QString &title, const QString &description, const QString &defaultInput,
-        const QString &okButtonTitle, const QString &cancelButtonTitle);
-    static void showInputDialogResultCallback(JNIEnv *env, jobject object, jstring result);
+        const QString &okButtonTitle, const QString &cancelButtonTitle, void *callback);
 
 };
 

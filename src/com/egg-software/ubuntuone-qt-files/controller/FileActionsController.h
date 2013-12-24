@@ -30,6 +30,7 @@ public:
     void deleteNode(NodeInfoDTO *node);
     void publishNode(NodeInfoDTO *node, bool publish);
     void shareLink(NodeInfoDTO *node);
+    void rename(NodeInfoDTO *node);
 
 signals:
 

@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include <QtGui/QGuiApplication>
+#include <QtWidgets/QApplication>
 #include <QtCore/QTranslator>
 #include "DatabaseManager.h"
 #include "MainWindow.h"
@@ -22,7 +22,7 @@
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     // Load translations
     QString locale = QLocale::system().name();
