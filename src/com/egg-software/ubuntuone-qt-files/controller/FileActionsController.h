@@ -16,6 +16,9 @@
 #define FILEACTIONSCONTROLLER_H
 
 #include <QtCore/QObject>
+#ifdef Q_OS_ANDROID
+#include <jni.h>
+#endif
 class LoginInfoDTO;
 class NodeInfoDTO;
 
@@ -25,7 +28,11 @@ class FileActionsController : public QObject
 
 public:
 
-    FileActionsController(QObject *parent = 0);
+    /**
+     * Only method to get an instance of the class.
+     * @return The single instance of the class.
+     */
+    static FileActionsController *getInstance();
 
     void deleteNode(NodeInfoDTO *node);
     void publishNode(NodeInfoDTO *node, bool publish);
@@ -37,10 +44,28 @@ signals:
     void actionFinished();
     void actionFinishedWithError(const QString &errorDescription);
 
+    /**
+     * Signal used to call renameAux() on the main thread to avoid problems with Android.
+     */
+    void renameOnMainThread(NodeInfoDTO *node, const QString &newName);
+
+private slots:
+
+    static void renameAux(NodeInfoDTO *node, const QString &newName);
+
 private:
 
     LoginInfoDTO *loginInfo;
 
+#ifdef Q_OS_ANDROID
+    static void renameCallback(JNIEnv *env, jobject object, jstring result);
+#endif
+
+    // Singleton
+    static FileActionsController *instance;
+    FileActionsController();
+    FileActionsController(const FileActionsController &);
+    const FileActionsController &operator = (const FileActionsController &);
 };
 
 #endif // FILEACTIONSCONTROLLER_H

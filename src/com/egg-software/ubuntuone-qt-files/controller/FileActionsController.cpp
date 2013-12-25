@@ -17,6 +17,7 @@
 #include "LoginInfoDTO.h"
 #include "DeleteMessage.h"
 #include "PublishMessage.h"
+#include "RenameMessage.h"
 #include "NodeInfoDTO.h"
 #ifdef Q_OS_ANDROID
 #include "AndroidUtils.h"
@@ -27,9 +28,17 @@
 #endif
 #include <QtCore>
 
-FileActionsController::FileActionsController(QObject *parent)
-    : QObject(parent),
-      loginInfo(DatabaseManager::getInstance()->getLoginInfo())
+FileActionsController *FileActionsController::instance = NULL;
+
+FileActionsController *FileActionsController::getInstance()
+{
+    if (FileActionsController::instance == NULL)
+        FileActionsController::instance = new FileActionsController();
+    return FileActionsController::instance;
+}
+
+FileActionsController::FileActionsController()
+    : loginInfo(DatabaseManager::getInstance()->getLoginInfo())
 {
 
 }
@@ -70,27 +79,37 @@ void FileActionsController::shareLink(NodeInfoDTO *node)
 }
 
 #ifdef Q_OS_ANDROID
-static void renameCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
+NodeInfoDTO *renameAuxNode;
+void FileActionsController::renameCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
 {
-    // TODO Add the rename message
-
     QString newName = QAndroidJniObject(result).toString();
-    if (newName == "") {
-        qDebug() << "Cancel";
-        return;
-    }
-
-    qDebug() << "New name: " << newName;
+    if (!newName.isEmpty())
+        emit FileActionsController::getInstance()->renameOnMainThread(renameAuxNode, newName);
 }
 #endif
 
 void FileActionsController::rename(NodeInfoDTO *node)
 {
 #ifdef Q_OS_ANDROID
+    renameAuxNode = node;
+    connect(this, SIGNAL(renameOnMainThread(NodeInfoDTO*,QString)), this, SLOT(renameAux(NodeInfoDTO*,QString)));
     AndroidUtils::showInputDialog(tr("Rename"), "", node->name, tr("Rename file"), tr("Cancel"),
-            (void *)renameCallback);
+            (void *)FileActionsController::renameCallback);
 #else
-    QString newName = QInputDialog::getText(NULL, tr("Rename"), "", QLineEdit::Normal, node->name);
-    // TODO Add the rename message
+    bool ok;
+    QString newName = QInputDialog::getText(NULL, tr("Rename"), "", QLineEdit::Normal, node->name, &ok);
+    if (ok && !newName.isEmpty())
+        FileActionsController::renameAux(node, newName);
 #endif
+}
+
+void FileActionsController::renameAux(NodeInfoDTO *node, const QString &newName)
+{
+    RenameMessage *renameMessage = new RenameMessage(DatabaseManager::getInstance()->getLoginInfo());
+    connect(renameMessage, SIGNAL(nodeRenamed()), FileActionsController::instance, SIGNAL(actionFinished()));
+    connect(renameMessage, SIGNAL(nodeRenamed()), renameMessage, SLOT(deleteLater()));
+    connect(renameMessage, SIGNAL(errorRenamingNode(QString)),
+            FileActionsController::instance, SIGNAL(actionFinishedWithError(QString)));
+    connect(renameMessage, SIGNAL(errorRenamingNode(QString)), renameMessage, SLOT(deleteLater()));
+    renameMessage->renameNode(node, newName);
 }

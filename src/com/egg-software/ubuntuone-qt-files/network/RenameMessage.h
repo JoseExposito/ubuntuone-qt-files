@@ -12,32 +12,33 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef DELETEMESSAGE_H
-#define DELETEMESSAGE_H
+#ifndef RENAMEMESSAGE_H
+#define RENAMEMESSAGE_H
 
 #include "AbstractMessage.h"
+class NodeInfoDTO;
 
 /**
- * The DeleteMessage class allows to delete files or folders from the Ubuntu One server.
+ * The RenameMessage class allows to rename files or folders from the Ubuntu One server.
  *
  * DOCUMENTATION:
- * https://one.ubuntu.com/developer/files/store_files/cloud#delete--api-file_storage-v1-(volume)-(path)
+ * https://one.ubuntu.com/developer/files/store_files/cloud#put--api-file_storage-v1-(volume)-(path)
  */
-class DeleteMessage : public AbstractMessage
+class RenameMessage : public AbstractMessage
 {
     Q_OBJECT
 
 public:
 
-    DeleteMessage(LoginInfoDTO *loginInfo, QObject *parent = 0);
-    virtual ~DeleteMessage();
+    RenameMessage(LoginInfoDTO *loginInfo, QObject *parent = 0);
+    virtual ~RenameMessage();
 
     /**
      * Deletes the specified node.
-     * @see nodeDeleted()
-     * @see errorDeletingNode()
+     * @see nodeRenamed()
+     * @see errorRenamingNode()
      */
-    void deleteNode(const QString &path);
+    void renameNode(NodeInfoDTO *node, const QString &newName);
 
 protected slots:
 
@@ -46,20 +47,20 @@ protected slots:
 signals:
 
     /**
-     * Emmited when the node is correctly deleted.
+     * Emmited when the node is correctly renamed.
      */
-    void nodeDeleted();
+    void nodeRenamed();
 
     /**
-     * Emmited when an error happens deleting the node.
+     * Emmited when an error happens renaming the node.
      * @param errorDescription Human readable description of the problem.
      */
-    void errorDeletingNode(const QString &errorDescription);
+    void errorRenamingNode(const QString &errorDescription);
 
 private:
 
-    QNetworkReply *deleteReply;
+    QNetworkReply *renameReply;
 
 };
 
-#endif // DELETEMESSAGE_H
+#endif // RENAMEMESSAGE_H

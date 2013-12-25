@@ -25,7 +25,7 @@
 NodeListView::NodeListView(const QString &path)
     : QQuickView(MainWindow::getInstance()->getWindow()),
       viewPath(path),
-      fileAction(new FileActionsController(this)),
+      fileAction(FileActionsController::getInstance()),
       model(new NodeListModel(this))
 {
     Utils::setGlobalProperties(this->rootContext());
