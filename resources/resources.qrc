@@ -21,7 +21,7 @@
         <file>saved_indicator.png</file>
     </qresource>
     <qresource prefix="/translations">
-        <file>es_ES.qm</file>
-        <file>fr_FR.qm</file>
+        <file>es.qm</file>
+        <file>fr.qm</file>
     </qresource>
 </RCC>

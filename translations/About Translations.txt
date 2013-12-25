@@ -1,2 +1,13 @@
-es_ES - José Expósito
-fr_FR - Yahoe.001 <yahoe.001@gmail.com>
+[+] How to generate and update the translations:
+
+	To update the translations:
+	$ lupdate src -ts translations/es.ts translations/fr.ts
+
+	And to compile them:
+	$ lrelease translations/*.ts ; mv translations/*.qm resources
+
+
+[+] Copyright:
+
+	es - José Expósito <jose.exposito89@gmail.com>
+	fr - Yahoe.001 <yahoe.001@gmail.com>
