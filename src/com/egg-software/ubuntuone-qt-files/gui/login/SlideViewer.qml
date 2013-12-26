@@ -23,19 +23,19 @@ Item {
         loops: Animation.Infinite
         running: true
 
-        PauseAnimation { duration: 3000 }
+        PauseAnimation { duration: 5000 }
         NumberAnimation { target: slide0; property: "opacity"; to: 0; duration: 1000 }
         NumberAnimation { target: slide1; property: "opacity"; to: 1; duration: 1000 }
 
-        PauseAnimation { duration: 3000 }
+        PauseAnimation { duration: 5000 }
         NumberAnimation { target: slide1; property: "opacity"; to: 0; duration: 1000 }
         NumberAnimation { target: slide2; property: "opacity"; to: 1; duration: 1000 }
 
-        PauseAnimation { duration: 3000 }
+        PauseAnimation { duration: 5000 }
         NumberAnimation { target: slide2; property: "opacity"; to: 0; duration: 1000 }
         NumberAnimation { target: slide3; property: "opacity"; to: 1; duration: 1000 }
 
-        PauseAnimation { duration: 3000 }
+        PauseAnimation { duration: 5000 }
         NumberAnimation { target: slide3; property: "opacity"; to: 0; duration: 1000 }
         NumberAnimation { target: slide0; property: "opacity"; to: 1; duration: 1000 }
     }
@@ -47,31 +47,35 @@ Item {
         opacity: 1
         slideImage: "qrc:/slides/slide0.png"
         slideTitle: qsTr("Your cloud")
-        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One...")
+        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One and access them fom any of your "
+                + "devices, wherever you are. Get 5GB of cloud storage for FREE")
     }
 
     Slide {
         id: slide1
         opacity: 0
         slideImage: "qrc:/slides/slide1.png"
-        slideTitle: qsTr("Your cloud")
-        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One...")
+        slideTitle: qsTr("Your photos")
+        slideContent: qsTr("Snap a photo and it will instantly appear online and on all your devices. Easily share "
+                + "shots with friends, family, colleagues or on social networks")
     }
 
     Slide {
         id: slide2
         opacity: 0
         slideImage: "qrc:/slides/slide2.png"
-        slideTitle: qsTr("Your cloud")
-        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One...")
+        slideTitle: qsTr("Your music")
+        slideContent: qsTr("Add more cloud storage when you need it or stream your music online or on your mobile. "
+                + "Music Streaming has 20GB of extra cloud storage built in - try it free for 30 days")
     }
 
     Slide {
         id: slide3
         opacity: 0
         slideImage: "qrc:/slides/slide3.png"
-        slideTitle: qsTr("Your cloud")
-        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One...")
+        slideTitle: qsTr("Getting started")
+        slideContent: qsTr("Go to https://one.ubuntu.com/downloads/ and follow our simple guide to install Ubuntu One "
+                + "on all your devices. Ubuntu One works on Windows, OS X, Android, iOS, Ubuntu and via the Web")
     }
 
 }

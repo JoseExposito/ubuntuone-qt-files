@@ -249,19 +249,47 @@ https://twitter.com/Jose__Exposito</translation>
     <name>SlideViewer</name>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="49"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="57"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="65"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="73"/>
         <source>Your cloud</source>
         <translation>Votre nuage</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="50"/>
+        <source>Store your files, photos and music safely in Ubuntu One and access them fom any of your devices, wherever you are. Get 5GB of cloud storage for FREE</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="58"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="66"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="74"/>
+        <source>Your photos</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="59"/>
+        <source>Snap a photo and it will instantly appear online and on all your devices. Easily share shots with friends, family, colleagues or on social networks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="67"/>
+        <source>Your music</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="68"/>
+        <source>Add more cloud storage when you need it or stream your music online or on your mobile. Music Streaming has 20GB of extra cloud storage built in - try it free for 30 days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="76"/>
+        <source>Getting started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="77"/>
+        <source>Go to https://one.ubuntu.com/downloads/ and follow our simple guide to install Ubuntu One on all your devices. Ubuntu One works on Windows, OS X, Android, iOS, Ubuntu and via the Web</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Store your files, photos and music safely in Ubuntu One...</source>
-        <translation>Entreposez vos fichiers, photos et musique en sureté dans Ubuntu One...</translation>
+        <translation type="vanished">Entreposez vos fichiers, photos et musique en sureté dans Ubuntu One...</translation>
     </message>
 </context>
 <context>

@@ -57,6 +57,8 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        horizontalAlignment: Text.AlignJustify
+        font.pixelSize: 14*u
     }
 
 }

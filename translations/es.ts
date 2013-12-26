@@ -249,19 +249,47 @@ https://twitter.com/Jose__Exposito</translation>
     <name>SlideViewer</name>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="49"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="57"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="65"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="73"/>
         <source>Your cloud</source>
         <translation>Tu nube</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="50"/>
+        <source>Store your files, photos and music safely in Ubuntu One and access them fom any of your devices, wherever you are. Get 5GB of cloud storage for FREE</source>
+        <translation>Almacena tus ficheros, fotos y música de forma segura en Ubuntu One y accede a ellos desde cualquiera de tus dispositivos estés donde estés. Obten 5GB de almacenamiento en la nube GRATIS</translation>
+    </message>
+    <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="58"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="66"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="74"/>
+        <source>Your photos</source>
+        <translation>Tus fotos</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="59"/>
+        <source>Snap a photo and it will instantly appear online and on all your devices. Easily share shots with friends, family, colleagues or on social networks</source>
+        <translation>Haz una foto y aparecerá instantaneamente online y en todos tus dispositivos. Compartela fácilmente con tus amigos, familiar, compañeros de trabajo o en las redes sociales</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="67"/>
+        <source>Your music</source>
+        <translation>Tu música</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="68"/>
+        <source>Add more cloud storage when you need it or stream your music online or on your mobile. Music Streaming has 20GB of extra cloud storage built in - try it free for 30 days</source>
+        <translation>Añade más almacenamiento cuando lo necesites o escucha tu música en streaming o desde tu dispositivo. El servicio Music Streaming ofrece 20GB extras - pruébalo gratis 30 días</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="76"/>
+        <source>Getting started</source>
+        <translation>Primeros pasos</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="77"/>
+        <source>Go to https://one.ubuntu.com/downloads/ and follow our simple guide to install Ubuntu One on all your devices. Ubuntu One works on Windows, OS X, Android, iOS, Ubuntu and via the Web</source>
+        <translation>Ve a https://one.ubuntu.com/downloads/ y sigue nuestra simple guía para instalar Ubuntu One en todos tus dispositivos. Ubuntu One es compatible con Windows, OS X, Android, iOS, Ubuntu y con la web</translation>
+    </message>
+    <message>
         <source>Store your files, photos and music safely in Ubuntu One...</source>
-        <translation>Almacena tus ficheros, fotos y música de forma segura en Ubuntu One...</translation>
+        <translation type="vanished">Almacena tus ficheros, fotos y música de forma segura en Ubuntu One...</translation>
     </message>
 </context>
 <context>
