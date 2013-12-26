@@ -12,38 +12,37 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "CreateAccountOrLoginWindow.h"
+#include "CreateAccountWindow.h"
 #include "MainWindow.h"
 #include "Utils.h"
-#include "LoginWindow.h"
-#include "CreateAccountWindow.h"
 #include <QtCore>
 #include <QtQuick>
+#include <QtGui/QDesktopServices>
 
-CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
+CreateAccountWindow::CreateAccountWindow()
     : QQuickView(MainWindow::getInstance()->getWindow())
 {
     Utils::setGlobalProperties(this->rootContext());
-    this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
+    this->setSource(QUrl("qrc:/qml/CreateAccountWindow.qml"));
 
-    connect(this->rootObject(), SIGNAL(loginClicked()), this, SLOT(loginClicked()));
-    connect(this->rootObject(), SIGNAL(createAccountClicked()), this, SLOT(createAccountClicked()));
+    connect(this->rootObject(), SIGNAL(createAccount(QString,QString,QString)),
+            this, SLOT(createAccountButtonPressed(QString,QString,QString)));
+    connect(this->rootObject(), SIGNAL(termsOfservice()), this, SLOT(termsOfserviceButtonPressed()));
     connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 }
 
-void CreateAccountOrLoginWindow::loginClicked()
+void CreateAccountWindow::createAccountButtonPressed(const QString &fullName, const QString &email,
+    const QString &password)
 {
-    LoginWindow *loginWindow = new LoginWindow();
-    MainWindow::getInstance()->push(loginWindow);
+
 }
 
-void CreateAccountOrLoginWindow::createAccountClicked()
+void CreateAccountWindow::termsOfserviceButtonPressed()
 {
-    CreateAccountWindow *createAccountWindow = new CreateAccountWindow();
-    MainWindow::getInstance()->push(createAccountWindow);
+    QDesktopServices::openUrl(QUrl("http://www.ubuntu.com/legal/"));
 }
 
-void CreateAccountOrLoginWindow::menuAbout()
+void CreateAccountWindow::menuAbout()
 {
     MainWindow::getInstance()->showAboutDialog();
 }
