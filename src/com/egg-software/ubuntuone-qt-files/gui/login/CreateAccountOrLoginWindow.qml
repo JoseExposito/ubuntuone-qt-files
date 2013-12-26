@@ -57,7 +57,7 @@ Item {
             style: UbuntuButtonStyle { }
             anchors.left: parent.left
             anchors.right: parent.right
-            text: qsTr("Sign in")
+            text: qsTr("Login")
             onClicked: loginClicked()
         }
 

@@ -80,7 +80,7 @@ void LoginMessage::replyFinished(QNetworkReply *reply)
                 || jsonDoc.object().find(TOKEN_SECRET_ID) == jsonDoc.object().end()) {
             qDebug() << "\t Error parsing the JSON Ubuntu SSO response";
             emit this->loginError(tr("Unexpected response received from the Ubuntu SSO server."
-                                     "Please, try to log in later"));
+                                     "Please, try to login later"));
             return;
         }
 

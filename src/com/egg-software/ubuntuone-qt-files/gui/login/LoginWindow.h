@@ -29,12 +29,9 @@ public:
 
     LoginWindow();
 
-public slots:
-
-    void loginButtonPressed(const QString &username, const QString &password);
-
 private slots:
 
+    void loginButtonPressed(const QString &username, const QString &password);
     void loginFinished();
     void loginError(const QString &errorDescription);
     void menuAbout();
@@ -42,6 +39,7 @@ private slots:
 private:
 
     LoginController *loginController;
+
 };
 
 #endif // LOGINWINDOW_H

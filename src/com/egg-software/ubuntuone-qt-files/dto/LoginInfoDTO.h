@@ -18,7 +18,7 @@
 #include <QtCore/QString>
 
 /**
- * The LoginInfoDTO class is used to transfer all the required information to log in.
+ * The LoginInfoDTO class is used to transfer all the required information to login.
  */
 class LoginInfoDTO
 {

@@ -15,13 +15,51 @@
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountOrLoginWindow.qml" line="60"/>
-        <source>Sign in</source>
+        <source>Login</source>
         <translation>Iniciar sesión</translation>
+    </message>
+    <message>
+        <source>Sign in</source>
+        <translation type="vanished">Iniciar sesión</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountOrLoginWindow.qml" line="69"/>
         <source>I don&apos;t have an account</source>
         <translation>No tengo cuenta</translation>
+    </message>
+</context>
+<context>
+    <name>CreateAccountWindow</name>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="23"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="67"/>
+        <source>Create account</source>
+        <translation>Crear cuenta</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="25"/>
+        <source>About...</source>
+        <translation>Acerca de...</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="46"/>
+        <source>Full name</source>
+        <translation>Nombre completo</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="53"/>
+        <source>Email</source>
+        <translation>Email</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="60"/>
+        <source>Password</source>
+        <translation>Contraseña</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="80"/>
+        <source>By creating an account you agree to the Ubuntu Account &lt;u&gt;Terms of Service&lt;/u&gt;</source>
+        <translation>Al crear una cuenta usted acepta los &lt;u&gt;Términos del Servicio&lt;/u&gt; de Ubuntu Account</translation>
     </message>
 </context>
 <context>
@@ -72,8 +110,12 @@
 <context>
     <name>LoginController</name>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/LoginController.cpp" line="24"/>
         <source>Log in...</source>
+        <translation type="vanished">Iniciando sesión...</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/LoginController.cpp" line="24"/>
+        <source>Login...</source>
         <translation>Iniciando sesión...</translation>
     </message>
 </context>
@@ -86,8 +128,12 @@
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/network/LoginMessage.cpp" line="82"/>
-        <source>Unexpected response received from the Ubuntu SSO server.Please, try to log in later</source>
+        <source>Unexpected response received from the Ubuntu SSO server.Please, try to login later</source>
         <translation>Respuesta inesperada recivida por parte del servidor Ubuntu SSO. Por favor inténtelo más tarde</translation>
+    </message>
+    <message>
+        <source>Unexpected response received from the Ubuntu SSO server.Please, try to log in later</source>
+        <translation type="vanished">Respuesta inesperada recivida por parte del servidor Ubuntu SSO. Por favor inténtelo más tarde</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/network/LoginMessage.cpp" line="101"/>
@@ -98,9 +144,13 @@
 <context>
     <name>LoginWindow</name>
     <message>
+        <source>Sign in</source>
+        <translation type="vanished">Iniciar sesión</translation>
+    </message>
+    <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="23"/>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="59"/>
-        <source>Sign in</source>
+        <source>Login</source>
         <translation>Iniciar sesión</translation>
     </message>
     <message>

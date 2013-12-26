@@ -15,13 +15,51 @@
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountOrLoginWindow.qml" line="60"/>
+        <source>Login</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Sign in</source>
-        <translation>Connexion</translation>
+        <translation type="vanished">Connexion</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountOrLoginWindow.qml" line="69"/>
         <source>I don&apos;t have an account</source>
         <translation>Je n&apos;ai pas de compte</translation>
+    </message>
+</context>
+<context>
+    <name>CreateAccountWindow</name>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="23"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="67"/>
+        <source>Create account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="25"/>
+        <source>About...</source>
+        <translation type="unfinished">À propos...</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="46"/>
+        <source>Full name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="53"/>
+        <source>Email</source>
+        <translation type="unfinished">Courriel</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="60"/>
+        <source>Password</source>
+        <translation type="unfinished">Mot de passe</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="80"/>
+        <source>By creating an account you agree to the Ubuntu Account &lt;u&gt;Terms of Service&lt;/u&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -72,9 +110,13 @@
 <context>
     <name>LoginController</name>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/LoginController.cpp" line="24"/>
         <source>Log in...</source>
-        <translation>Connexion...</translation>
+        <translation type="vanished">Connexion...</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/LoginController.cpp" line="24"/>
+        <source>Login...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -86,8 +128,12 @@
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/network/LoginMessage.cpp" line="82"/>
+        <source>Unexpected response received from the Ubuntu SSO server.Please, try to login later</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Unexpected response received from the Ubuntu SSO server.Please, try to log in later</source>
-        <translation>Erreur inattendue reçue du serveur SSO Ubuntu. Veuillez essayer de vous connecter plus tard</translation>
+        <translation type="vanished">Erreur inattendue reçue du serveur SSO Ubuntu. Veuillez essayer de vous connecter plus tard</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/network/LoginMessage.cpp" line="101"/>
@@ -98,10 +144,14 @@
 <context>
     <name>LoginWindow</name>
     <message>
+        <source>Sign in</source>
+        <translation type="vanished">Connexion</translation>
+    </message>
+    <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="23"/>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="59"/>
-        <source>Sign in</source>
-        <translation>Connexion</translation>
+        <source>Login</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="25"/>

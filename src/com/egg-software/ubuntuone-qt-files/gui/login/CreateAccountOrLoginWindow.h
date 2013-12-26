@@ -18,7 +18,7 @@
 #include <QtQuick/QQuickView>
 
 /**
- * First screen of the application if the user is not already logged. It allows to the user to go to the "sign in" or
+ * First screen of the application if the user is not already logged. It allows to the user to go to the "login" or
  * "create account" screens and shows a slideshow with the main features of the application.
  */
 class CreateAccountOrLoginWindow : public QQuickView

@@ -21,7 +21,7 @@
 
 void LoginController::login(const QString &username, const QString &password)
 {
-    MainWindow::getInstance()->showLoadingSpinner(true, tr("Log in..."));
+    MainWindow::getInstance()->showLoadingSpinner(true, tr("Login..."));
     LoginMessage *loginMessage = new LoginMessage(this);
     connect(loginMessage, SIGNAL(loginError(QString)), this, SLOT(loginMessageFinishedWithError(QString)));
     connect(loginMessage, SIGNAL(loginFinished(LoginInfoDTO*)), this, SLOT(loginMessageFinished(LoginInfoDTO*)));

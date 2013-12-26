@@ -20,7 +20,7 @@ import "qrc:/."
 
 Item {
 
-    property string toolBarTitle: qsTr("Sign in")
+    property string toolBarTitle: qsTr("Login")
     property Menu toolBarMenu: Menu {
         MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
     }
@@ -56,7 +56,7 @@ Item {
         }
 
         Button {
-            text: qsTr("Sign in")
+            text: qsTr("Login")
             style: UbuntuButtonStyle { }
             Layout.fillWidth: true
             onClicked: {
