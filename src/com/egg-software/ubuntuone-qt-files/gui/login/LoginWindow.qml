@@ -43,6 +43,7 @@ Item {
             id: usernameTextField
             focus: true
             placeholderText: qsTr("Email")
+            inputMethodHints: Qt.ImhEmailCharactersOnly
             style: UbuntuTextFieldStyle { }
             Layout.fillWidth: true
         }

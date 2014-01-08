@@ -15,7 +15,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import QtGraphicalEffects 1.0
 import "qrc:/."
 
 Item {

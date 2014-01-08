@@ -51,6 +51,7 @@ Item {
         TextField {
             id: emailTextField
             placeholderText: qsTr("Email")
+            inputMethodHints: Qt.ImhEmailCharactersOnly
             style: UbuntuTextFieldStyle { }
             Layout.fillWidth: true
         }
