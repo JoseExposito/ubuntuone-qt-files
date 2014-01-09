@@ -64,7 +64,7 @@ QNetworkReply *AbstractMessage::oauthDeleteRequest(const QString &url)
 
 QString AbstractMessage::toPercentEncoding(const QString &url)
 {
-    return QUrl::toPercentEncoding(url).replace("%2F", "/").replace("%5B", "[").replace("%5D", "]");
+    return QUrl::toPercentEncoding(url, "/()[]'");
 }
 
 void AbstractMessage::printJson(const QString &json)

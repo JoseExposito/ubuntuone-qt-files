@@ -54,6 +54,7 @@ void DownloadNodeMessage::downloadNode(NodeInfoDTO *node, const QString &savePat
     this->downloadReply = this->oauthGetRequest(url);
     connect(this->downloadReply, SIGNAL(downloadProgress(qint64,qint64)), this, SLOT(downloadProgress(qint64,qint64)));
     connect(this->downloadReply, SIGNAL(readyRead()), this, SLOT(downloadReadyRead()));
+    qDebug() << "\t URL: " << url;
 }
 
 void DownloadNodeMessage::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
