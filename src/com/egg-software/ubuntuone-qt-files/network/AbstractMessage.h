@@ -16,6 +16,7 @@
 #define ABSTRACTMESSAGE_H
 
 #include <QtCore/QObject>
+#include <liboauthcpp/liboauthcpp.h>
 class LoginInfoDTO;
 class QNetworkAccessManager;
 class QNetworkReply;
@@ -66,6 +67,14 @@ protected:
 
     LoginInfoDTO *loginInfo;
     QNetworkAccessManager *networkAccessManager;
+
+private:
+
+    /**
+     * Auxiliar method used by oauthGetRequest(), oauthPutRequest() and oauthDeleteRequest() to generate the OAuth URL
+     * with the authentication parameters in the query.
+     */
+    QString generateOAuthUrl(const OAuth::Http::RequestType requestType, const QString &url);
 
 };
 

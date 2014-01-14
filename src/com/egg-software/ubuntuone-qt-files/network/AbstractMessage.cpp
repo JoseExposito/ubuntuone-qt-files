@@ -17,7 +17,6 @@
 #include "LogoutController.h"
 #include <QtCore>
 #include <QtNetwork>
-#include <liboauthcpp/liboauthcpp.h>
 
 AbstractMessage::AbstractMessage(LoginInfoDTO *loginInfo, QObject *parent)
     : QObject(parent),
@@ -34,32 +33,30 @@ AbstractMessage::~AbstractMessage()
 
 QNetworkReply *AbstractMessage::oauthGetRequest(const QString &url)
 {
-    OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
-    OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
-    OAuth::Client oauth(&consumer, &token);
-    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Get, url.toStdString()));
-    QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
-    return this->networkAccessManager->get(QNetworkRequest(baseUrl + "?" + oauthParameters));
+    QString oauthUrl = this->generateOAuthUrl(OAuth::Http::Get, url);
+    return this->networkAccessManager->get(QNetworkRequest(oauthUrl));
 }
 
 QNetworkReply *AbstractMessage::oauthPutRequest(const QString &url, const QByteArray &data)
 {
-    OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
-    OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
-    OAuth::Client oauth(&consumer, &token);
-    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Put, url.toStdString()));
-    QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
-    return this->networkAccessManager->put(QNetworkRequest(baseUrl + "?" + oauthParameters), data);
+    QString oauthUrl = this->generateOAuthUrl(OAuth::Http::Put, url);
+    return this->networkAccessManager->put(QNetworkRequest(oauthUrl), data);
 }
 
 QNetworkReply *AbstractMessage::oauthDeleteRequest(const QString &url)
 {
+    QString oauthUrl = this->generateOAuthUrl(OAuth::Http::Delete, url);
+    return this->networkAccessManager->deleteResource(QNetworkRequest(oauthUrl));
+}
+
+QString AbstractMessage::generateOAuthUrl(const OAuth::Http::RequestType requestType, const QString &url)
+{
     OAuth::Consumer consumer(this->loginInfo->consumerKey.toStdString(), this->loginInfo->consumerSecret.toStdString());
     OAuth::Token token(this->loginInfo->token.toStdString(), this->loginInfo->tokenSecret.toStdString());
     OAuth::Client oauth(&consumer, &token);
-    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(OAuth::Http::Delete, url.toStdString()));
+    QString oauthParameters = QString::fromStdString(oauth.getURLQueryString(requestType, url.toStdString()));
     QString baseUrl = QUrl(url).toString(QUrl::RemoveQuery);
-    return this->networkAccessManager->deleteResource(QNetworkRequest(baseUrl + "?" + oauthParameters));
+    return baseUrl + "?" + oauthParameters;
 }
 
 QString AbstractMessage::toPercentEncoding(const QString &url)
