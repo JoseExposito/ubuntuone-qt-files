@@ -127,7 +127,14 @@ Token Token::extract(const KeyValuePairs& response) {
 }
 
 
+bool Client::initialized = false;
 
+void Client::initialize() {
+    if(!initialized) {
+        srand( time( NULL ) );
+        initialized = true;
+    }
+}
 
 Client::Client(const Consumer* consumer)
  : mConsumer(consumer),
@@ -162,11 +169,14 @@ Client::~Client()
 *--*/
 void Client::generateNonceTimeStamp()
 {
+    // Make sure the random seed has been initialized
+    Client::initialize();
+
     char szTime[Defaults::BUFFSIZE];
     char szRand[Defaults::BUFFSIZE];
     memset( szTime, 0, Defaults::BUFFSIZE );
     memset( szRand, 0, Defaults::BUFFSIZE );
-    srand( time( NULL ) );
+
     sprintf( szRand, "%x", rand()%1000 );
     sprintf( szTime, "%ld", time( NULL ) );
 
@@ -411,7 +421,7 @@ std::string Client::buildOAuthParameterString(
         separator = ",";
         do_urlencode = false;
     }
-    else /*if (string_type == QueryStringString)*/ {
+    else if (string_type == QueryStringString) {
         separator = "&";
         do_urlencode = true;
     }
@@ -431,7 +441,7 @@ std::string Client::buildOAuthParameterString(
         rawKeyValuePairs = ParseKeyValuePairs(dataPart);
     }
 
-    // We always request URL encoding on the first pass so that the
+    // NOTE: We always request URL encoding on the first pass so that the
     // signature generation works properly. This *relies* on
     // buildOAuthTokenKeyValuePairs overwriting values when we do the second
     // pass to get the values in the form we actually want. The signature and
