@@ -61,7 +61,8 @@ QString AbstractMessage::generateOAuthUrl(const OAuth::Http::RequestType request
 
 QString AbstractMessage::toPercentEncoding(const QString &url)
 {
-    return QUrl::toPercentEncoding(url, "/()[]'");
+    // FIXME Having problems with "?" and ";"
+    return QUrl::toPercentEncoding(url, "/()[]'=,:!@$*+;");
 }
 
 void AbstractMessage::printJson(const QString &json)
