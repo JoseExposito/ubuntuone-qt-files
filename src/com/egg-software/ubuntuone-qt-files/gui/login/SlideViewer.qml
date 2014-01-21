@@ -47,7 +47,7 @@ Item {
         opacity: 1
         slideImage: "qrc:/slides/slide0.png"
         slideTitle: qsTr("Your cloud")
-        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One and access them fom any of your "
+        slideContent: qsTr("Store your files, photos and music safely in Ubuntu One and access them from any of your "
                 + "devices, wherever you are. Get 5GB of cloud storage for FREE")
     }
 

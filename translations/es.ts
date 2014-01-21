@@ -32,7 +32,7 @@
     <name>CreateAccountWindow</name>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="23"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="67"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="68"/>
         <source>Create account</source>
         <translation>Crear cuenta</translation>
     </message>
@@ -52,12 +52,12 @@
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="60"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="61"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="80"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="81"/>
         <source>By creating an account you agree to the Ubuntu Account &lt;u&gt;Terms of Service&lt;/u&gt;</source>
         <translation>Al crear una cuenta usted acepta los &lt;u&gt;Términos del Servicio&lt;/u&gt; de Ubuntu Account</translation>
     </message>
@@ -78,7 +78,7 @@
         <translation>Error descargando el archivo. No se puede escribir en %1.</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/network/DownloadNodeMessage.cpp" line="84"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/network/DownloadNodeMessage.cpp" line="85"/>
         <source>Error downloading file. Please, try again later.</source>
         <translation>Error descargando el archivo. Por favor intenteló más tarde.</translation>
     </message>
@@ -149,7 +149,7 @@
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="23"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="59"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="60"/>
         <source>Login</source>
         <translation>Iniciar sesión</translation>
     </message>
@@ -164,12 +164,12 @@
         <translation>Email</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="52"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="53"/>
         <source>Password</source>
         <translation>Contraseña</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="78"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="79"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -303,8 +303,12 @@ https://twitter.com/Jose__Exposito</translation>
         <translation>Tu nube</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="50"/>
         <source>Store your files, photos and music safely in Ubuntu One and access them fom any of your devices, wherever you are. Get 5GB of cloud storage for FREE</source>
+        <translation type="vanished">Almacena tus ficheros, fotos y música de forma segura en Ubuntu One y accede a ellos desde cualquiera de tus dispositivos estés donde estés. Obten 5GB de almacenamiento en la nube GRATIS</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="50"/>
+        <source>Store your files, photos and music safely in Ubuntu One and access them from any of your devices, wherever you are. Get 5GB of cloud storage for FREE</source>
         <translation>Almacena tus ficheros, fotos y música de forma segura en Ubuntu One y accede a ellos desde cualquiera de tus dispositivos estés donde estés. Obten 5GB de almacenamiento en la nube GRATIS</translation>
     </message>
     <message>
