@@ -3,7 +3,6 @@
 #include "base64.h"
 #include "urlencode.h"
 #include <cstdlib>
-#include <ctime>
 #include <vector>
 #include <cassert>
 
@@ -32,8 +31,24 @@ namespace Defaults
 /** std::string -> std::string conversion function */
 typedef std::string(*StringConvertFunction)(const std::string&);
 
+std::string PercentEncode(const std::string& decoded) {
+    return urlencode(decoded, URLEncode_Everything);
+}
+
 std::string URLEncode(const std::string& decoded) {
-    return urlencode(decoded);
+    return PercentEncode(decoded);
+}
+
+std::string HttpEncodePath(const std::string& decoded) {
+    return urlencode(decoded, URLEncode_Path);
+}
+
+std::string HttpEncodeQueryKey(const std::string& decoded) {
+    return urlencode(decoded, URLEncode_QueryKey);
+}
+
+std::string HttpEncodeQueryValue(const std::string& decoded) {
+    return urlencode(decoded, URLEncode_QueryValue);
 }
 
 namespace {
@@ -128,6 +143,8 @@ Token Token::extract(const KeyValuePairs& response) {
 
 
 bool Client::initialized = false;
+int Client::testingNonce = 0;
+time_t Client::testingTimestamp = 0;
 
 void Client::initialize() {
     if(!initialized) {
@@ -135,6 +152,15 @@ void Client::initialize() {
         initialized = true;
     }
 }
+
+void Client::initialize(int nonce, time_t timestamp) {
+    if(!initialized) {
+        testingNonce = nonce;
+        testingTimestamp = timestamp;
+        initialized = true;
+    }
+}
+
 
 Client::Client(const Consumer* consumer)
  : mConsumer(consumer),
@@ -177,8 +203,12 @@ void Client::generateNonceTimeStamp()
     memset( szTime, 0, Defaults::BUFFSIZE );
     memset( szRand, 0, Defaults::BUFFSIZE );
 
-    sprintf( szRand, "%x", rand()%1000 );
-    sprintf( szTime, "%ld", time( NULL ) );
+    // Any non-zero timestamp triggers testing mode with fixed values. Fixing
+    // both values makes life easier because generating a signature is
+    // idempotent -- otherwise using macros can cause double evaluation and
+    // incorrect results because of repeated calls to rand().
+    sprintf( szRand, "%x", ((testingTimestamp != 0) ? testingNonce : rand()%1000) );
+    sprintf( szTime, "%ld", ((testingTimestamp != 0) ? testingTimestamp : time( NULL )) );
 
     m_nonce.assign( szTime );
     m_nonce.append( szRand );
@@ -212,7 +242,9 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
                                           const bool urlEncodeValues,
                                           const bool generateTimestamp )
 {
-    StringConvertFunction encoder = (urlEncodeValues ? URLEncode : PassThrough);
+    // Encodes value part of key-value pairs depending on type of output (query
+    // string vs. HTTP headers.
+    StringConvertFunction value_encoder = (urlEncodeValues ? HttpEncodeQueryValue : PassThrough);
 
     /* Generate nonce and timestamp if required */
     if( generateTimestamp )
@@ -221,10 +253,10 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
     }
 
     /* Consumer key and its value */
-    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::CONSUMERKEY_KEY, encoder(mConsumer->key()));
+    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::CONSUMERKEY_KEY, value_encoder(mConsumer->key()));
 
     /* Nonce key and its value */
-    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::NONCE_KEY, encoder(m_nonce));
+    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::NONCE_KEY, value_encoder(m_nonce));
 
     /* Signature if supplied */
     if( oauthSignature.length() )
@@ -240,18 +272,18 @@ bool Client::buildOAuthTokenKeyValuePairs( const bool includeOAuthVerifierPin,
     ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::SIGNATUREMETHOD_KEY, std::string( "HMAC-SHA1" ));
 
     /* Timestamp */
-    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::TIMESTAMP_KEY, encoder(m_timeStamp));
+    ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::TIMESTAMP_KEY, value_encoder(m_timeStamp));
 
     /* Token */
     if( mToken && mToken->key().length() )
     {
-        ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::TOKEN_KEY, encoder(mToken->key()));
+        ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::TOKEN_KEY, value_encoder(mToken->key()));
     }
 
     /* Verifier */
     if( includeOAuthVerifierPin && mToken && mToken->pin().length() )
     {
-        ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::VERIFIER_KEY, encoder(mToken->pin()));
+        ReplaceOrInsertKeyValuePair(keyValueMap, Defaults::VERIFIER_KEY, value_encoder(mToken->pin()));
     }
 
     /* Version */
@@ -344,9 +376,9 @@ bool Client::getSignature( const Http::RequestType eType,
         }
         break;
     }
-    sigBase.append( urlencode( rawUrl ) );
+    sigBase.append( PercentEncode( rawUrl ) );
     sigBase.append( "&" );
-    sigBase.append( urlencode( rawParams ) );
+    sigBase.append( PercentEncode( rawParams ) );
 
     /* Now, hash the signature base string using HMAC_SHA1 class */
     CHMAC_SHA1 objHMACSHA1;
@@ -356,11 +388,11 @@ bool Client::getSignature( const Http::RequestType eType,
     memset( strDigest, 0, Defaults::BUFFSIZE_LARGE );
 
     /* Signing key is composed of consumer_secret&token_secret */
-    secretSigningKey.assign( URLEncode(mConsumer->secret()) );
+    secretSigningKey.assign( PercentEncode(mConsumer->secret()) );
     secretSigningKey.append( "&" );
     if( mToken && mToken->secret().length() )
     {
-        secretSigningKey.append( URLEncode(mToken->secret()) );
+        secretSigningKey.append( PercentEncode(mToken->secret()) );
     }
 
     objHMACSHA1.HMAC_SHA1( (unsigned char*)sigBase.c_str(),
@@ -373,7 +405,7 @@ bool Client::getSignature( const Http::RequestType eType,
     std::string base64Str = base64_encode( strDigest, 20 /* SHA 1 digest is 160 bits */ );
 
     /* Do an url encode */
-    oAuthSignature = urlencode( base64Str );
+    oAuthSignature = PercentEncode( base64Str );
 
     return ( oAuthSignature.length() ) ? true : false;
 }
