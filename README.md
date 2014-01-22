@@ -6,7 +6,7 @@ Ubuntu One Qt Files
 
 Unofficial Ubuntu One Files cross-platform C++/QML mobile application.
 
-The application is in ALPHA state for the moment and, although is stable, it is not recomended to replace your current Ubuntu One client because this features are missing:
+The application is in ALPHA state for the moment and, although is stable, it is not recommended to replace your current Ubuntu One client because this features are missing:
 
  - Create account
  - Automatic uploads from the camera roll
