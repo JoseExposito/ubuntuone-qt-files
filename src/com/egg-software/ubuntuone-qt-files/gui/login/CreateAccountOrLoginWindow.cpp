@@ -39,8 +39,8 @@ void CreateAccountOrLoginWindow::loginClicked()
 
 void CreateAccountOrLoginWindow::createAccountClicked()
 {
-    //CreateAccountWindow *createAccountWindow = new CreateAccountWindow();
-    //MainWindow::getInstance()->push(createAccountWindow);
+    CreateAccountWindow *createAccountWindow = new CreateAccountWindow();
+    MainWindow::getInstance()->push(createAccountWindow);
 }
 
 void CreateAccountOrLoginWindow::menuAbout()
