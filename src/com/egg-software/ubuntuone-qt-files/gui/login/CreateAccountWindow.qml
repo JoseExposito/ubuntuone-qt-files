@@ -44,6 +44,7 @@ Item {
             id: fullNameTextField
             focus: true
             placeholderText: qsTr("Full name")
+            inputMethodHints: Qt.ImhNoPredictiveText
             style: UbuntuTextFieldStyle { }
             Layout.fillWidth: true
         }
