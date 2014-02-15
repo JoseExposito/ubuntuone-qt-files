@@ -6,7 +6,6 @@ CreateAccountOrLoginWindow.qml qrc:/qml/CreateAccountOrLoginWindow.qml
 SlideViewer qrc:/qml/SlideViewer.qml
 Slide qrc:/qml/Slide.qml
 LoginWindow.qml qrc:/qml/LoginWindow.qml
-CreateAccountWindow.qml qrc:/qml/CreateAccountWindow.qml
 
 NodeListView.qml qrc:/qml/NodeListView.qml
 

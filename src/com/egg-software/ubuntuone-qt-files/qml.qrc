@@ -12,7 +12,6 @@
         <file alias="SlideViewer.qml">gui/login/SlideViewer.qml</file>
         <file alias="Slide.qml">gui/login/Slide.qml</file>
         <file alias="LoginWindow.qml">gui/login/LoginWindow.qml</file>
-        <file alias="CreateAccountWindow.qml">gui/login/CreateAccountWindow.qml</file>
         <file alias="NodeListView.qml">gui/nodelist/NodeListView.qml</file>
     </qresource>
 </RCC>
