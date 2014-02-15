@@ -16,6 +16,7 @@
 #define CREATEACCOUNTORLOGINWINDOW_H
 
 #include <QtQuick/QQuickView>
+class LoginWindow;
 
 /**
  * First screen of the application if the user is not already logged. It allows to the user to go to the "login" or
@@ -28,12 +29,17 @@ class CreateAccountOrLoginWindow : public QQuickView
 public:
 
     CreateAccountOrLoginWindow();
+    virtual ~CreateAccountOrLoginWindow();
 
 private slots:
 
     void loginClicked();
     void createAccountClicked();
     void menuAbout();
+
+private:
+
+    LoginWindow *loginWindow;
 
 };
 

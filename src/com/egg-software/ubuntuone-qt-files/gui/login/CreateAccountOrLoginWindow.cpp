@@ -16,12 +16,13 @@
 #include "MainWindow.h"
 #include "Utils.h"
 #include "LoginWindow.h"
-#include "CreateAccountWindow.h"
 #include <QtCore>
 #include <QtQuick>
+#include <QtGui>
 
 CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
-    : QQuickView(MainWindow::getInstance()->getWindow())
+    : QQuickView(MainWindow::getInstance()->getWindow()),
+      loginWindow(new LoginWindow())
 {
     Utils::setGlobalProperties(this->rootContext());
     this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
@@ -31,16 +32,19 @@ CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
     connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 }
 
+CreateAccountOrLoginWindow::~CreateAccountOrLoginWindow()
+{
+    delete this->loginWindow;
+}
+
 void CreateAccountOrLoginWindow::loginClicked()
 {
-    LoginWindow *loginWindow = new LoginWindow();
-    MainWindow::getInstance()->push(loginWindow);
+    MainWindow::getInstance()->push(this->loginWindow);
 }
 
 void CreateAccountOrLoginWindow::createAccountClicked()
 {
-    CreateAccountWindow *createAccountWindow = new CreateAccountWindow();
-    MainWindow::getInstance()->push(createAccountWindow);
+    QDesktopServices::openUrl(QUrl("https://login.ubuntu.com/"));
 }
 
 void CreateAccountOrLoginWindow::menuAbout()
