@@ -453,7 +453,7 @@ std::string Client::buildOAuthParameterString(
         separator = ",";
         do_urlencode = false;
     }
-    else if (string_type == QueryStringString) {
+    else /*if (string_type == QueryStringString)*/ {
         separator = "&";
         do_urlencode = true;
     }
@@ -473,7 +473,7 @@ std::string Client::buildOAuthParameterString(
         rawKeyValuePairs = ParseKeyValuePairs(dataPart);
     }
 
-    // NOTE: We always request URL encoding on the first pass so that the
+    // We always request URL encoding on the first pass so that the
     // signature generation works properly. This *relies* on
     // buildOAuthTokenKeyValuePairs overwriting values when we do the second
     // pass to get the values in the form we actually want. The signature and
