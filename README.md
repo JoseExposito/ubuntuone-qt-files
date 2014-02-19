@@ -31,9 +31,7 @@ Screenshots:
 ============
 
 <p align="center">
-  <img src="https://lh4.ggpht.com/hmiAZQB3ktVXPYhSj8JNE-KiqW_tBow5i3dkyq-sViFMP3RTjYf1YbF226pv6ihy8z0=h900-rw" alt="Screenshot 1" width=192 height=320 /> &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://lh4.ggpht.com/S0FFZ1eAu4B3JJ-Y5gBCW18AV_OS5joWsRqVW9O40xq7Uxuyc7qB3f2xxgejbcNIGa0=h900-rw" alt="Screenshot 2" width=192 height=320 /> &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://lh5.ggpht.com/byUDaYReqXWishvmbTsKjGxpdYS8MLebhYrKkfYgcwvEEz_T_TbK6bhhnWzpcRU1dtUS=h900-rw" alt="Screenshot 3" width=192 height=320 />
+  <img src="https://pbs.twimg.com/media/BZn9tLqCAAAAJuJ.png" alt="Screenshot 1" />
 </p>
 
 
