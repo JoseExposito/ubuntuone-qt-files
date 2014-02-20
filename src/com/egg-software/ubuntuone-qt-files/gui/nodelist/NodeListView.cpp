@@ -30,6 +30,7 @@ NodeListView::NodeListView(const QString &path)
 {
     Utils::setGlobalProperties(this->rootContext());
     this->rootContext()->setContextProperty("nodeListModel", this->model);
+    this->rootContext()->setContextProperty("viewPath", this->viewPath);
     this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
 
     connect(this->rootObject(), SIGNAL(openFolder(int)), this, SLOT(openFolder(int)));

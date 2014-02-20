@@ -21,10 +21,8 @@ import "qrc:/."
 Item {
 
     property string toolBarTitle: "Ubuntu One"
-    property Menu toolBarMenu: Menu {
-        MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
-        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
-    }
+    property Menu toolBarMenu: (viewPath === "/~/") ? toolBarMenuVolumes : toolBarMenuNoVolumes
+
     signal menuRefresh()
     signal menuAbout()
 
@@ -39,6 +37,22 @@ Item {
     // File action signals
     signal publishFile(int nodeIndex, bool publish)
     signal copyPublicLink(int nodeIndex)
+
+    /**
+     * Toolbar menus for volumes view and normal folders view.
+     */
+    Menu {
+        id: toolBarMenuVolumes
+        MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
+    }
+
+    Menu {
+        id: toolBarMenuNoVolumes
+        MenuItem { text: qsTr("Create folder");  onTriggered: { menuRefresh() } }
+        MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
+    }
 
     /**
      * Popup menu for folders, excluding volumes.
