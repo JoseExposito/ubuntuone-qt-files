@@ -43,6 +43,7 @@ private slots:
     void publishFile(int nodeIndex, bool publish);
     void copyPublicLink(int nodeIndex);
 
+    void menuCreateFolder();
     void menuAbout();
 
     void refreshView();

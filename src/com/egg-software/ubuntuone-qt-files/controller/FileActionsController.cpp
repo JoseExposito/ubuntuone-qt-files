@@ -18,6 +18,7 @@
 #include "DeleteMessage.h"
 #include "PublishMessage.h"
 #include "RenameMessage.h"
+#include "CreateFolderMessage.h"
 #include "NodeInfoDTO.h"
 #ifdef Q_OS_ANDROID
 #include "AndroidUtils.h"
@@ -112,4 +113,40 @@ void FileActionsController::renameAux(NodeInfoDTO *node, const QString &newName)
             FileActionsController::instance, SIGNAL(actionFinishedWithError(QString)));
     connect(renameMessage, SIGNAL(errorRenamingNode(QString)), renameMessage, SLOT(deleteLater()));
     renameMessage->renameNode(node, newName);
+}
+
+#ifdef Q_OS_ANDROID
+QString createFolderPahtAux;
+void FileActionsController::createFolderCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
+{
+    QString folderName = QAndroidJniObject(result).toString();
+    if (!folderName.isEmpty())
+        emit FileActionsController::getInstance()->createFolderOnMainThread(createFolderPahtAux, folderName);
+}
+#endif
+
+void FileActionsController::createFolder(const QString &path)
+{
+#ifdef Q_OS_ANDROID
+    createFolderPahtAux = path;
+    connect(this, SIGNAL(createFolderOnMainThread(QString, QString)), this, SLOT(createFolderAux(QString, QString)));
+    AndroidUtils::showInputDialog(tr("Create folder"), "", tr("New folder"), tr("Create"), tr("Cancel"),
+            (void *)FileActionsController::createFolderCallback);
+#else
+    bool ok;
+    QString folderName = QInputDialog::getText(NULL, tr("Create folder"), "", QLineEdit::Normal, tr("New folder"), &ok);
+    if (ok && !folderName.isEmpty())
+        FileActionsController::createFolderAux(path, folderName);
+#endif
+}
+
+void FileActionsController::createFolderAux(const QString &path, const QString &folderName)
+{
+    CreateFolderMessage *folderMessage = new CreateFolderMessage(DatabaseManager::getInstance()->getLoginInfo());
+    connect(folderMessage, SIGNAL(folderCreated()), FileActionsController::instance, SIGNAL(actionFinished()));
+    connect(folderMessage, SIGNAL(folderCreated()), folderMessage, SLOT(deleteLater()));
+    connect(folderMessage, SIGNAL(errorCreatingFolder(QString)),
+            FileActionsController::instance, SIGNAL(actionFinishedWithError(QString)));
+    connect(folderMessage, SIGNAL(errorCreatingFolder(QString)), folderMessage, SLOT(deleteLater()));
+    folderMessage->createFolder(path + "/" + folderName);
 }

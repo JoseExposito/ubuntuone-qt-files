@@ -38,6 +38,7 @@ public:
     void publishNode(NodeInfoDTO *node, bool publish);
     void shareLink(NodeInfoDTO *node);
     void rename(NodeInfoDTO *node);
+    void createFolder(const QString &path);
 
 signals:
 
@@ -45,13 +46,15 @@ signals:
     void actionFinishedWithError(const QString &errorDescription);
 
     /**
-     * Signal used to call renameAux() on the main thread to avoid problems with Android.
+     * Signals used to call renameAux() and createFolderAux() on the main thread to avoid problems with Android.
      */
     void renameOnMainThread(NodeInfoDTO *node, const QString &newName);
+    void createFolderOnMainThread(const QString &path, const QString &folderName);
 
 private slots:
 
     static void renameAux(NodeInfoDTO *node, const QString &newName);
+    static void createFolderAux(const QString &path, const QString &folderName);
 
 private:
 
@@ -59,6 +62,7 @@ private:
 
 #ifdef Q_OS_ANDROID
     static void renameCallback(JNIEnv *env, jobject object, jstring result);
+    static void createFolderCallback(JNIEnv *env, jobject object, jstring result);
 #endif
 
     // Singleton

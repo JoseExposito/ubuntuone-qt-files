@@ -42,6 +42,7 @@ NodeListView::NodeListView(const QString &path)
     connect(this->rootObject(), SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
     connect(this->rootObject(), SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
 
+    connect(this->rootObject(), SIGNAL(menuCreateFolder()), this, SLOT(menuCreateFolder()));
     connect(this->rootObject(), SIGNAL(menuRefresh()), this, SLOT(refreshView()));
     connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 
@@ -88,6 +89,11 @@ void NodeListView::copyPublicLink(int nodeIndex)
 {
     NodeInfoDTO *node = this->model->getNode(nodeIndex);
     this->fileAction->shareLink(node);
+}
+
+void NodeListView::menuCreateFolder()
+{
+    this->fileAction->createFolder(this->viewPath);
 }
 
 void NodeListView::menuAbout()

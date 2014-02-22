@@ -23,6 +23,7 @@ Item {
     property string toolBarTitle: "Ubuntu One"
     property Menu toolBarMenu: (viewPath === "/~/") ? toolBarMenuVolumes : toolBarMenuNoVolumes
 
+    signal menuCreateFolder()
     signal menuRefresh()
     signal menuAbout()
 
@@ -49,7 +50,7 @@ Item {
 
     Menu {
         id: toolBarMenuNoVolumes
-        MenuItem { text: qsTr("Create folder");  onTriggered: { menuRefresh() } }
+        MenuItem { text: qsTr("Create folder");  onTriggered: { menuCreateFolder() } }
         MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
         MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
     }
