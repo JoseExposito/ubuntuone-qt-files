@@ -31,35 +31,36 @@
 <context>
     <name>CreateAccountWindow</name>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="23"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="68"/>
         <source>Create account</source>
-        <translation>Créer un compte</translation>
+        <translation type="vanished">Créer un compte</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="25"/>
         <source>About...</source>
-        <translation>À propos de...</translation>
+        <translation type="vanished">À propos de...</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="46"/>
         <source>Full name</source>
-        <translation>Nom complet</translation>
+        <translation type="vanished">Nom complet</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="53"/>
         <source>Email</source>
-        <translation>Courriel</translation>
+        <translation type="vanished">Courriel</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="61"/>
         <source>Password</source>
-        <translation>Mot de passe</translation>
+        <translation type="vanished">Mot de passe</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountWindow.qml" line="81"/>
         <source>By creating an account you agree to the Ubuntu Account &lt;u&gt;Terms of Service&lt;/u&gt;</source>
-        <translation>En créant un compte vous acceptez les &lt;u&gt;conditions d&apos;utilisation&lt;/u&gt; du compte Ubuntu</translation>
+        <translation type="vanished">En créant un compte vous acceptez les &lt;u&gt;conditions d&apos;utilisation&lt;/u&gt; du compte Ubuntu</translation>
+    </message>
+</context>
+<context>
+    <name>CreateFolderMessage</name>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/network/CreateFolderMessage.cpp" line="60"/>
+        <source>Error creating folder</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -86,25 +87,43 @@
 <context>
     <name>FileActionsController</name>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="69"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="70"/>
         <source>Error sharing the public link</source>
         <translation>Erreur lors du partage du lien public</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="96"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="100"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="97"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="101"/>
         <source>Rename</source>
         <translation>Renommer</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="96"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="97"/>
         <source>Rename file</source>
         <translation>Renommer le fichier</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="96"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="97"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="133"/>
         <source>Cancel</source>
         <translation>Annuler</translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="133"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="137"/>
+        <source>Create folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="133"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="137"/>
+        <source>New folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/FileActionsController.cpp" line="133"/>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -221,55 +240,62 @@ https://twitter.com/Jose__Exposito</translation>
 <context>
     <name>NodeListView</name>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="25"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="47"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="54"/>
         <source>Refresh</source>
         <translation>Rafraîchir</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="26"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="48"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="55"/>
         <source>About...</source>
         <translation>À propos...</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="51"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="73"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="53"/>
+        <source>Create folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="66"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="88"/>
         <source>Open</source>
         <translation>Ouvrir</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="55"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="86"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="70"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="101"/>
         <source>Rename</source>
         <translation>Renommer</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="59"/>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="90"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="74"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="105"/>
         <source>Delete</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="77"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="92"/>
         <source>Unpublish file</source>
         <translation>Dépublier le fichier</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="77"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="92"/>
         <source>Publish file</source>
         <translation>Publier le fichier</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="82"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="97"/>
         <source>Share publick link</source>
         <translation>Partager le lien public</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="213"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="228"/>
         <source>Last modified: </source>
         <translation>Dernière modification :</translation>
     </message>
     <message>
-        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="284"/>
+        <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="299"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
