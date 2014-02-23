@@ -1,0 +1,18 @@
+[+] v0.3 (23/02/2014)
+
+	+ Updated to Qt 5.2.1
+	+ Added create folder option
+	+ Now it is possible to create account using the web
+	+ General bug fixing	
+
+[+] v0.2 (23/01/2014)
+
+	+ Added Spanish translations
+	+ Added French translations (thanks to Yahoe.001)
+	+ Added "Rename" action
+	+ Fixed bug downloading files with special characters
+	+ General bug fixing
+
+[+] v0.1 (13/12/2013)
+
+	+ Initial Alpha version
