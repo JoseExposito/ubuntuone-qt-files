@@ -29,15 +29,9 @@ Item {
     signal menuAbout()
 
     ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: 10*u
         spacing: 10*u
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-            topMargin: 10*u
-            leftMargin: 10*u
-            rightMargin: 10*u
-        }
 
         TextField {
             id: usernameTextField
@@ -45,7 +39,10 @@ Item {
             placeholderText: qsTr("Email")
             inputMethodHints: Qt.ImhEmailCharactersOnly
             style: UbuntuTextFieldStyle { }
+
             Layout.fillWidth: true
+            Layout.maximumWidth: 600*u
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
 
         TextField {
@@ -53,19 +50,31 @@ Item {
             placeholderText: qsTr("Password")
             echoMode: TextInput.Password
             style: UbuntuTextFieldStyle { }
+
             Layout.fillWidth: true
+            Layout.maximumWidth: 600*u
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
 
         Button {
             text: qsTr("Login")
             style: UbuntuButtonStyle { }
+
             Layout.fillWidth: true
+            Layout.maximumWidth: 600*u
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
             onClicked: {
                 usernameTextField.focus = false;
                 passwordTextField.focus = false;
                 Qt.inputMethod.hide();
                 login(usernameTextField.text, passwordTextField.text)
             }
+        }
+
+        Item {
+            id: separator
+            Layout.fillHeight: true
         }
     }
 

@@ -28,47 +28,37 @@ Item {
     signal createAccountClicked()
     signal menuAbout()
 
-    // Slideshows
-    SlideViewer {
-        anchors.top: parent.top
-        anchors.bottom: buttons.top
-        anchors.left: parent.left
-        anchors.right: parent.right
-
-        anchors.topMargin: 10*u
-        anchors.bottomMargin: 20*u
-        anchors.leftMargin: 18*u
-        anchors.rightMargin: 18*u
-    }
-
-    // Buttons to login or create an account
     ColumnLayout {
-        id: buttons
+        anchors.fill: parent
+        anchors.margins: 10*u
         spacing: 10*u
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.leftMargin: 10*u
-        anchors.rightMargin: 10*u
-        anchors.bottomMargin: 15*u
+
+        // Slideshows
+        SlideViewer {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            Layout.maximumWidth: 600*u
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+        }
 
         Button {
-            id: signIn
             style: UbuntuButtonStyle { }
-            anchors.left: parent.left
-            anchors.right: parent.right
             text: qsTr("Login")
             onClicked: loginClicked()
+
+            Layout.fillWidth: true
+            Layout.maximumWidth: 600*u
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
 
         Button {
-            id: createAccount
             style: UbuntuButtonStyle { }
-            anchors.left: parent.left
-            anchors.right: parent.right
             text: qsTr("I don't have an account")
             onClicked: createAccountClicked()
+
+            Layout.fillWidth: true
+            Layout.maximumWidth: 600*u
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
     }
-
 }

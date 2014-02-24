@@ -17,27 +17,24 @@ import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
 import "qrc:/."
 
-Rectangle {
+ColumnLayout {
 
     property string slideImage: ""
     property string slideTitle: ""
     property string slideContent: ""
 
-    color: Qt.rgba(0,0,0,0)
     Behavior on opacity { NumberAnimation{} }
     anchors.fill: parent
-
 
     Image {
         fillMode: Image.PreserveAspectFit
         source: slideImage
         antialiasing: true
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: slideTitleID.top
-        anchors.top: parent.top
-        anchors.bottomMargin: 10*u
+        Layout.fillWidth: true
+        Layout.fillHeight: true
+        Layout.maximumWidth: 400*u
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
     }
 
     ULabel {
@@ -45,20 +42,20 @@ Rectangle {
         text: slideTitle
         font.bold: true
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: slideContentID.top
-        anchors.bottomMargin: 10*u
+        Layout.fillWidth: true
+        Layout.maximumWidth: 600*u
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
     }
 
     ULabel {
         id: slideContentID
         text: slideContent
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
         horizontalAlignment: Text.AlignJustify
         font.pixelSize: 14*u
+
+        Layout.fillWidth: true
+        Layout.maximumWidth: 600*u
+        Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
     }
 
 }

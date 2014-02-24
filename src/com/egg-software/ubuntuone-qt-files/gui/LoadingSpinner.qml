@@ -41,8 +41,8 @@ Item {
             anchors.margins: 15*u
 
             BusyIndicator {
-                width:  35*u
-                height: 35*u
+                Layout.maximumHeight: 25*u
+                Layout.maximumWidth: 25*u
                 Layout.alignment: Qt.AlignHCenter
             }
 
