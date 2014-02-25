@@ -15,9 +15,7 @@ The application is in ALPHA state for the moment and, although is stable, it is 
 Qt 5.2 is required to compile the application.
 
 <p align="center">
-  <a href="http://www.youtube.com/watch?v=ZIQF0V9zFkA">
     <img src="https://pbs.twimg.com/media/BhOc_qSCAAAQKKY.png" />
-  </a>
 </p>
 
 [![](http://developer.android.com/images/brand/en_app_rgb_wo_60.png "ANDROID APP ON Google play")](https://play.google.com/store/apps/details?id=org.qtproject.example.U1Files)
