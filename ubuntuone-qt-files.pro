@@ -8,7 +8,7 @@ ios: QTPLUGIN +=  qsqlite
 
 TARGET = U1Files
 
-VERSION = 0.3
+VERSION = 0.4
 DEFINES += VERSION=\\\"$$VERSION\\\"
 
 include(src/com/egg-software/ubuntuone-qt-files/ubuntuone-qt-files.pri)

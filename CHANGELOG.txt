@@ -1,3 +1,7 @@
+[+] v0.4 (01/03/2014)
+
+	+ GUI adapted to tablets
+
 [+] v0.3 (23/02/2014)
 
 	+ Updated to Qt 5.2.1

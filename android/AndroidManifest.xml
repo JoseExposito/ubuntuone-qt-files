@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='utf-8'?>
-<manifest android:installLocation="auto" package="org.qtproject.example" android:versionCode="3" xmlns:android="http://schemas.android.com/apk/res/android" android:versionName="0.3">
-    <application android:label="U1Files" android:name="org.qtproject.qt5.android.bindings.QtApplication" android:icon="@drawable/icon">
-        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:screenOrientation="unspecified" android:label="@string/app_name" android:name="org.qtproject.ubuntuqtfiles.AndroidUtils">
+<manifest android:installLocation="auto" android:versionName="0.4" package="org.qtproject.example" xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="4">
+    <application android:name="org.qtproject.qt5.android.bindings.QtApplication" android:label="U1Files" android:icon="@drawable/icon">
+        <activity android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:name="org.qtproject.ubuntuqtfiles.AndroidUtils" android:label="@string/app_name" android:screenOrientation="unspecified">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <meta-data android:value="-- %%INSERT_APP_LIB_NAME%% --" android:name="android.app.lib_name"/>
-            <meta-data android:resource="@array/qt_sources" android:name="android.app.qt_sources_resource_id"/>
+            <meta-data android:name="android.app.qt_sources_resource_id" android:resource="@array/qt_sources"/>
             <meta-data android:value="default" android:name="android.app.repository"/>
-            <meta-data android:resource="@array/qt_libs" android:name="android.app.qt_libs_resource_id"/>
-            <meta-data android:resource="@array/bundled_libs" android:name="android.app.bundled_libs_resource_id"/>
+            <meta-data android:name="android.app.qt_libs_resource_id" android:resource="@array/qt_libs"/>
+            <meta-data android:name="android.app.bundled_libs_resource_id" android:resource="@array/bundled_libs"/>
             <!-- Deploy Qt libs as part of package -->
             <meta-data android:value="-- %%BUNDLE_LOCAL_QT_LIBS%% --" android:name="android.app.bundle_local_qt_libs"/>
-            <meta-data android:resource="@array/bundled_in_lib" android:name="android.app.bundled_in_lib_resource_id"/>
-            <meta-data android:resource="@array/bundled_in_assets" android:name="android.app.bundled_in_assets_resource_id"/>
+            <meta-data android:name="android.app.bundled_in_lib_resource_id" android:resource="@array/bundled_in_lib"/>
+            <meta-data android:name="android.app.bundled_in_assets_resource_id" android:resource="@array/bundled_in_assets"/>
             <!-- Run with local libs -->
             <meta-data android:value="-- %%USE_LOCAL_QT_LIBS%% --" android:name="android.app.use_local_qt_libs"/>
             <meta-data android:value="/data/local/tmp/qt/" android:name="android.app.libs_prefix"/>
@@ -27,12 +27,12 @@
             <meta-data android:value="@string/fatal_error_msg" android:name="android.app.fatal_error_msg"/>
             <!--  Messages maps -->
             <!-- Splash screen -->
-            <meta-data android:resource="@layout/splash" android:name="android.app.splash_screen"/>
+            <meta-data android:name="android.app.splash_screen" android:resource="@layout/splash"/>
             <!-- Splash screen -->
         </activity>
     </application>
     <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="19"/>
-    <supports-screens android:normalScreens="true" android:smallScreens="true" android:anyDensity="true" android:largeScreens="true"/>
+    <supports-screens android:normalScreens="true" android:smallScreens="true" android:largeScreens="true" android:anyDensity="true"/>
     <!-- %%INSERT_PERMISSIONS -->
     <!-- %%INSERT_FEATURES -->
     <uses-permission android:name="android.permission.INTERNET"/>
