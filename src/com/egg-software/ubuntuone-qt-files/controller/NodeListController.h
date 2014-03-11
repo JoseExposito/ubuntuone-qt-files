@@ -55,7 +55,8 @@ public:
 
 private slots:
 
-    void nodeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList);
+    void volumeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList);
+    void nodeListReceived(const QString &path, const QString &lastModified, QList<NodeInfoDTO *> *nodeList);
     void errorGettingNodeList(const QString &path, const QString &errorDescription);
 
 private:

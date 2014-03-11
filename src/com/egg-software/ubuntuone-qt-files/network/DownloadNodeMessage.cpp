@@ -60,7 +60,7 @@ void DownloadNodeMessage::downloadNode(NodeInfoDTO *node, const QString &savePat
 void DownloadNodeMessage::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
     if (bytesTotal > 0) {
-        int progress = (int)(bytesReceived/bytesTotal);
+        int progress = (int)(bytesReceived/bytesTotal) * 100;
         qDebug() << "\t " << progress << "%";
         emit this->downloadProgress(progress);
     }

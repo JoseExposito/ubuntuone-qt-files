@@ -62,7 +62,7 @@ NodeListView *NodeListController::createView(const QString &path)
         VolumesMessage *volumesMessage = new VolumesMessage(loginInfo, this);
 
         connect(volumesMessage, SIGNAL(volumeList(QString,QList<NodeInfoDTO*>*)),
-                this, SLOT(nodeListReceived(QString,QList<NodeInfoDTO*>*)));
+                this, SLOT(volumeListReceived(QString,QList<NodeInfoDTO*>*)));
         connect(volumesMessage, SIGNAL(errorGettingVolumes(QString,QString)),
                 this, SLOT(errorGettingNodeList(QString,QString)));
         connect(volumesMessage, SIGNAL(volumeList(QString,QList<NodeInfoDTO*>*)), volumesMessage, SLOT(deleteLater()));
@@ -73,11 +73,11 @@ NodeListView *NodeListController::createView(const QString &path)
     } else {
         NodeChildrenMessage *childrenMessage = new NodeChildrenMessage(loginInfo, this);
 
-        connect(childrenMessage, SIGNAL(childrenList(QString,QList<NodeInfoDTO*>*)),
-                this, SLOT(nodeListReceived(QString,QList<NodeInfoDTO*>*)));
+        connect(childrenMessage, SIGNAL(childrenList(QString,QString,QList<NodeInfoDTO*>*)),
+                this, SLOT(nodeListReceived(QString,QString,QList<NodeInfoDTO*>*)));
         connect(childrenMessage, SIGNAL(errorGettingChildren(QString,QString)),
                 this, SLOT(errorGettingNodeList(QString,QString)));
-        connect(childrenMessage, SIGNAL(childrenList(QString,QList<NodeInfoDTO*>*)),
+        connect(childrenMessage, SIGNAL(childrenList(QString,QString,QList<NodeInfoDTO*>*)),
                 childrenMessage, SLOT(deleteLater()));
         connect(childrenMessage, SIGNAL(errorGettingChildren(QString,QString)), childrenMessage, SLOT(deleteLater()));
 
@@ -92,8 +92,17 @@ void NodeListController::refreshView(const QString &path)
     this->createView(path);
 }
 
-void NodeListController::nodeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList)
+void NodeListController::volumeListReceived(const QString &path, QList<NodeInfoDTO *> *nodeList)
 {
+    this->nodeListReceived(path, "", nodeList);
+}
+
+void NodeListController::nodeListReceived(const QString &path, const QString &lastModified,
+        QList<NodeInfoDTO *> *nodeList)
+{
+    // TODO Check the lastModified value in the DB to avoid unnecessary operations
+    qDebug() << lastModified;
+
     DatabaseManager::getInstance()->setNodeList(path, nodeList);
 
     NodeListView *view = this->views.value(path);

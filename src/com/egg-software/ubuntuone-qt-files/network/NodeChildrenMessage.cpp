@@ -80,6 +80,13 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
             return;
         }
 
+        QString lastModified = jsonDoc.object().value(LAST_MODIFIED_ID).toString();
+        if (lastModified.isEmpty()) {
+            qDebug() << "\t Error parsing the message. No \"when_changed\" value in the JSon";
+            emit this->errorGettingChildren(this->path, tr("Error loading folder"));
+            return;
+        }
+
         QJsonArray children = jsonDoc.object().value(CHILDREN_ID).toArray();
         for (int n=0; n<children.count(); n++) {
             QJsonValue child = children.at(n);
@@ -113,6 +120,6 @@ void NodeChildrenMessage::replyFinished(QNetworkReply *reply)
             childrenList->append(nodeInfo);
         }
 
-        emit this->childrenList(this->path, childrenList);
+        emit this->childrenList(this->path, lastModified, childrenList);
     }
 }

@@ -114,9 +114,12 @@ signals:
 
     /**
      * Returns the children list.
+     * @param path         Path of the "childrenList".
+     * @param lastModified Last modification of the node "path".
+     * @param childrenList The node list.
      * IMPORTANT: Delete "childrenList" and its content after use it.
      */
-    void childrenList(const QString &path, QList<NodeInfoDTO *> *childrenList);
+    void childrenList(const QString &path, const QString &lastModified, QList<NodeInfoDTO *> *childrenList);
 
     /**
      * Emmited when an error happens getting the children list.
