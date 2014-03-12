@@ -17,6 +17,7 @@
 
 #include <QtCore/QObject>
 class QQuickWindow;
+class QQuickItem;
 class QQmlEngine;
 class QQuickView;
 class QKeyEvent;
@@ -52,13 +53,14 @@ public:
     void showAboutDialog();
 
     inline QQuickWindow *getWindow() { return this->window; }
+    inline QQmlEngine *getEngine() { return this->engine; }
 
 public slots:
 
     /**
      * To manage the StackView.
      */
-    void push(QQuickView *view);
+    void push(QQuickItem *view);
     void pop();
     void clear();
 

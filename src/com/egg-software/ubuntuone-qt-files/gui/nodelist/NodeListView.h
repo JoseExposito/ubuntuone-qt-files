@@ -15,7 +15,7 @@
 #ifndef FILESLISTVIEW_H
 #define FILESLISTVIEW_H
 
-#include <QtQuick/QQuickView>
+#include "BaseWindow.h"
 class NodeListModel;
 class FileActionsController;
 
@@ -23,7 +23,7 @@ class FileActionsController;
  * The NodeListView class shows a list of files, folders or volumes and allows to navigate between directories and
  * manage the files.
  */
-class NodeListView : public QQuickView
+class NodeListView : public BaseWindow
 {
     Q_OBJECT
 

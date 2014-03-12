@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
     DatabaseManager *db = DatabaseManager::getInstance();
     MainWindow *mainWindow = MainWindow::getInstance();
 
-    QQuickView *initialView = (db->getLoginInfo() == NULL)
-            ? (QQuickView *)new CreateAccountOrLoginWindow()
-            : (QQuickView *)NodeListController::getInstance()->createView(NodeListController::ROOT_PATH);
+    QQuickItem *initialView = (db->getLoginInfo() == NULL)
+            ? (new CreateAccountOrLoginWindow())->getView()
+            : NodeListController::getInstance()->createView(NodeListController::ROOT_PATH)->getView();
 
     mainWindow->push(initialView);
     mainWindow->show();

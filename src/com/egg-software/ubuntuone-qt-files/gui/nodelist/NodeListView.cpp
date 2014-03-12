@@ -23,28 +23,26 @@
 #include <QtQuick>
 
 NodeListView::NodeListView(const QString &path)
-    : QQuickView(MainWindow::getInstance()->getWindow()),
+    : BaseWindow("qrc:/qml/NodeListView.qml"),
       viewPath(path),
       fileAction(FileActionsController::getInstance()),
       model(new NodeListModel(this))
 {
-    Utils::setGlobalProperties(this->rootContext());
-    this->rootContext()->setContextProperty("nodeListModel", this->model);
-    this->rootContext()->setContextProperty("viewPath", this->viewPath);
-    this->setSource(QUrl("qrc:/qml/NodeListView.qml"));
+    this->context->setContextProperty("nodeListModel", this->model);
+    this->context->setContextProperty("viewPath", this->viewPath);
 
-    connect(this->rootObject(), SIGNAL(openFolder(int)), this, SLOT(openFolder(int)));
-    connect(this->rootObject(), SIGNAL(openFile(int)), this, SLOT(openFile(int)));
+    connect(this->view, SIGNAL(openFolder(int)), this, SLOT(openFolder(int)));
+    connect(this->view, SIGNAL(openFile(int)), this, SLOT(openFile(int)));
 
-    connect(this->rootObject(), SIGNAL(renameNode(int)), this, SLOT(renameNode(int)));
-    connect(this->rootObject(), SIGNAL(deleteNode(int)), this, SLOT(deleteNode(int)));
+    connect(this->view, SIGNAL(renameNode(int)), this, SLOT(renameNode(int)));
+    connect(this->view, SIGNAL(deleteNode(int)), this, SLOT(deleteNode(int)));
 
-    connect(this->rootObject(), SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
-    connect(this->rootObject(), SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
+    connect(this->view, SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
+    connect(this->view, SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
 
-    connect(this->rootObject(), SIGNAL(menuCreateFolder()), this, SLOT(menuCreateFolder()));
-    connect(this->rootObject(), SIGNAL(menuRefresh()), this, SLOT(refreshView()));
-    connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
+    connect(this->view, SIGNAL(menuCreateFolder()), this, SLOT(menuCreateFolder()));
+    connect(this->view, SIGNAL(menuRefresh()), this, SLOT(refreshView()));
+    connect(this->view, SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 
     connect(this->fileAction, SIGNAL(actionFinished()), this, SLOT(refreshView()));
     connect(this->fileAction, SIGNAL(actionFinishedWithError(QString)), this, SLOT(showError(QString)));
@@ -52,13 +50,13 @@ NodeListView::NodeListView(const QString &path)
 
 void NodeListView::setToolBarTitle(const QString &toolBarTitle)
 {
-    this->rootObject()->setProperty("toolBarTitle", toolBarTitle);
+    this->view->setProperty("toolBarTitle", toolBarTitle);
 }
 
 void NodeListView::openFolder(int nodeIndex)
 {
     QString path = this->model->getNode(nodeIndex)->path;
-    MainWindow::getInstance()->push(NodeListController::getInstance()->createView(path));
+    MainWindow::getInstance()->push(NodeListController::getInstance()->createView(path)->getView());
 }
 
 void NodeListView::openFile(int nodeIndex)
@@ -108,6 +106,6 @@ void NodeListView::refreshView()
 
 void NodeListView::showError(const QString &errorMessage)
 {
-    this->rootObject()->setProperty("errorDialogText", errorMessage);
-    QMetaObject::invokeMethod(this->rootObject(), "showErrorDialog");
+    this->view->setProperty("errorDialogText", errorMessage);
+    QMetaObject::invokeMethod(this->view, "showErrorDialog");
 }

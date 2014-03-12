@@ -24,5 +24,5 @@ void LogoutController::logout()
 
     // Show the first screen
     MainWindow::getInstance()->clear();
-    MainWindow::getInstance()->push(new CreateAccountOrLoginWindow());
+    //MainWindow::getInstance()->push(new CreateAccountOrLoginWindow());
 }

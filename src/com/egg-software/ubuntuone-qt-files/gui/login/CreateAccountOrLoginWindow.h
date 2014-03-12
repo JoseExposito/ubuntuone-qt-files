@@ -15,14 +15,14 @@
 #ifndef CREATEACCOUNTORLOGINWINDOW_H
 #define CREATEACCOUNTORLOGINWINDOW_H
 
-#include <QtQuick/QQuickView>
+#include "BaseWindow.h"
 class LoginWindow;
 
 /**
  * First screen of the application if the user is not already logged. It allows to the user to go to the "login" or
  * "create account" screens and shows a slideshow with the main features of the application.
  */
-class CreateAccountOrLoginWindow : public QQuickView
+class CreateAccountOrLoginWindow : public BaseWindow
 {
     Q_OBJECT
 
@@ -30,6 +30,8 @@ public:
 
     CreateAccountOrLoginWindow();
     virtual ~CreateAccountOrLoginWindow();
+
+    inline QQuickItem *getView() { return this->view; }
 
 private slots:
 

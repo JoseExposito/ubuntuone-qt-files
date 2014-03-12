@@ -22,13 +22,10 @@
 #include <QtQuick>
 
 LoginWindow::LoginWindow()
-    : QQuickView(MainWindow::getInstance()->getWindow())
+    : BaseWindow("qrc:/qml/LoginWindow.qml")
 {
-    Utils::setGlobalProperties(this->rootContext());
-    this->setSource(QUrl("qrc:/qml/LoginWindow.qml"));
-
-    connect(this->rootObject(), SIGNAL(login(QString,QString)), this, SLOT(loginButtonPressed(QString,QString)));
-    connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
+    connect(this->view, SIGNAL(login(QString,QString)), this, SLOT(loginButtonPressed(QString,QString)));
+    connect(this->view, SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 }
 
 void LoginWindow::loginButtonPressed(const QString &username, const QString &password)
@@ -44,14 +41,15 @@ void LoginWindow::loginFinished()
     delete this->loginController;
 
     MainWindow::getInstance()->clear();
-    MainWindow::getInstance()->push(NodeListController::getInstance()->createView(NodeListController::ROOT_PATH));
+    MainWindow::getInstance()->push(NodeListController::getInstance()->createView(
+            NodeListController::ROOT_PATH)->getView());
 }
 
 void LoginWindow::loginError(const QString &errorDescription)
 {
     delete this->loginController;
-    this->rootObject()->setProperty("errorDialogText", errorDescription);
-    QMetaObject::invokeMethod(this->rootObject(), "showErrorDialog");
+    this->view->setProperty("errorDialogText", errorDescription);
+    QMetaObject::invokeMethod(this->view, "showErrorDialog");
 }
 
 void LoginWindow::menuAbout()

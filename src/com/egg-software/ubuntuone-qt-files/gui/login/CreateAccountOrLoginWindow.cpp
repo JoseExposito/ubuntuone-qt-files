@@ -21,15 +21,14 @@
 #include <QtGui>
 
 CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
-    : QQuickView(MainWindow::getInstance()->getWindow()),
+    : BaseWindow("qrc:/qml/CreateAccountOrLoginWindow.qml"),
       loginWindow(new LoginWindow())
 {
-    Utils::setGlobalProperties(this->rootContext());
-    this->setSource(QUrl("qrc:/qml/CreateAccountOrLoginWindow.qml"));
+    //Utils::setGlobalProperties(this->view);
 
-    connect(this->rootObject(), SIGNAL(loginClicked()), this, SLOT(loginClicked()));
-    connect(this->rootObject(), SIGNAL(createAccountClicked()), this, SLOT(createAccountClicked()));
-    connect(this->rootObject(), SIGNAL(menuAbout()), this, SLOT(menuAbout()));
+    connect(this->view, SIGNAL(loginClicked()), this, SLOT(loginClicked()));
+    connect(this->view, SIGNAL(createAccountClicked()), this, SLOT(createAccountClicked()));
+    connect(this->view, SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 }
 
 CreateAccountOrLoginWindow::~CreateAccountOrLoginWindow()
@@ -39,7 +38,7 @@ CreateAccountOrLoginWindow::~CreateAccountOrLoginWindow()
 
 void CreateAccountOrLoginWindow::loginClicked()
 {
-    MainWindow::getInstance()->push(this->loginWindow);
+    MainWindow::getInstance()->push(this->loginWindow->getView());
 }
 
 void CreateAccountOrLoginWindow::createAccountClicked()

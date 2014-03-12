@@ -12,34 +12,41 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef LOGINWINDOW_H
-#define LOGINWINDOW_H
+#ifndef BASEWINDOW_H
+#define BASEWINDOW_H
 
-#include "BaseWindow.h"
-class LoginController;
+#include <QtCore/QObject>
+class QQuickItem;
+class QQmlContext;
 
 /**
- * Screen that allows to the user to input username and password to login the first time.
+ * Base class for all the views/windows of the application.
  */
-class LoginWindow : public BaseWindow
+class BaseWindow : public QObject
 {
     Q_OBJECT
 
 public:
 
-    LoginWindow();
+    /**
+     * @param qmlPath Path to the QML to load.
+     * @param parent  Parent of the class.
+     */
+    BaseWindow(const QString &qmlPath, QObject *parent = 0);
 
-private slots:
+    inline QQuickItem *getView() { return this->view; }
 
-    void loginButtonPressed(const QString &username, const QString &password);
-    void loginFinished();
-    void loginError(const QString &errorDescription);
-    void menuAbout();
+protected:
 
-private:
+    /**
+     * The real QML window.
+     */
+    QQuickItem *view;
 
-    LoginController *loginController;
-
+    /**
+     * Context of the view.
+     */
+    QQmlContext *context;
 };
 
-#endif // LOGINWINDOW_H
+#endif // BASEWINDOW_H

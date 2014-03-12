@@ -63,9 +63,9 @@ void MainWindow::showAboutDialog()
     QMetaObject::invokeMethod(this->window, "showAboutDialog");
 }
 
-void MainWindow::push(QQuickView *view)
+void MainWindow::push(QQuickItem *view)
 {
-    QVariant viewItem = QVariant::fromValue(qobject_cast<QQuickItem *>(view->rootObject()));
+    QVariant viewItem = QVariant::fromValue(qobject_cast<QQuickItem *>(view));
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
 
     if (!stackView->property("busy").toBool())
