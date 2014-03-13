@@ -56,8 +56,10 @@ NodeListModel::~NodeListModel()
 void NodeListModel::setNodeList(QList<NodeInfoDTO *> *nodeList)
 {
     // Delete all the showed rows
-    this->beginRemoveRows(QModelIndex(), 0, this->rowCount()-1);
-    this->endRemoveRows();
+    if (this->rowCount() > 0) {
+        this->beginRemoveRows(QModelIndex(), 0, this->rowCount()-1);
+        this->endRemoveRows();
+    }
 
     // Save the download status/progress in the new nodes
     for (int i=0; i<this->nodeList->count(); i++) {
@@ -79,9 +81,11 @@ void NodeListModel::setNodeList(QList<NodeInfoDTO *> *nodeList)
     delete this->nodeList;
     this->nodeList = nodeList;
 
-    // Inset the new rows
-    this->beginInsertRows(QModelIndex(), 0, this->nodeList->count()-1);
-    this->endInsertRows();
+    // Insert the new rows
+    if (this->rowCount() > 0) {
+        this->beginInsertRows(QModelIndex(), 0, this->nodeList->count()-1);
+        this->endInsertRows();
+    }
 }
 
 NodeInfoDTO *NodeListModel::getNode(int index)
