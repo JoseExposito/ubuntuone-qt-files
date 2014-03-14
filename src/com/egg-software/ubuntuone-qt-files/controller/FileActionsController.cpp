@@ -22,10 +22,13 @@
 #include "NodeInfoDTO.h"
 #ifdef Q_OS_ANDROID
 #include "AndroidUtils.h"
-#include <QtAndroidExtras>
+    #include <QtAndroidExtras>
+#elif defined(Q_OS_IOS)
+    #include "iOSUtils.h"
+    #include <QtWidgets/QInputDialog>
 #else
-#include <QtWidgets/QInputDialog>
-#include <QtGui>
+    #include <QtWidgets/QInputDialog>
+    #include <QtGui>
 #endif
 #include <QtCore>
 
@@ -73,6 +76,8 @@ void FileActionsController::shareLink(NodeInfoDTO *node)
 
 #ifdef Q_OS_ANDROID
     AndroidUtils::shareLink(node->publicUrl);
+#elif defined(Q_OS_IOS)
+    iOSUtils::copyToClipboard(node->publicUrl);
 #else
     QClipboard *clipboard = qApp->clipboard();
     clipboard->setText(node->publicUrl);
