@@ -31,17 +31,6 @@ public:
      */
     static void setGlobalProperties(QQmlContext *contex);
 
-    /**
-     * Returns the local path for the specified node path. For example, the local path for the node
-     * "/~/Ubuntu One/file.txt" will be "/storage/emulated/0/u1/Ubuntu One/file.txt" on Android.
-     */
-    static QString getLocalPath(const QString &nodePath);
-
-    /**
-     * Opens the specified downloaded local file.
-     */
-    static void openFile(const QString &localPath);
-
 };
 
 #endif // UTILS_H

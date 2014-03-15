@@ -12,14 +12,33 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "Utils.h"
-#include <QtQuick>
+#ifndef PLATFORMFACTORY_H
+#define PLATFORMFACTORY_H
 
-void Utils::setGlobalProperties(QQmlContext *contex)
+#include "PlatformUtils.h"
+class QObject;
+
+/**
+ * The PlatformFactory class provides the only way to create a PlatformUtils class matching the running device.
+ */
+class PlatformFactory
 {
-    // Resolution independent unit "u"
-    QScreen *screen = qApp->screens().at(0);
-    qreal desktopLogicalDotsPerInch = 72;
-    qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
-    contex->setContextProperty("u", u);
-}
+
+public:
+
+    /**
+     * Creates a new PlatformUtils class matching the running device.
+     * IMPORTANT: Remember to delete the object.
+     */
+    static PlatformUtils *createPlatformUtils(QObject *parent = 0);
+
+private:
+
+    // Singleton
+    PlatformFactory();
+    PlatformFactory(const PlatformFactory &);
+    const PlatformFactory &operator = (const PlatformFactory &);
+
+};
+
+#endif // PLATFORMFACTORY_H

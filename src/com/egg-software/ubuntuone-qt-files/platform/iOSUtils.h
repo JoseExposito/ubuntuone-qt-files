@@ -12,14 +12,26 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#include "Utils.h"
-#include <QtQuick>
+#ifndef IOSUTILS_H
+#define IOSUTILS_H
 
-void Utils::setGlobalProperties(QQmlContext *contex)
+#include <QtCore/QString>
+#ifdef Q_OS_IOS
+#include "PlatformUtils.h"
+
+/**
+ * The iOSUtils class brings easy access to the iOS specified functionality.
+ */
+class iOSUtils : public PlatformUtils
 {
-    // Resolution independent unit "u"
-    QScreen *screen = qApp->screens().at(0);
-    qreal desktopLogicalDotsPerInch = 72;
-    qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
-    contex->setContextProperty("u", u);
-}
+
+public:
+
+    iOSUtils(QObject *parent = 0);
+
+    virtual void shareLink(const QString &link);
+
+};
+
+#endif // Q_OS_IOS
+#endif // IOSUTILS_H

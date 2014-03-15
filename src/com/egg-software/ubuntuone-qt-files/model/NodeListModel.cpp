@@ -13,7 +13,7 @@
  * <http://www.gnu.org/licenses/>.
  */
 #include "NodeListModel.h"
-#include "Utils.h"
+#include "PlatformFactory.h"
 #include <QtCore>
 
 namespace
@@ -146,8 +146,12 @@ QVariant NodeListModel::data(const QModelIndex &index, int role) const
     case FILE_TYPE_DIRECTORY_ROLE:
         return (node->type == NodeInfoDTO::DIRECTORY);
 
-    case FILE_STATUS_DOWNLOADED_ROLE:
-        return (node->type == NodeInfoDTO::FILE) && QFileInfo(Utils::getLocalPath(node->path)).exists();
+    case FILE_STATUS_DOWNLOADED_ROLE: {
+        PlatformUtils *utils = PlatformFactory::createPlatformUtils();
+        QString localPath = utils->getLocalPath(node->path);
+        delete utils;
+        return (node->type == NodeInfoDTO::FILE) && QFileInfo(localPath).exists();
+    }
     case FILE_STATUS_DOWNLOADING_ROLE:
         return (node->status == NodeInfoDTO::DOWNLOADING);
 

@@ -15,37 +15,24 @@
 #ifndef ANDROIDUTILS_H
 #define ANDROIDUTILS_H
 
-#include <QtCore/QString>
+#include <QtCore/QObject>
 #ifdef Q_OS_ANDROID
+#include "PlatformUtils.h"
 #include <jni.h>
 
 /**
  * The AndroidUtils class brings easy access to the AndroidUtils.java class from C++.
  */
-class AndroidUtils
+class AndroidUtils : public PlatformUtils
 {
 
 public:
 
-    /**
-     * QDesktopServices::openUrl is not working on Android. This method implements the same functionality.
-     */
-    static void openFile(const QString &filePath);
+    AndroidUtils(QObject *parent = 0);
 
-    /**
-     * Returns the path to the SD card, typically /storage/emulated/0.
-     */
-    static QString getSDCardPath();
-
-    /**
-     * Shares the specified link on Android.
-     */
-    static void shareLink(const QString &link);
-
-    /**
-     * Downloads the specified file using the Android DownloadManager native API.
-     */
-    static void downloadFile(const QString &url, const QString &localSaveDir, const QString &localSaveName);
+    virtual void openFile(const QString &filePath);
+    virtual QString getLocalPath(const QString &nodePath);
+    virtual void shareLink(const QString &link);
 
     /**
      * QInputDialog is not working in Android and QML doesn't offer a similar dialog or a way to build personalized

@@ -12,15 +12,17 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
+#include "PlatformFactory.h"
+#include "AndroidUtils.h"
 #include "iOSUtils.h"
-#include <QtCore>
-#ifdef Q_OS_IOS
-#include <UIKit/UIKit.h>
 
-void iOSUtils::copyToClipboard(const QString &text)
+PlatformUtils *PlatformFactory::createPlatformUtils(QObject *parent)
 {
-    UIPasteboard *pb = [UIPasteboard generalPasteboard];
-    pb.string = text.toNSString();
+#ifdef Q_OS_ANDROID
+    return new AndroidUtils(parent);
+#elif defined(Q_OS_IOS)
+    return new iOSUtils(parent);
+#else
+    return new PlatformUtils(parent);
+#endif
 }
-
-#endif // Q_OS_IOS

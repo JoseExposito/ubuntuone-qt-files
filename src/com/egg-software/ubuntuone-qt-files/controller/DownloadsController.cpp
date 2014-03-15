@@ -18,10 +18,7 @@
 #include "DatabaseManager.h"
 #include "DownloadNodeMessage.h"
 #include "NodeListModel.h"
-#include "Utils.h"
-#ifdef Q_OS_ANDROID
-#include "AndroidUtils.h"
-#endif
+#include "PlatformFactory.h"
 #include <QtCore>
 
 DownloadsController::DownloadsController(QObject *parent)
@@ -32,10 +29,12 @@ DownloadsController::DownloadsController(QObject *parent)
 
 void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeIndex)
 {
+    PlatformUtils *utils = PlatformFactory::createPlatformUtils();
     this->model     = model;
     this->nodeIndex = nodeIndex;
     this->node      = this->model->getNode(this->nodeIndex);
-    this->localPath = Utils::getLocalPath(this->node->path);
+    this->localPath = utils->getLocalPath(this->node->path);
+    delete utils;
 
     // Avoid download twice the same file
     if (this->node->status == NodeInfoDTO::DOWNLOADING)
@@ -68,20 +67,11 @@ void DownloadsController::downloadAndOpenNode(NodeListModel *model, int nodeInde
     QString localSaveDir = QFileInfo(this->localPath).dir().path();
     QDir().mkpath(localSaveDir);
 
-/*#ifdef Q_OS_ANDROID
-    DownloadNodeMessage downloadMessage(loginInfo, this);
-    QString url = downloadMessage.getDownloadUrlWithCredentials(this->node);
-    qDebug() << url;
-    qDebug() << localSaveDir;
-    qDebug() << QFileInfo(this->localPath).fileName();
-    AndroidUtils::downloadFile(url, localSaveDir, QFileInfo(this->localPath).fileName());
-#else*/
     DownloadNodeMessage *downloadMessage = new DownloadNodeMessage(loginInfo, this);
     connect(downloadMessage, SIGNAL(downloadProgress(int)), this, SLOT(downloadProgress(int)));
     connect(downloadMessage, SIGNAL(errorDownloadingNode(QString)), this, SIGNAL(errorDownloadingNode(QString)));
     connect(downloadMessage, SIGNAL(nodeDownloaded()), this, SLOT(nodeDownloaded()));
     downloadMessage->downloadNode(this->node, this->localPath);
-//#endif
 }
 
 void DownloadsController::downloadProgress(int progress)
@@ -96,6 +86,8 @@ void DownloadsController::nodeDownloaded()
     this->node->downloadProgress = -1;
     this->model->refresNode(this->nodeIndex);
 
-    Utils::openFile(this->localPath);
+    PlatformUtils *utils = PlatformFactory::createPlatformUtils();
+    utils->openFile(this->localPath);
+    delete utils;
 }
 

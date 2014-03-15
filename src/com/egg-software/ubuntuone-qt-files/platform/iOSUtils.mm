@@ -12,26 +12,21 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef IOSUTILS_H
-#define IOSUTILS_H
-
-#include <QtCore/QString>
+#include "iOSUtils.h"
+#include <QtCore>
 #ifdef Q_OS_IOS
+#include <UIKit/UIKit.h>
 
-/**
- * The iOSUtils class brings easy access to the iOS specified functionality.
- */
-class iOSUtils
+iOSUtils::iOSUtils(QObject *parent)
+    : PlatformUtils(parent)
 {
 
-public:
+}
 
-    /**
-     * Copies to clipboard the specified text.
-     */
-    static void copyToClipboard(const QString &text);
-
-};
+void iOSUtils::shareLink(const QString &link)
+{
+    UIPasteboard *pb = [UIPasteboard generalPasteboard];
+    pb.string = link.toNSString();
+}
 
 #endif // Q_OS_IOS
-#endif // IOSUTILS_H

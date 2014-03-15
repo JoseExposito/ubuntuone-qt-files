@@ -17,6 +17,12 @@
 #ifdef Q_OS_ANDROID
 #include <QtAndroidExtras>
 
+AndroidUtils::AndroidUtils(QObject *parent)
+    : PlatformUtils(parent)
+{
+
+}
+
 void AndroidUtils::openFile(const QString &filePath)
 {
     QAndroidJniObject path = QAndroidJniObject::fromString(filePath);
@@ -24,12 +30,15 @@ void AndroidUtils::openFile(const QString &filePath)
             "openFile", "(Ljava/lang/String;)V", path.object<jstring>());
 }
 
-QString AndroidUtils::getSDCardPath()
+QString AndroidUtils::getLocalPath(const QString &nodePath)
 {
     QAndroidJniObject mediaDir = QAndroidJniObject::callStaticObjectMethod("android/os/Environment",
             "getExternalStorageDirectory", "()Ljava/io/File;");
     QAndroidJniObject mediaPath = mediaDir.callObjectMethod("getAbsolutePath", "()Ljava/lang/String;");
-    return mediaPath.toString();
+    QString baseLocalPath = mediaPath.toString() + "/u1";
+    return baseLocalPath.endsWith(QDir::separator())
+            ? baseLocalPath + QString(nodePath).replace("/~/", "")
+            : baseLocalPath + QDir::separator() + QString(nodePath).replace("/~/", "");
 }
 
 void AndroidUtils::shareLink(const QString &link)
@@ -37,17 +46,6 @@ void AndroidUtils::shareLink(const QString &link)
     QAndroidJniObject jLink = QAndroidJniObject::fromString(link);
     QAndroidJniObject::callStaticMethod<void>("org/qtproject/ubuntuqtfiles/AndroidUtils",
             "shareLink", "(Ljava/lang/String;)V", jLink.object<jstring>());
-}
-
-
-void AndroidUtils::downloadFile(const QString &url, const QString &localSaveDir, const QString &localSaveName)
-{
-    QAndroidJniObject jURL           = QAndroidJniObject::fromString(url);
-    QAndroidJniObject jLocalSaveDir  = QAndroidJniObject::fromString(localSaveDir);
-    QAndroidJniObject jLocalSaveName = QAndroidJniObject::fromString(localSaveName);
-    QAndroidJniObject::callStaticMethod<void>("org/qtproject/ubuntuqtfiles/AndroidUtils",
-            "downloadFile", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
-            jURL.object<jstring>(), jLocalSaveDir.object<jstring>(), jLocalSaveName.object<jstring>());
 }
 
 void AndroidUtils::showInputDialog(const QString &title, const QString &description, const QString &defaultInput,

@@ -1,9 +1,7 @@
 HEADERS += \
-    src/com/egg-software/ubuntuone-qt-files/util/Utils.h \
-    src/com/egg-software/ubuntuone-qt-files/util/AndroidUtils.h
+    src/com/egg-software/ubuntuone-qt-files/util/Utils.h
 
 SOURCES += \
-    src/com/egg-software/ubuntuone-qt-files/util/Utils.cpp \
-    src/com/egg-software/ubuntuone-qt-files/util/AndroidUtils.cpp
+    src/com/egg-software/ubuntuone-qt-files/util/Utils.cpp
 
 INCLUDEPATH += $$PWD

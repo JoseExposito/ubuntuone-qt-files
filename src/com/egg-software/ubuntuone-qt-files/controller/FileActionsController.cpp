@@ -20,16 +20,16 @@
 #include "RenameMessage.h"
 #include "CreateFolderMessage.h"
 #include "NodeInfoDTO.h"
+#include "PlatformFactory.h"
+
+// TODO Use QML component to rename and create folder and avoid the use of native/QtWidgets components
 #ifdef Q_OS_ANDROID
-#include "AndroidUtils.h"
+    #include "AndroidUtils.h"
     #include <QtAndroidExtras>
-#elif defined(Q_OS_IOS)
-    #include "iOSUtils.h"
-    #include <QtWidgets/QInputDialog>
 #else
     #include <QtWidgets/QInputDialog>
-    #include <QtGui>
 #endif
+
 #include <QtCore>
 
 FileActionsController *FileActionsController::instance = NULL;
@@ -74,14 +74,9 @@ void FileActionsController::shareLink(NodeInfoDTO *node)
         return;
     }
 
-#ifdef Q_OS_ANDROID
-    AndroidUtils::shareLink(node->publicUrl);
-#elif defined(Q_OS_IOS)
-    iOSUtils::copyToClipboard(node->publicUrl);
-#else
-    QClipboard *clipboard = qApp->clipboard();
-    clipboard->setText(node->publicUrl);
-#endif
+    PlatformUtils *utils = PlatformFactory::createPlatformUtils();
+    utils->shareLink(node->publicUrl);
+    delete utils;
 }
 
 #ifdef Q_OS_ANDROID

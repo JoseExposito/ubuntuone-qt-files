@@ -97,11 +97,10 @@ void NodeListController::volumeListReceived(const QString &path, QList<NodeInfoD
     this->nodeListReceived(path, "", nodeList);
 }
 
-void NodeListController::nodeListReceived(const QString &path, const QString &lastModified,
+void NodeListController::nodeListReceived(const QString &path, const QString &/*lastModified*/,
         QList<NodeInfoDTO *> *nodeList)
 {
     // TODO Check the lastModified value in the DB to avoid unnecessary operations
-    qDebug() << lastModified;
 
     DatabaseManager::getInstance()->setNodeList(path, nodeList);
 
