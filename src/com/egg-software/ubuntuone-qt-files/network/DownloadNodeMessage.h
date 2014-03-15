@@ -43,12 +43,6 @@ public:
      */
     void downloadNode(NodeInfoDTO *node, const QString &savePath);
 
-    /**
-     * This method return the download URL for the specified node adding to it the OAuth autentication.
-     * It is useful to download files using the native OS API.
-     */
-    QString getDownloadUrlWithCredentials(NodeInfoDTO *node);
-
 signals:
 
     void nodeDownloaded();

@@ -61,50 +61,6 @@ public class AndroidUtils extends org.qtproject.qt5.android.bindings.QtActivity 
         instance.startActivity(Intent.createChooser(share, ""));
     }
 
-    @SuppressWarnings("deprecation")
-    @SuppressLint("NewApi")
-    public static void downloadFile(String url, String localSaveDir, String localSaveName) {
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setDestinationInExternalPublicDir(localSaveDir, localSaveName);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE);
-        } else {
-            request.setShowRunningNotification(true);
-        }
-
-        final DownloadManager manager = (DownloadManager)instance.getSystemService(Context.DOWNLOAD_SERVICE);
-        final long downloadId = manager.enqueue(request);
-
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                boolean downloading = true;
-                while (downloading) {
-                    Cursor cursor = manager.query(new DownloadManager.Query().setFilterById(downloadId));
-                    cursor.moveToFirst();
-
-                    // TODO Add progress signal
-                    int bytes_downloaded = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-                    int bytes_total = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-                    int progress = (int) ((bytes_downloaded * 100l) / bytes_total);
-
-                    int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
-                    if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                        // TODO Add finish signal
-                        downloading = false;
-
-                    } else if (status == DownloadManager.STATUS_FAILED) {
-                        // TODO Add error signal
-                        downloading = false;
-                    }
-
-                    cursor.close();
-                }
-            }
-        }).start();
-    }
-
     public static void showInputDialog(final String title, final String description, final String defaultInput,
             final String okButtonTitle, final String cancelButtonTitle) {
         InputDialog.showInputDialog(instance, title, description, defaultInput, okButtonTitle, cancelButtonTitle);
