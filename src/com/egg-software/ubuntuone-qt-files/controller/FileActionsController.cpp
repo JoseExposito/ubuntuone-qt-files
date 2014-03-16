@@ -21,15 +21,6 @@
 #include "CreateFolderMessage.h"
 #include "NodeInfoDTO.h"
 #include "PlatformFactory.h"
-
-// TODO Use QML component to rename and create folder and avoid the use of native/QtWidgets components
-#ifdef Q_OS_ANDROID
-    #include "AndroidUtils.h"
-    #include <QtAndroidExtras>
-#else
-    #include <QtWidgets/QInputDialog>
-#endif
-
 #include <QtCore>
 
 FileActionsController *FileActionsController::instance = NULL;
@@ -79,32 +70,7 @@ void FileActionsController::shareLink(NodeInfoDTO *node)
     delete utils;
 }
 
-#ifdef Q_OS_ANDROID
-NodeInfoDTO *renameAuxNode;
-void FileActionsController::renameCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
-{
-    QString newName = QAndroidJniObject(result).toString();
-    if (!newName.isEmpty())
-        emit FileActionsController::getInstance()->renameOnMainThread(renameAuxNode, newName);
-}
-#endif
-
-void FileActionsController::rename(NodeInfoDTO *node)
-{
-#ifdef Q_OS_ANDROID
-    renameAuxNode = node;
-    connect(this, SIGNAL(renameOnMainThread(NodeInfoDTO*,QString)), this, SLOT(renameAux(NodeInfoDTO*,QString)));
-    AndroidUtils::showInputDialog(tr("Rename"), "", node->name, tr("Rename file"), tr("Cancel"),
-            (void *)FileActionsController::renameCallback);
-#else
-    bool ok;
-    QString newName = QInputDialog::getText(NULL, tr("Rename"), "", QLineEdit::Normal, node->name, &ok);
-    if (ok && !newName.isEmpty())
-        FileActionsController::renameAux(node, newName);
-#endif
-}
-
-void FileActionsController::renameAux(NodeInfoDTO *node, const QString &newName)
+void FileActionsController::rename(NodeInfoDTO *node, const QString &newName)
 {
     RenameMessage *renameMessage = new RenameMessage(DatabaseManager::getInstance()->getLoginInfo());
     connect(renameMessage, SIGNAL(nodeRenamed()), FileActionsController::instance, SIGNAL(actionFinished()));
@@ -115,32 +81,7 @@ void FileActionsController::renameAux(NodeInfoDTO *node, const QString &newName)
     renameMessage->renameNode(node, newName);
 }
 
-#ifdef Q_OS_ANDROID
-QString createFolderPahtAux;
-void FileActionsController::createFolderCallback(JNIEnv */*env*/, jobject /*object*/, jstring result)
-{
-    QString folderName = QAndroidJniObject(result).toString();
-    if (!folderName.isEmpty())
-        emit FileActionsController::getInstance()->createFolderOnMainThread(createFolderPahtAux, folderName);
-}
-#endif
-
-void FileActionsController::createFolder(const QString &path)
-{
-#ifdef Q_OS_ANDROID
-    createFolderPahtAux = path;
-    connect(this, SIGNAL(createFolderOnMainThread(QString, QString)), this, SLOT(createFolderAux(QString, QString)));
-    AndroidUtils::showInputDialog(tr("Create folder"), "", tr("New folder"), tr("Create"), tr("Cancel"),
-            (void *)FileActionsController::createFolderCallback);
-#else
-    bool ok;
-    QString folderName = QInputDialog::getText(NULL, tr("Create folder"), "", QLineEdit::Normal, tr("New folder"), &ok);
-    if (ok && !folderName.isEmpty())
-        FileActionsController::createFolderAux(path, folderName);
-#endif
-}
-
-void FileActionsController::createFolderAux(const QString &path, const QString &folderName)
+void FileActionsController::createFolder(const QString &path, const QString &folderName)
 {
     CreateFolderMessage *folderMessage = new CreateFolderMessage(DatabaseManager::getInstance()->getLoginInfo());
     connect(folderMessage, SIGNAL(folderCreated()), FileActionsController::instance, SIGNAL(actionFinished()));

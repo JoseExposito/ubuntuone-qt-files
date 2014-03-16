@@ -37,8 +37,8 @@ public:
     void deleteNode(NodeInfoDTO *node);
     void publishNode(NodeInfoDTO *node, bool publish);
     void shareLink(NodeInfoDTO *node);
-    void rename(NodeInfoDTO *node);
-    void createFolder(const QString &path);
+    void rename(NodeInfoDTO *node, const QString &newName);
+    void createFolder(const QString &path, const QString &folderName);
 
 signals:
 
@@ -51,19 +51,9 @@ signals:
     void renameOnMainThread(NodeInfoDTO *node, const QString &newName);
     void createFolderOnMainThread(const QString &path, const QString &folderName);
 
-private slots:
-
-    static void renameAux(NodeInfoDTO *node, const QString &newName);
-    static void createFolderAux(const QString &path, const QString &folderName);
-
 private:
 
     LoginInfoDTO *loginInfo;
-
-#ifdef Q_OS_ANDROID
-    static void renameCallback(JNIEnv *env, jobject object, jstring result);
-    static void createFolderCallback(JNIEnv *env, jobject object, jstring result);
-#endif
 
     // Singleton
     static FileActionsController *instance;

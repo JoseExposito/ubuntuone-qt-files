@@ -38,12 +38,12 @@ private slots:
     void openFolder(int nodeIndex);
     void openFile(int nodeIndex);
 
-    void renameNode(int nodeIndex);
+    void renameNode(int nodeIndex, const QString &newName);
     void deleteNode(int nodeIndex);
     void publishFile(int nodeIndex, bool publish);
     void copyPublicLink(int nodeIndex);
 
-    void menuCreateFolder();
+    void menuCreateFolder(const QString &folderName);
     void menuAbout();
 
     void refreshView();

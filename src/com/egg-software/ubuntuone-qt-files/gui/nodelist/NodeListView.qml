@@ -23,7 +23,7 @@ Item {
     property string toolBarTitle: "Ubuntu One"
     property Menu toolBarMenu: (viewPath === "/~/") ? toolBarMenuVolumes : toolBarMenuNoVolumes
 
-    signal menuCreateFolder()
+    signal menuCreateFolder(string folderName)
     signal menuRefresh()
     signal menuAbout()
 
@@ -32,7 +32,7 @@ Item {
     signal openFile(int nodeIndex)
 
     // Folder & files action signals
-    signal renameNode(int nodeIndex)
+    signal renameNode(int nodeIndex, string newName)
     signal deleteNode(int nodeIndex)
 
     // File action signals
@@ -50,7 +50,7 @@ Item {
 
     Menu {
         id: toolBarMenuNoVolumes
-        MenuItem { text: qsTr("Create folder");  onTriggered: { menuCreateFolder() } }
+        MenuItem { text: qsTr("Create folder");  onTriggered: { createFolderFunction() } }
         MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
         MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
     }
@@ -61,6 +61,7 @@ Item {
     Menu {
         id: folderMenu
         property int nodeIndex: -1
+        property string nodeName: ""
 
         MenuItem {
             text: qsTr("Open")
@@ -68,7 +69,7 @@ Item {
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(folderMenu.nodeIndex) }
+            onTriggered: { renameNodeFunction(folderMenu.nodeIndex, folderMenu.nodeName) }
         }
         MenuItem {
             text: qsTr("Delete")
@@ -83,6 +84,7 @@ Item {
         id: fileMenu
         property int nodeIndex: -1
         property bool isPublic: false
+        property string nodeName: ""
 
         MenuItem {
             text: qsTr("Open")
@@ -99,7 +101,7 @@ Item {
         }
         MenuItem {
             text: qsTr("Rename")
-            onTriggered: { renameNode(fileMenu.nodeIndex) }
+            onTriggered: { renameNodeFunction(fileMenu.nodeIndex, fileMenu.nodeName) }
         }
         MenuItem {
             text: qsTr("Delete")
@@ -123,12 +125,14 @@ Item {
                 onClicked: { model.isFile ? openFile(model.index) : openFolder(model.index) }
                 onPressAndHold: {
                     if (model.isFile) {
-                        fileMenu.nodeIndex = model.index
-                        fileMenu.isPublic = model.isPublic
-                        fileMenu.popup()
+                        fileMenu.nodeIndex = model.index;
+                        fileMenu.isPublic  = model.isPublic;
+                        fileMenu.nodeName  = model.fileName;
+                        fileMenu.popup();
                     } else if (model.isDirectory) {
-                        folderMenu.nodeIndex = model.index
-                        folderMenu.popup()
+                        folderMenu.nodeIndex = model.index;
+                        folderMenu.nodeName  = model.fileName;
+                        folderMenu.popup();
                     }
                 }
             }
@@ -283,10 +287,35 @@ Item {
         }
     }
 
+    function renameNodeFunction(nodeIndex, nodeName) {
+        inputDialog.show(qsTr("Rename"), nodeName, qsTr("Rename file"), qsTr("Cancel"));
+        inputDialog.dialogAccepted.connect(function callback() {
+            inputDialog.hide();
+            renameNode(nodeIndex, inputDialog.userInputText);
+            inputDialog.dialogAccepted.disconnect(callback);
+        });
+    }
+
+    function createFolderFunction(nodeIndex) {
+        inputDialog.show(qsTr("Create folder"), qsTr("New folder"), qsTr("Create"), qsTr("Cancel"));
+        inputDialog.dialogAccepted.connect(function callback() {
+            inputDialog.hide();
+            menuCreateFolder(inputDialog.userInputText);
+            inputDialog.dialogAccepted.disconnect(callback);
+        });
+    }
+
     ListView {
         anchors.fill: parent
         delegate: nodeListDelegate
         model: nodeListModel
+
+        U1InputDialog {
+            id: inputDialog
+            visible: false
+            anchors.fill: parent
+            onDialogCanceled: inputDialog.hide()
+        }
     }
 
     /**

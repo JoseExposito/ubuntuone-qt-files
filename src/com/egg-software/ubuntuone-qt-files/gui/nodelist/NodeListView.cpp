@@ -34,13 +34,13 @@ NodeListView::NodeListView(const QString &path)
     connect(this->view, SIGNAL(openFolder(int)), this, SLOT(openFolder(int)));
     connect(this->view, SIGNAL(openFile(int)), this, SLOT(openFile(int)));
 
-    connect(this->view, SIGNAL(renameNode(int)), this, SLOT(renameNode(int)));
+    connect(this->view, SIGNAL(renameNode(int, QString)), this, SLOT(renameNode(int, QString)));
     connect(this->view, SIGNAL(deleteNode(int)), this, SLOT(deleteNode(int)));
 
     connect(this->view, SIGNAL(publishFile(int, bool)), this, SLOT(publishFile(int, bool)));
     connect(this->view, SIGNAL(copyPublicLink(int)), this, SLOT(copyPublicLink(int)));
 
-    connect(this->view, SIGNAL(menuCreateFolder()), this, SLOT(menuCreateFolder()));
+    connect(this->view, SIGNAL(menuCreateFolder(QString)), this, SLOT(menuCreateFolder(QString)));
     connect(this->view, SIGNAL(menuRefresh()), this, SLOT(refreshView()));
     connect(this->view, SIGNAL(menuAbout()), this, SLOT(menuAbout()));
 
@@ -65,10 +65,10 @@ void NodeListView::openFile(int nodeIndex)
     downloader->downloadAndOpenNode(this->model, nodeIndex);
 }
 
-void NodeListView::renameNode(int nodeIndex)
+void NodeListView::renameNode(int nodeIndex, const QString &newName)
 {
     NodeInfoDTO *node = this->model->getNode(nodeIndex);
-    this->fileAction->rename(node);
+    this->fileAction->rename(node, newName);
 }
 
 void NodeListView::deleteNode(int nodeIndex)
@@ -89,9 +89,9 @@ void NodeListView::copyPublicLink(int nodeIndex)
     this->fileAction->shareLink(node);
 }
 
-void NodeListView::menuCreateFolder()
+void NodeListView::menuCreateFolder(const QString &folderName)
 {
-    this->fileAction->createFolder(this->viewPath);
+    this->fileAction->createFolder(this->viewPath, folderName);
 }
 
 void NodeListView::menuAbout()

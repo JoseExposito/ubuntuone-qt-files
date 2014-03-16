@@ -4,7 +4,8 @@ SOURCES += src/com/egg-software/ubuntuone-qt-files/gui/MainWindow.cpp \
     src/com/egg-software/ubuntuone-qt-files/gui/BaseWindow.cpp
 OTHER_FILES += src/com/egg-software/ubuntuone-qt-files/gui/MainWindow.qml \
     src/com/egg-software/ubuntuone-qt-files/gui/LoadingSpinner.qml \
-    src/com/egg-software/ubuntuone-qt-files/gui/MainWindowToolbar.qml
+    src/com/egg-software/ubuntuone-qt-files/gui/MainWindowToolbar.qml \
+    src/com/egg-software/ubuntuone-qt-files/gui/U1InputDialog.qml
 
 INCLUDEPATH += $$PWD
 
