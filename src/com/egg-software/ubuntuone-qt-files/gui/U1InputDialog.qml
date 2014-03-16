@@ -30,17 +30,24 @@ MouseArea {
     signal dialogCanceled()
     signal dialogAccepted()
 
-    // Fade in/out animation
-    opacity: 0
     function show(title, defaultInputText, okButtonTitle, cancelButtonTitle) {
         titleLabel.text = title
         inputText.text = defaultInputText
         okButton.text = okButtonTitle
         cancelButton.text = cancelButtonTitle
+
         opacity = 1
         visible = true
     }
-    function hide() { opacity = 0; }
+
+    function hide() {
+        inputText.focus = false;
+        Qt.inputMethod.hide();
+        opacity = 0;
+    }
+
+    // Fade in/out animation
+    opacity: 0
     Behavior on opacity {
         PropertyAnimation {
             duration: 300
@@ -48,9 +55,8 @@ MouseArea {
         }
     }
 
-    onClicked: {
-        dialogCanceled();
-    }
+    // If the user click outside of the dialog
+    onClicked: { dialogCanceled(); }
 
     MouseArea {
         id: inputDialogBox

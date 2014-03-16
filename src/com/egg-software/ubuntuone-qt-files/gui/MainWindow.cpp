@@ -63,6 +63,12 @@ void MainWindow::showAboutDialog()
     QMetaObject::invokeMethod(this->window, "showAboutDialog");
 }
 
+void MainWindow::enableBackKeyNavigation()
+{
+    QQuickItem *backKeyNavigationItem = this->window->findChild<QQuickItem *>("backKeyNavigationItem");
+    backKeyNavigationItem->setProperty("focus", true);
+}
+
 void MainWindow::push(QQuickItem *view)
 {
     QVariant viewItem = QVariant::fromValue(qobject_cast<QQuickItem *>(view));
@@ -87,8 +93,4 @@ void MainWindow::clear()
 {
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
     QMetaObject::invokeMethod(stackView, "clear");
-
-    // To activate the back key navigation again after login
-    QQuickItem *backKeyNavigationItem = this->window->findChild<QQuickItem *>("backKeyNavigationItem");
-    backKeyNavigationItem->setProperty("focus", true);
 }
