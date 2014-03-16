@@ -1,6 +1,7 @@
 MainWindow.qml qrc:/qml/MainWindow.qml
-LoadingSpinner.qml qrc:/qml/LoadingSpinner.qml
 MainWindowToolbar.qml qrc:/qml/MainWindowToolbar.qml
+LoadingSpinner.qml qrc:/qml/LoadingSpinner.qml
+U1InputDialog.qml qrc:/qml/U1InputDialog.qml
 
 CreateAccountOrLoginWindow.qml qrc:/qml/CreateAccountOrLoginWindow.qml
 SlideViewer qrc:/qml/SlideViewer.qml
