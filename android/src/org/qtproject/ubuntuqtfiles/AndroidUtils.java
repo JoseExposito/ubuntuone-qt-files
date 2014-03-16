@@ -61,9 +61,4 @@ public class AndroidUtils extends org.qtproject.qt5.android.bindings.QtActivity 
         instance.startActivity(Intent.createChooser(share, ""));
     }
 
-    public static void showInputDialog(final String title, final String description, final String defaultInput,
-            final String okButtonTitle, final String cancelButtonTitle) {
-        InputDialog.showInputDialog(instance, title, description, defaultInput, okButtonTitle, cancelButtonTitle);
-    }
-
 }
