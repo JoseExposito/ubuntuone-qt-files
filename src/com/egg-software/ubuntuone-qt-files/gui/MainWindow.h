@@ -52,11 +52,6 @@ public:
      */
     void showAboutDialog();
 
-    /**
-     * Enables the back key navigation setting the focus in the "backKeyNavigationItem".
-     */
-    void enableBackKeyNavigation();
-
     inline QQuickWindow *getWindow() { return this->window; }
     inline QQmlEngine *getEngine() { return this->engine; }
 

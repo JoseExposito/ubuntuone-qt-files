@@ -43,7 +43,6 @@ void LoginWindow::loginFinished()
     MainWindow::getInstance()->clear();
     MainWindow::getInstance()->push(NodeListController::getInstance()->createView(
             NodeListController::ROOT_PATH)->getView());
-    MainWindow::getInstance()->enableBackKeyNavigation();
 }
 
 void LoginWindow::loginError(const QString &errorDescription)

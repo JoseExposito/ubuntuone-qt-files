@@ -67,7 +67,6 @@ void NodeListView::openFile(int nodeIndex)
 
 void NodeListView::renameNode(int nodeIndex, const QString &newName)
 {
-    MainWindow::getInstance()->enableBackKeyNavigation();
     NodeInfoDTO *node = this->model->getNode(nodeIndex);
     this->fileAction->rename(node, newName);
 }
@@ -92,7 +91,6 @@ void NodeListView::copyPublicLink(int nodeIndex)
 
 void NodeListView::menuCreateFolder(const QString &folderName)
 {
-    MainWindow::getInstance()->enableBackKeyNavigation();
     this->fileAction->createFolder(this->viewPath, folderName);
 }
 

@@ -63,12 +63,6 @@ void MainWindow::showAboutDialog()
     QMetaObject::invokeMethod(this->window, "showAboutDialog");
 }
 
-void MainWindow::enableBackKeyNavigation()
-{
-    QQuickItem *backKeyNavigationItem = this->window->findChild<QQuickItem *>("backKeyNavigationItem");
-    backKeyNavigationItem->setProperty("focus", true);
-}
-
 void MainWindow::push(QQuickItem *view)
 {
     QVariant viewItem = QVariant::fromValue(qobject_cast<QQuickItem *>(view));

@@ -33,7 +33,7 @@ ApplicationWindow {
 
     // Implements back key navigation
     Item {
-        objectName: "backKeyNavigationItem"
+        id: backKeyNavigationItem
         focus: true
         Keys.onReleased: {
             if (event.key === Qt.Key_Back) {
@@ -46,6 +46,10 @@ ApplicationWindow {
                 }
             }
         }
+    }
+
+    Component.onCompleted: {
+        Qt.inputMethod.visibleChanged.connect(function() { backKeyNavigationItem.focus = !Qt.inputMethod.visible; });
     }
 
     /**
