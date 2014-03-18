@@ -19,11 +19,13 @@ import QtQuick.Controls.Styles 1.1
 import "qrc:/."
 
 /**
- * In Qt 5.2 personalized dialog are not supported and use the native dialogs is a pin in order to support more
+ * In Qt 5.2 personalized dialog are not supported and use the native dialogs is a pain in order to support more
  * platforms. Due to this, this QML components implements a very simple dialog used to create folders, rename files...
  */
 MouseArea {
     id: inputDialog
+    anchors.fill: parent
+    z:1
 
     property string userInputText: inputText.text
 
@@ -47,6 +49,7 @@ MouseArea {
     }
 
     // Fade in/out animation
+    visible: false
     opacity: 0
     Behavior on opacity {
         PropertyAnimation {

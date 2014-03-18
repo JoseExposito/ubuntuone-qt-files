@@ -312,8 +312,6 @@ Item {
 
         U1InputDialog {
             id: inputDialog
-            visible: false
-            anchors.fill: parent
             onDialogCanceled: inputDialog.hide()
         }
     }
