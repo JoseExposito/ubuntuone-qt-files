@@ -20,13 +20,16 @@ import "qrc:/."
 Item {
 
     property string toolBarTitle: qsTr("Welcome")
-    property Menu toolBarMenu: Menu {
-        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
-    }
+    property U1Menu toolBarMenu: toolbarMenu
 
     signal loginClicked()
     signal createAccountClicked()
     signal menuAbout()
+
+    U1Menu {
+        id: toolbarMenu
+        MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -61,4 +64,5 @@ Item {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
     }
+
 }

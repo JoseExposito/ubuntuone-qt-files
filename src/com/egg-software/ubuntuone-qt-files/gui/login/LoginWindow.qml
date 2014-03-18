@@ -21,7 +21,10 @@ import "qrc:/."
 Item {
 
     property string toolBarTitle: qsTr("Login")
-    property Menu toolBarMenu: Menu {
+    property U1Menu toolBarMenu: toolbarMenu
+
+    U1Menu {
+        id: toolbarMenu
         MenuItem { text: qsTr("About..."); onTriggered: { menuAbout() } }
     }
 

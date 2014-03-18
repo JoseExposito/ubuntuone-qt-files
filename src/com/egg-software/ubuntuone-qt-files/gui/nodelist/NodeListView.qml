@@ -21,7 +21,7 @@ import "qrc:/."
 Item {
 
     property string toolBarTitle: "Ubuntu One"
-    property Menu toolBarMenu: (viewPath === "/~/") ? toolBarMenuVolumes : toolBarMenuNoVolumes
+    property U1Menu toolBarMenu: (viewPath === "/~/") ? toolBarMenuVolumes : toolBarMenuNoVolumes
 
     signal menuCreateFolder(string folderName)
     signal menuRefresh()
@@ -42,13 +42,13 @@ Item {
     /**
      * Toolbar menus for volumes view and normal folders view.
      */
-    Menu {
+    U1Menu {
         id: toolBarMenuVolumes
         MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }
         MenuItem { text: qsTr("About..."); onTriggered: { menuAbout()   } }
     }
 
-    Menu {
+    U1Menu {
         id: toolBarMenuNoVolumes
         MenuItem { text: qsTr("Create folder");  onTriggered: { createFolderFunction() } }
         MenuItem { text: qsTr("Refresh");  onTriggered: { menuRefresh() } }

@@ -59,7 +59,7 @@ ApplicationWindow {
         id: mainWindowToolbar
         enabled: !loadingSpinner.visible
         toolBarTitle: stackView.currentItem == null ? "" : stackView.currentItem.toolBarTitle
-        onMenuButtonClicked: stackView.currentItem.toolBarMenu.popup()
+        onMenuButtonClicked: stackView.currentItem.toolBarMenu.popupFromToolbar()
     }
 
     /**

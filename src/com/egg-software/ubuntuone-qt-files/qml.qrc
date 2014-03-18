@@ -5,6 +5,7 @@
         <file alias="MainWindowToolbar.qml">gui/MainWindowToolbar.qml</file>
         <file alias="LoadingSpinner.qml">gui/LoadingSpinner.qml</file>
         <file alias="U1InputDialog.qml">gui/U1InputDialog.qml</file>
+        <file alias="U1Menu.qml">gui/U1Menu.qml</file>
         <file alias="UbuntuButtonStyle.qml">gui/styles/UbuntuButtonStyle.qml</file>
         <file alias="UbuntuTextFieldStyle.qml">gui/styles/UbuntuTextFieldStyle.qml</file>
         <file alias="ULabel.qml">gui/styles/ULabel.qml</file>
