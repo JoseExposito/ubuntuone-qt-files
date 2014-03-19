@@ -58,7 +58,7 @@ Item {
     /**
      * Popup menu for folders, excluding volumes.
      */
-    Menu {
+    U1Menu {
         id: folderMenu
         property int nodeIndex: -1
         property string nodeName: ""
@@ -80,7 +80,7 @@ Item {
     /**
      * Popup menu for files.
      */
-    Menu {
+    U1Menu {
         id: fileMenu
         property int nodeIndex: -1
         property bool isPublic: false

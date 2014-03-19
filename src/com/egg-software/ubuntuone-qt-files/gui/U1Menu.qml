@@ -31,7 +31,7 @@ MouseArea {
     property list<MenuItem> menuItems
     default property alias items: menu.menuItems
 
-    property bool shownFromToolbar: false
+    property bool shownFromToolbar: true
 
     function popupFromToolbar() {
         if (visible) {
@@ -48,12 +48,14 @@ MouseArea {
     }
 
     function show() {
+        model.clear();
         for (var i=0; i<items.length; ++i) {
-            model.append(items[i])
+            if (items[i].visible)
+                model.append(items[i]);
         }
 
-        opacity = 1
-        visible = true
+        opacity = 1;
+        visible = true;
     }
 
     function hide() {
@@ -75,15 +77,17 @@ MouseArea {
 
     Rectangle {
         id: menuBox
-        width: 200*u
-        height: 40*u * items.length
+        width: 250*u
+        height: 40*u * model.count
         color: Qt.rgba(36/255, 36/255, 36/255, 1)
         clip: true
 
         anchors.top:   shownFromToolbar ? parent.top : undefined
         anchors.right: shownFromToolbar ? parent.right : undefined
-        anchors.topMargin:   10*u
-        anchors.rightMargin: 10*u
+        anchors.topMargin:   shownFromToolbar ? 10*u : 0
+        anchors.rightMargin: shownFromToolbar ? 10*u : 0
+
+        anchors.centerIn: shownFromToolbar ? undefined : parent
 
         ListModel { id: model }
         ListView {
@@ -94,7 +98,15 @@ MouseArea {
                 height: 40*u
 
                 onClicked: {
-                    console.log("Menu entry: " + model.index);
+                    items[model.index].triggered();
+                    hide();
+                }
+
+                Rectangle {
+                    id: onPressedBackgroud
+                    visible: parent.pressed
+                    anchors.fill: parent
+                    color: Qt.rgba(15/255, 15/255, 15/255, 1)
                 }
 
                 ULabel {
@@ -113,7 +125,7 @@ MouseArea {
                     anchors.top: menuEntryText.bottom
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    color: Qt.rgba(42/255, 42/255, 42/255, 1)
+                    color: Qt.rgba(45/255, 45/255, 45/255, 1)
                     width: parent.width
                     height: 2*u
                 }
