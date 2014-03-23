@@ -7,6 +7,7 @@ DEFINES += VERSION=\\\"$$VERSION\\\"
 android: QT += androidextras
 
 # iOS
+ios: QT += gui gui-private # To get a UIView from a QML view http://stackoverflow.com/a/15556178/1204395
 ios: QTPLUGIN +=  qsqlite # https://bugreports.qt-project.org/browse/QTBUG-35195
 ios: LIBS += -framework UIKit
 

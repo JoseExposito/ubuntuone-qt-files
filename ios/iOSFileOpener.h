@@ -12,27 +12,19 @@
  * You should have received a copy of the GNU General Public License along with Foobar.  If not, see
  * <http://www.gnu.org/licenses/>.
  */
-#ifndef IOSUTILS_H
-#define IOSUTILS_H
+#ifndef IOSFILEOPENER_H
+#define IOSFILEOPENER_H
 
-#include <QtCore/QString>
+#include <QtCore/QtGlobal>
 #ifdef Q_OS_IOS
-#include "PlatformUtils.h"
+#include <UIKit/UIKit.h>
 
-/**
- * The iOSUtils class brings easy access to the iOS specified functionality.
- */
-class iOSUtils : public PlatformUtils
-{
+@interface iOSFileOpener : NSObject <UIDocumentInteractionControllerDelegate>
 
-public:
+    + (iOSFileOpener *)getInstance;
+    - (void)openFile:(NSString *)path fromViewController:(UIViewController *)viewController;
 
-    iOSUtils(QObject *parent = 0);
-
-    virtual void openFile(const QString &filePath);
-    virtual void shareLink(const QString &link);
-
-};
+@end
 
 #endif // Q_OS_IOS
-#endif // IOSUTILS_H
+#endif // FILEOPENER_H

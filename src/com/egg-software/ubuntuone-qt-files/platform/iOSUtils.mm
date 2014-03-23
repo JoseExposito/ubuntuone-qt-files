@@ -15,12 +15,27 @@
 #include "iOSUtils.h"
 #include <QtCore>
 #ifdef Q_OS_IOS
+#include "MainWindow.h"
+#include "iOSFileOpener.h"
 #include <UIKit/UIKit.h>
+#include <QtGui/QGuiApplication>
+#include <qpa/qplatformnativeinterface.h>
 
 iOSUtils::iOSUtils(QObject *parent)
     : PlatformUtils(parent)
 {
 
+}
+
+void iOSUtils::openFile(const QString &filePath)
+{
+    QWindow *window = (QWindow *)MainWindow::getInstance()->getWindow();
+    UIView *view = (UIView *)(QGuiApplication::platformNativeInterface()->nativeResourceForWindow("uiview", window));
+    UIViewController *viewController = [[view window] rootViewController];
+
+
+    iOSFileOpener *fileOpener = [iOSFileOpener getInstance];
+    [fileOpener openFile:QUrl::fromLocalFile(filePath).toString().toNSString() fromViewController:viewController];
 }
 
 void iOSUtils::shareLink(const QString &link)
