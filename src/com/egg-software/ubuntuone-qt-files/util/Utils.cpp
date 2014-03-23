@@ -22,4 +22,15 @@ void Utils::setGlobalProperties(QQmlContext *contex)
     qreal desktopLogicalDotsPerInch = 72;
     qreal u = screen->logicalDotsPerInch()/desktopLogicalDotsPerInch;
     contex->setContextProperty("u", u);
+
+    // Platform
+    QString platform;
+#ifdef Q_OS_ANDROID
+    platform = "ANDROID";
+#elif defined(Q_OS_IOS)
+    platform = "IOS";
+#else
+    platform = "DESKTOP";
+#endif
+    contex->setContextProperty("platform", platform);
 }

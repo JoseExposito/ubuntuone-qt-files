@@ -31,10 +31,10 @@ ApplicationWindow {
     height: 480
     color:  Qt.rgba(232/255, 232/255, 232/255, 1)
 
-    // Implements back key navigation
+    // Implements back key navigation on Android
     Item {
         id: backKeyNavigationItem
-        focus: true
+        focus: (platform === ANDROID)
         Keys.onReleased: {
             if (event.key === Qt.Key_Back) {
                 if (stackView.depth > 1) {
@@ -49,7 +49,9 @@ ApplicationWindow {
     }
 
     Component.onCompleted: {
-        Qt.inputMethod.visibleChanged.connect(function() { backKeyNavigationItem.focus = !Qt.inputMethod.visible; });
+        if (platform === "ANDROID") {
+            Qt.inputMethod.visibleChanged.connect(function() { backKeyNavigationItem.focus = !Qt.inputMethod.visible; });
+        }
     }
 
     /**
