@@ -34,7 +34,7 @@ ApplicationWindow {
     // Implements back key navigation on Android
     Item {
         id: backKeyNavigationItem
-        focus: (platform === ANDROID)
+        focus: (platform === "ANDROID")
         Keys.onReleased: {
             if (event.key === Qt.Key_Back) {
                 if (stackView.depth > 1) {

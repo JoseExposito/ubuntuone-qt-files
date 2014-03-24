@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="fr_FR">
+<TS version="2.0" language="fr_FR">
 <context>
     <name>CreateAccountOrLoginWindow</name>
     <message>
@@ -20,7 +20,7 @@
     </message>
     <message>
         <source>Sign in</source>
-        <translation type="vanished">Connexion</translation>
+        <translation>Connexion</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/CreateAccountOrLoginWindow.qml" line="59"/>
@@ -32,27 +32,27 @@
     <name>CreateAccountWindow</name>
     <message>
         <source>Create account</source>
-        <translation type="vanished">Créer un compte</translation>
+        <translation>Créer un compte</translation>
     </message>
     <message>
         <source>About...</source>
-        <translation type="vanished">À propos de...</translation>
+        <translation>À propos de...</translation>
     </message>
     <message>
         <source>Full name</source>
-        <translation type="vanished">Nom complet</translation>
+        <translation>Nom complet</translation>
     </message>
     <message>
         <source>Email</source>
-        <translation type="vanished">Courriel</translation>
+        <translation>Courriel</translation>
     </message>
     <message>
         <source>Password</source>
-        <translation type="vanished">Mot de passe</translation>
+        <translation>Mot de passe</translation>
     </message>
     <message>
         <source>By creating an account you agree to the Ubuntu Account &lt;u&gt;Terms of Service&lt;/u&gt;</source>
-        <translation type="vanished">En créant un compte vous acceptez les &lt;u&gt;conditions d&apos;utilisation&lt;/u&gt; du compte Ubuntu</translation>
+        <translation>En créant un compte vous acceptez les &lt;u&gt;conditions d&apos;utilisation&lt;/u&gt; du compte Ubuntu</translation>
     </message>
 </context>
 <context>
@@ -60,7 +60,7 @@
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/network/CreateFolderMessage.cpp" line="60"/>
         <source>Error creating folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la création du dossier</translation>
     </message>
 </context>
 <context>
@@ -93,22 +93,22 @@
     </message>
     <message>
         <source>Rename</source>
-        <translation type="vanished">Renommer</translation>
+        <translation>Renommer</translation>
     </message>
     <message>
         <source>Rename file</source>
-        <translation type="vanished">Renommer le fichier</translation>
+        <translation>Renommer le fichier</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="vanished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
 </context>
 <context>
     <name>LoginController</name>
     <message>
         <source>Log in...</source>
-        <translation type="vanished">Connexion...</translation>
+        <translation>Connexion...</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/controller/LoginController.cpp" line="24"/>
@@ -130,7 +130,7 @@
     </message>
     <message>
         <source>Unexpected response received from the Ubuntu SSO server.Please, try to log in later</source>
-        <translation type="vanished">Erreur inattendue reçue du serveur SSO Ubuntu. Veuillez essayer de vous connecter plus tard</translation>
+        <translation>Erreur inattendue reçue du serveur SSO Ubuntu. Veuillez essayer de vous connecter plus tard</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/network/LoginMessage.cpp" line="101"/>
@@ -142,7 +142,7 @@
     <name>LoginWindow</name>
     <message>
         <source>Sign in</source>
-        <translation type="vanished">Connexion</translation>
+        <translation>Connexion</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/LoginWindow.qml" line="23"/>
@@ -234,7 +234,7 @@ https://twitter.com/Jose__Exposito</translation>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="53"/>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="300"/>
         <source>Create folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer le dossier</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="67"/>
@@ -289,12 +289,12 @@ https://twitter.com/Jose__Exposito</translation>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="300"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau dossier</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="300"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation>Créer</translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/nodelist/NodeListView.qml" line="326"/>
@@ -332,7 +332,7 @@ https://twitter.com/Jose__Exposito</translation>
     </message>
     <message>
         <source>Store your files, photos and music safely in Ubuntu One and access them fom any of your devices, wherever you are. Get 5GB of cloud storage for FREE</source>
-        <translation type="vanished">Entreposez vos fichiers, photos et musique en sureté dans Ubuntu One et accédez-y depuis tous vos appareils, où que vous soyez. Obtenez 5 Go de stockage dans le nuage GRATUITEMENT </translation>
+        <translation>Entreposez vos fichiers, photos et musique en sureté dans Ubuntu One et accédez-y depuis tous vos appareils, où que vous soyez. Obtenez 5 Go de stockage dans le nuage GRATUITEMENT </translation>
     </message>
     <message>
         <location filename="../src/com/egg-software/ubuntuone-qt-files/gui/login/SlideViewer.qml" line="50"/>
@@ -371,7 +371,7 @@ https://twitter.com/Jose__Exposito</translation>
     </message>
     <message>
         <source>Store your files, photos and music safely in Ubuntu One...</source>
-        <translation type="vanished">Entreposez vos fichiers, photos et musique en sureté dans Ubuntu One...</translation>
+        <translation>Entreposez vos fichiers, photos et musique en sureté dans Ubuntu One...</translation>
     </message>
 </context>
 <context>

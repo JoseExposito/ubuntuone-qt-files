@@ -24,8 +24,6 @@ CreateAccountOrLoginWindow::CreateAccountOrLoginWindow()
     : BaseWindow("qrc:/qml/CreateAccountOrLoginWindow.qml"),
       loginWindow(new LoginWindow())
 {
-    //Utils::setGlobalProperties(this->view);
-
     connect(this->view, SIGNAL(loginClicked()), this, SLOT(loginClicked()));
     connect(this->view, SIGNAL(createAccountClicked()), this, SLOT(createAccountClicked()));
     connect(this->view, SIGNAL(menuAbout()), this, SLOT(menuAbout()));
