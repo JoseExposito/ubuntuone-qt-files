@@ -1,0 +1,6 @@
+U1Files is distributed with dual license GPL3 and privative:
+
+    - GPL3 license is applied ALWAYS (see LICENSE-GPL3.txt for more information)
+    - The ONLY exception to this license is for the submission to the iOS App Store
+
+This means that U1Files is and always will be GPL software, ONLY distributed with other license for the iOS App Store submission
