@@ -1,6 +1,6 @@
 QT      += qml quick network sql widgets
 TARGET   = U1Files
-VERSION  = 0.4
+VERSION  = 0.5
 DEFINES += VERSION=\\\"$$VERSION\\\"
 
 # Android
