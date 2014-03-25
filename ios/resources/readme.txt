@@ -1,7 +1,15 @@
 
+                                       HOW TO DEPLOY AN IOS VERSION:
+                                       —————————————————————————————
+[+] SETTING VERSION:
+
+    - Compile the project with Qt Creator
+    - Edit the Info.plist file to update the version
+    - Replace the Info.plist in the build folder (Xcode project directory)
+
 [+] SETTING ICONS AND LAUNCH IMAGES
 
-    - Run qmake and open the generated Xcode project
+    - Open the generated Xcode project
     - Validate project settings if necessary
     - Select the project and in the General tab go down to App Icons section
     - Click for Source “Use Asset Catalog"
