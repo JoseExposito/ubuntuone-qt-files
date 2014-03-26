@@ -1,3 +1,10 @@
+[+] v0.5 (26/03/2014)
+
+	+ U1Files is now available on iOS!
+	+ Added personalized menus
+	+ General bug fixing
+	
+
 [+] v0.4 (01/03/2014)
 
 	+ GUI adapted to tablets
