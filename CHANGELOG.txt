@@ -4,7 +4,6 @@
 	+ Added personalized menus
 	+ General bug fixing
 	
-
 [+] v0.4 (01/03/2014)
 
 	+ GUI adapted to tablets
