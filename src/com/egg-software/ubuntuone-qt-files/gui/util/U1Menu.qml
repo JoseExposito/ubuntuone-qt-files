@@ -109,7 +109,7 @@ MouseArea {
                     color: Qt.rgba(15/255, 15/255, 15/255, 1)
                 }
 
-                ULabel {
+                U1Label {
                     id: menuEntryText
                     anchors.fill: parent
                     anchors.left: parent.left

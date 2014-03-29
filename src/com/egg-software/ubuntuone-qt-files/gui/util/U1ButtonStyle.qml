@@ -28,7 +28,7 @@ Component {
             color: control.pressed ? Qt.rgba(158/255, 158/255, 158/255, 1) : Qt.rgba(213/255, 213/255, 213/255, 1)
         }
 
-        label: ULabel {
+        label: U1Label {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             text: control.text

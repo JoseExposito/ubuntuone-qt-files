@@ -64,7 +64,7 @@ ColumnLayout {
         }
 
         // Title
-        ULabel {
+        U1Label {
             id: titleLabel
             anchors.right: menuButton.left
             anchors.verticalCenter: parent.verticalCenter

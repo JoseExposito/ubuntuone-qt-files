@@ -1,8 +1,5 @@
 MainWindow.qml qrc:/qml/MainWindow.qml
 MainWindowToolbar.qml qrc:/qml/MainWindowToolbar.qml
-LoadingSpinner.qml qrc:/qml/LoadingSpinner.qml
-U1InputDialog.qml qrc:/qml/U1InputDialog.qml
-U1Menu.qml qrc:/qml/U1Menu.qml
 
 CreateAccountOrLoginWindow.qml qrc:/qml/CreateAccountOrLoginWindow.qml
 SlideViewer qrc:/qml/SlideViewer.qml
@@ -11,7 +8,10 @@ LoginWindow.qml qrc:/qml/LoginWindow.qml
 
 NodeListView.qml qrc:/qml/NodeListView.qml
 
-UbuntuButtonStyle.qml qrc:/qml/UbuntuButtonStyle.qml
-UbuntuTextFieldStyle.qml qrc:/qml/UbuntuTextFieldStyle.qml
-ULabel.qml qrc:/qml/ULabel.qml
-UbuntuProgressBarStyle.qml qrc:/qml/UbuntuProgressBarStyle.qml
+U1ButtonStyle.qml qrc:/qml/U1ButtonStyle.qml
+U1TextFieldStyle.qml qrc:/qml/U1TextFieldStyle.qml
+U1ProgressBarStyle.qml qrc:/qml/U1ProgressBarStyle.qml
+U1Label.qml qrc:/qml/U1Label.qml
+U1Spinner.qml qrc:/qml/U1Spinner.qml
+U1InputDialog.qml qrc:/qml/U1InputDialog.qml
+U1Menu.qml qrc:/qml/U1Menu.qml

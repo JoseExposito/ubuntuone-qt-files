@@ -46,7 +46,7 @@ Item {
                 Layout.alignment: Qt.AlignHCenter
             }
 
-            ULabel {
+            U1Label {
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
                 text: loadingSpinnerText

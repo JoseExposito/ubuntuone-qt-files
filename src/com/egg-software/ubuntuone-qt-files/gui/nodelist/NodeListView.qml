@@ -162,7 +162,7 @@ Item {
                 }
 
                 // Filename
-                ULabel {
+                U1Label {
                     id: nodeFilename
                     anchors {
                         left: nodeIcon.right
@@ -217,7 +217,7 @@ Item {
                 }
 
                 // Last modified
-                ULabel {
+                U1Label {
                     id: nodeLastModified
                     anchors {
                         left: nodeIcon.right
@@ -238,7 +238,7 @@ Item {
                 }
 
                 // Size
-                ULabel {
+                U1Label {
                     id: nodeSize
                     anchors {
                         right: parent.right
@@ -272,7 +272,7 @@ Item {
                     height: nodeLastModified.height
                     indeterminate: (model.downloadProgress <= 0)
 
-                    style: UbuntuProgressBarStyle { }
+                    style: U1ProgressBarStyle { }
                 }
             }
 

@@ -81,7 +81,7 @@ MouseArea {
             anchors.margins: 10*u
             spacing: 0
 
-            ULabel {
+            U1Label {
                 id: titleLabel
                 verticalAlignment: Text.AlignVCenter
                 Layout.alignment: Qt.AlignHCenter
@@ -94,7 +94,7 @@ MouseArea {
                 id: inputText
                 Layout.alignment: Qt.AlignHCenter
                 Layout.fillWidth: true
-                style: UbuntuTextFieldStyle { }
+                style: U1TextFieldStyle { }
                 textColor: Qt.rgba(235/255, 235/255, 235/255, 1)
             }
 
@@ -133,7 +133,7 @@ MouseArea {
                 color: Qt.rgba(0,0,0,0)
             }
 
-            label: ULabel {
+            label: U1Label {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
                 text: control.text

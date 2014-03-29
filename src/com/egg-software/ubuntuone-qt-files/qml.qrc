@@ -3,17 +3,17 @@
         <file>qmldir</file>
         <file alias="MainWindow.qml">gui/MainWindow.qml</file>
         <file alias="MainWindowToolbar.qml">gui/MainWindowToolbar.qml</file>
-        <file alias="LoadingSpinner.qml">gui/LoadingSpinner.qml</file>
-        <file alias="U1InputDialog.qml">gui/U1InputDialog.qml</file>
-        <file alias="U1Menu.qml">gui/U1Menu.qml</file>
-        <file alias="UbuntuButtonStyle.qml">gui/styles/UbuntuButtonStyle.qml</file>
-        <file alias="UbuntuTextFieldStyle.qml">gui/styles/UbuntuTextFieldStyle.qml</file>
-        <file alias="ULabel.qml">gui/styles/ULabel.qml</file>
-        <file alias="UbuntuProgressBarStyle.qml">gui/styles/UbuntuProgressBarStyle.qml</file>
         <file alias="CreateAccountOrLoginWindow.qml">gui/login/CreateAccountOrLoginWindow.qml</file>
         <file alias="SlideViewer.qml">gui/login/SlideViewer.qml</file>
         <file alias="Slide.qml">gui/login/Slide.qml</file>
         <file alias="LoginWindow.qml">gui/login/LoginWindow.qml</file>
         <file alias="NodeListView.qml">gui/nodelist/NodeListView.qml</file>
+        <file alias="U1Spinner.qml">gui/util/U1Spinner.qml</file>
+        <file alias="U1InputDialog.qml">gui/util/U1InputDialog.qml</file>
+        <file alias="U1Menu.qml">gui/util/U1Menu.qml</file>
+        <file alias="U1ButtonStyle.qml">gui/util/U1ButtonStyle.qml</file>
+        <file alias="U1TextFieldStyle.qml">gui/util/U1TextFieldStyle.qml</file>
+        <file alias="U1Label.qml">gui/util/U1Label.qml</file>
+        <file alias="U1ProgressBarStyle.qml">gui/util/U1ProgressBarStyle.qml</file>
     </qresource>
 </RCC>

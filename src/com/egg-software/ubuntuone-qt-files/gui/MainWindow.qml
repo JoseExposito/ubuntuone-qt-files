@@ -77,7 +77,7 @@ ApplicationWindow {
     /**
      * Loading spinner shown while the application is busy.
      */
-    LoadingSpinner {
+    U1Spinner {
         id: loadingSpinner
         objectName: "loadingSpinner"
         visible: false

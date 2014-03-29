@@ -45,7 +45,7 @@ Item {
         }
 
         Button {
-            style: UbuntuButtonStyle { }
+            style: U1ButtonStyle { }
             text: qsTr("Login")
             onClicked: loginClicked()
 
@@ -55,7 +55,7 @@ Item {
         }
 
         Button {
-            style: UbuntuButtonStyle { }
+            style: U1ButtonStyle { }
             text: qsTr("I don't have an account")
             onClicked: createAccountClicked()
 

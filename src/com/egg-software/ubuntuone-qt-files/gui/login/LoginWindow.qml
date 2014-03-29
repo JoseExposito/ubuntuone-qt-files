@@ -41,7 +41,7 @@ Item {
             focus: true
             placeholderText: qsTr("Email")
             inputMethodHints: Qt.ImhEmailCharactersOnly | Qt.ImhLowercaseOnly
-            style: UbuntuTextFieldStyle { }
+            style: U1TextFieldStyle { }
 
             Layout.fillWidth: true
             Layout.maximumWidth: 600*u
@@ -52,7 +52,7 @@ Item {
             id: passwordTextField
             placeholderText: qsTr("Password")
             echoMode: TextInput.Password
-            style: UbuntuTextFieldStyle { }
+            style: U1TextFieldStyle { }
 
             Layout.fillWidth: true
             Layout.maximumWidth: 600*u
@@ -61,7 +61,7 @@ Item {
 
         Button {
             text: qsTr("Login")
-            style: UbuntuButtonStyle { }
+            style: U1ButtonStyle { }
 
             Layout.fillWidth: true
             Layout.maximumWidth: 600*u

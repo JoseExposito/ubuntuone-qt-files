@@ -37,7 +37,7 @@ ColumnLayout {
         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
     }
 
-    ULabel {
+    U1Label {
         id: slideTitleID
         text: slideTitle
         font.bold: true
@@ -47,7 +47,7 @@ ColumnLayout {
         Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
     }
 
-    ULabel {
+    U1Label {
         id: slideContentID
         text: slideContent
         horizontalAlignment: Text.AlignJustify
