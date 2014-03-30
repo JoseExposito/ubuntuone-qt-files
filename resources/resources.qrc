@@ -19,6 +19,7 @@
         <file>file.png</file>
         <file>published_indicator.png</file>
         <file>saved_indicator.png</file>
+        <file>u1files.png</file>
     </qresource>
     <qresource prefix="/translations">
         <file>es.qm</file>

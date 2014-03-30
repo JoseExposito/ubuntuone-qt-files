@@ -5,6 +5,7 @@ OTHER_FILES += \
     src/com/egg-software/ubuntuone-qt-files/gui/util/U1Menu.qml \
     src/com/egg-software/ubuntuone-qt-files/gui/util/U1ProgressBarStyle.qml \
     src/com/egg-software/ubuntuone-qt-files/gui/util/U1Spinner.qml \
-    src/com/egg-software/ubuntuone-qt-files/gui/util/U1TextFieldStyle.qml
+    src/com/egg-software/ubuntuone-qt-files/gui/util/U1TextFieldStyle.qml \
+    src/com/egg-software/ubuntuone-qt-files/gui/util/U1AboutDialog.qml
 
 INCLUDEPATH += $$PWD

@@ -15,3 +15,4 @@ U1Label.qml qrc:/qml/U1Label.qml
 U1Spinner.qml qrc:/qml/U1Spinner.qml
 U1InputDialog.qml qrc:/qml/U1InputDialog.qml
 U1Menu.qml qrc:/qml/U1Menu.qml
+U1AboutDialog.qml qrc:/qml/U1AboutDialog.qml

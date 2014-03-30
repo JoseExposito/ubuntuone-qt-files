@@ -16,7 +16,6 @@ import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.1
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
 import "qrc:/."
 
 /**
@@ -86,16 +85,9 @@ ApplicationWindow {
     /**
      * About dialog showed when the option is selected in the context menu.
      */
-    function showAboutDialog() { aboutDialog.visible = true }
-    MessageDialog {
+    function showAboutDialog() { aboutDialog.show() }
+    U1AboutDialog {
         id: aboutDialog
-        title: qsTr("Ubuntu One Qt Files")
-        text: qsTr("Copyright (C) 2013 José Expósito\n<jose.exposito89@gmail.com>\n\n" +
-                   "Source code available under GPLv3 license at:\n" +
-                   "https://github.com/JoseExposito/ubuntuone-qt-files\n\n" +
-                   "Follow the project on Twitter:\n" +
-                   "https://twitter.com/Jose__Exposito")
-        standardButtons: StandardButton.Help | StandardButton.Ok
-        onHelp: Qt.openUrlExternally("https://github.com/JoseExposito/ubuntuone-qt-files")
+        onDialogCanceled: aboutDialog.hide()
     }
 }

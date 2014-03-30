@@ -15,5 +15,6 @@
         <file alias="U1TextFieldStyle.qml">gui/util/U1TextFieldStyle.qml</file>
         <file alias="U1Label.qml">gui/util/U1Label.qml</file>
         <file alias="U1ProgressBarStyle.qml">gui/util/U1ProgressBarStyle.qml</file>
+        <file alias="U1AboutDialog.qml">gui/util/U1AboutDialog.qml</file>
     </qresource>
 </RCC>
