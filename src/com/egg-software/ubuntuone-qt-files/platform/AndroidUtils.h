@@ -34,13 +34,6 @@ public:
     virtual QString getLocalPath(const QString &nodePath);
     virtual void shareLink(const QString &link);
 
-    /**
-     * QInputDialog is not working in Android and QML doesn't offer a similar dialog or a way to build personalized
-     * dialogs. Due to this, this method offers a simple way to show an input dialog.
-     */
-    static void showInputDialog(const QString &title, const QString &description, const QString &defaultInput,
-        const QString &okButtonTitle, const QString &cancelButtonTitle, void *callback);
-
 };
 
 #endif // Q_OS_ANDROID

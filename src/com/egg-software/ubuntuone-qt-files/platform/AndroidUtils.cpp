@@ -48,28 +48,4 @@ void AndroidUtils::shareLink(const QString &link)
             "shareLink", "(Ljava/lang/String;)V", jLink.object<jstring>());
 }
 
-void AndroidUtils::showInputDialog(const QString &title, const QString &description, const QString &defaultInput,
-    const QString &okButtonTitle, const QString &cancelButtonTitle, void *callback)
-{
-    // Register the native callbacks
-    JNINativeMethod nativeMethod { "showInputDialogResultCallback", "(Ljava/lang/String;)V", callback };
-    QAndroidJniObject javaClass("org/qtproject/ubuntuqtfiles/InputDialog");
-    QAndroidJniEnvironment env;
-    jclass objectClass = env->GetObjectClass(javaClass.object<jobject>());
-    env->RegisterNatives(objectClass, &nativeMethod, 1);
-    env->DeleteLocalRef(objectClass);
-
-    // Show the dialog
-    QAndroidJniObject jTitle             = QAndroidJniObject::fromString(title);
-    QAndroidJniObject jDescription       = QAndroidJniObject::fromString(description);
-    QAndroidJniObject jDefaultInput      = QAndroidJniObject::fromString(defaultInput);
-    QAndroidJniObject jOkButtonTitle     = QAndroidJniObject::fromString(okButtonTitle);
-    QAndroidJniObject jCancelButtonTitle = QAndroidJniObject::fromString(cancelButtonTitle);
-    QAndroidJniObject::callStaticMethod<void>("org/qtproject/ubuntuqtfiles/AndroidUtils",
-            "showInputDialog",
-            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V",
-            jTitle.object<jstring>(), jDescription.object<jstring>(), jDefaultInput.object<jstring>(),
-            jOkButtonTitle.object<jstring>(), jCancelButtonTitle.object<jstring>());
-}
-
 #endif // Q_OS_ANDROID
