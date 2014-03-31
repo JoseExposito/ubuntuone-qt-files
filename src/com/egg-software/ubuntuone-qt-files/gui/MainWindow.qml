@@ -83,11 +83,18 @@ ApplicationWindow {
     }
 
     /**
+     * Toast to show errors and other messages.
+     */
+    U1Toast {
+        objectName: "toast"
+    }
+
+    /**
      * About dialog showed when the option is selected in the context menu.
      */
-    function showAboutDialog() { aboutDialog.show() }
     U1AboutDialog {
         id: aboutDialog
+        objectName: "aboutDialog"
         onDialogCanceled: aboutDialog.hide()
     }
 }

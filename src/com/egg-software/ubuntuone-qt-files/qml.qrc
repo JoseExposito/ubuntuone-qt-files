@@ -16,5 +16,6 @@
         <file alias="U1Label.qml">gui/util/U1Label.qml</file>
         <file alias="U1ProgressBarStyle.qml">gui/util/U1ProgressBarStyle.qml</file>
         <file alias="U1AboutDialog.qml">gui/util/U1AboutDialog.qml</file>
+        <file alias="U1Toast.qml">gui/util/U1Toast.qml</file>
     </qresource>
 </RCC>

@@ -106,6 +106,5 @@ void NodeListView::refreshView()
 
 void NodeListView::showError(const QString &errorMessage)
 {
-    this->view->setProperty("errorDialogText", errorMessage);
-    QMetaObject::invokeMethod(this->view, "showErrorDialog");
+    MainWindow::getInstance()->showToast(true, errorMessage);
 }

@@ -28,7 +28,8 @@ MainWindow *MainWindow::getInstance()
 
 MainWindow::MainWindow()
     : engine(new QQmlEngine(this)),
-      window(NULL)
+      window(NULL),
+      toastTimer(new QTimer(this))
 {
     Utils::setGlobalProperties(this->engine->rootContext());
     QQmlComponent component(this->engine, QUrl("qrc:/qml/MainWindow.qml"));
@@ -44,6 +45,7 @@ MainWindow::MainWindow()
     this->engine->setIncubationController(this->window->incubationController());
 
     connect(this->window, SIGNAL(popStackView()), this, SLOT(pop()));
+    connect(this->toastTimer, SIGNAL(timeout()), this, SLOT(hideToast()));
 }
 
 void MainWindow::show() const
@@ -58,9 +60,23 @@ void MainWindow::showLoadingSpinner(bool visible, const QString &text)
     loadingSpinner->setProperty("loadingSpinnerText", text);
 }
 
+void MainWindow::showToast(bool visible, const QString &text, int seconds)
+{
+    QQuickItem *toast = this->window->findChild<QQuickItem *>("toast");
+    if (visible) {
+        QMetaObject::invokeMethod(toast, "show");
+        toast->setProperty("toastText", text);
+        this->toastTimer->setSingleShot(true);
+        this->toastTimer->start(seconds*1000);
+    } else {
+        QMetaObject::invokeMethod(toast, "hide");
+    }
+}
+
 void MainWindow::showAboutDialog()
 {
-    QMetaObject::invokeMethod(this->window, "showAboutDialog");
+    QQuickItem *aboutDialog = this->window->findChild<QQuickItem *>("aboutDialog");
+    QMetaObject::invokeMethod(aboutDialog, "show");
 }
 
 void MainWindow::push(QQuickItem *view)
@@ -87,4 +103,9 @@ void MainWindow::clear()
 {
     QQuickItem *stackView = this->window->findChild<QQuickItem *>("stackView");
     QMetaObject::invokeMethod(stackView, "clear");
+}
+
+void MainWindow::hideToast()
+{
+    this->showToast(false);
 }

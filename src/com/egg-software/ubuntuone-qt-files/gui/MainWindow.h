@@ -21,6 +21,7 @@ class QQuickItem;
 class QQmlEngine;
 class QQuickView;
 class QKeyEvent;
+class QTimer;
 
 /**
  * Singleton class to manage the main window of the application and the stack view.
@@ -48,6 +49,11 @@ public:
     void showLoadingSpinner(bool visible, const QString &text ="");
 
     /**
+     * Shows or not a toast with the specified text during the specified seconds.
+     */
+    void showToast(bool visible, const QString &text="", int seconds=3);
+
+    /**
      * Shows the "About" dialog.
      */
     void showAboutDialog();
@@ -64,6 +70,8 @@ public slots:
     void pop();
     void clear();
 
+    void hideToast();
+
 private:
 
     /**
@@ -75,6 +83,11 @@ private:
      * The real QtQuick window.
      */
     QQuickWindow *window;
+
+    /**
+     * Timer to automatically hide the toast.
+     */
+    QTimer *toastTimer;
 
     // Singleton
     static MainWindow *instance;

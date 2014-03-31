@@ -15,7 +15,6 @@
 import QtQuick 2.1
 import QtQuick.Controls 1.1
 import QtQuick.Layouts 1.1
-import QtQuick.Dialogs 1.1
 import "qrc:/."
 
 Item {
@@ -314,17 +313,6 @@ Item {
             id: inputDialog
             onDialogCanceled: inputDialog.hide()
         }
-    }
-
-    /**
-     * Error message.
-     */
-    function showErrorDialog() { errorDialog.visible = true }
-    property string errorDialogText: ""
-    MessageDialog {
-        id: errorDialog
-        title: qsTr("Error")
-        text: errorDialogText
     }
 
 }
