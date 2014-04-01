@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=U1Files
+Exec=./U1Files
+Icon=U1Files
+Terminal=false
+Type=Application
+X-Ubuntu-Touch=true

@@ -1,0 +1,15 @@
+{
+    "name": "com.egg-software.U1Files",
+    "title": "U1Files",
+    "description": "Ubuntu One cross-platform Qt mobile application",
+    "framework": "ubuntu-sdk-14.04-dev1",
+    "architecture": "all",
+    "hooks": {
+        "untitled": {
+            "apparmor": "apparmor.json",
+            "desktop":  "U1Files.desktop"
+        }
+    },
+    "version": "0.6",
+    "maintainer": "José Expósito <jose.exposito89@gmail.com>"
+}
