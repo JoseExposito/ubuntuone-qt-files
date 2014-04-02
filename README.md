@@ -19,6 +19,7 @@ Qt 5.2 is required to compile the application.
 </p>
 
 [![](http://developer.android.com/images/brand/en_app_rgb_wo_60.png "ANDROID APP ON Google play")](https://play.google.com/store/apps/details?id=org.qtproject.example.U1Files)
+[![](https://lh4.googleusercontent.com/-05FN4abjBU8/UzxW5B8j9wI/AAAAAAAAATM/TzXI-uGpdUQ/w203-h60-no/Download_on_the_App_Store_Badge.png "ANDROID APP ON Google play")](https://itunes.apple.com/app/u1files/id849226994)
 
 
 YouTube demo:
