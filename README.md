@@ -4,6 +4,10 @@
 Ubuntu One Qt Files
 ===================
 
+<p align="center">
+    <a href="http://blog.canonical.com/2014/04/02/shutting-down-ubuntu-one-file-services/">IMPORTANT ADVISE: UBUNTU ONE WILL BE SHUT DOWN BY CANONICAL ON 1/JUNE/14</a>
+</p>
+
 Unofficial Ubuntu One Files cross-platform C++/QML mobile application.
 
 The application is in ALPHA state for the moment and, although is stable, it is not recommended to replace your current Ubuntu One client because this features are missing:
