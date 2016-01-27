@@ -22,7 +22,7 @@ Qt 5.2 is required to compile the application.
     <img src="https://pbs.twimg.com/media/BhOc_qSCAAAQKKY.png" />
 </p>
 
-[![](http://developer.android.com/images/brand/en_app_rgb_wo_60.png "ANDROID APP ON Google play")](https://play.google.com/store/apps/details?id=org.qtproject.example.U1Files)
+[![](https://lh3.googleusercontent.com/mg_tb8qksRLE4iyFVToFMmM8hVuICuLmuSkGTEhRij-H6g_OmhoM9AVEnDOyqtTZRLLeggy7C1fmKeggUEOxVkABvyJg6Mt_qupyySUNHrsXlWJ5pMP8cddBGLqeaizLfFoCWwgGbDq8ySnokVAFqYevWdrJt6v6yYvQBiDuGCTI5bk81MB2bufMsUVDaxUdW6RdwUsILd7qzMqyziFJWe2-MQvP10uQcN7Y-PXgzvudwGUsYY8Lqb2cR7u9LlZpiWmFgqy2jK3Ke22sIGslyXhTVHQXblnw996Pyqjeh0hNq-E5IQ27y6vd1ntZOZMdZ0xta1l5EJ_Xy1oFrqyV2uLuKywzvs6wI_aIKHjWsiYDJzHzGCZcScpcn-rN1NIsrG5vFdqW6JEyvKM1UxU3j59UpM9WvFCOqChmbu3XeNwc0cA0rS0ea20tFjg0ZEJNi_g1Jaif265qLTlQgwn0dOugr1StX-spgci5U5ikDZhLFFELtNCmrO4SdC-8dfeP61eRBnm8Zji72o2dgBjjYArIu-8fcBCEbSmbGB3Cdv2pRV6lP8YwC5PgMwQ7XuNWVnYD=w817-h242-no "ANDROID APP ON Google play")](https://play.google.com/store/apps/details?id=org.qtproject.example.U1Files)
 [![](https://lh4.googleusercontent.com/-05FN4abjBU8/UzxW5B8j9wI/AAAAAAAAATM/TzXI-uGpdUQ/w203-h60-no/Download_on_the_App_Store_Badge.png "ANDROID APP ON Google play")](https://itunes.apple.com/app/u1files/id849226994)
 
 
